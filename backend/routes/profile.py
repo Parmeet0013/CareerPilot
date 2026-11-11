@@ -1,9 +1,12 @@
+import os
 import json
+import shutil
 from fastapi import APIRouter, Depends, HTTPException, UploadFile, File
 from sqlalchemy.orm import Session
 from backend.db import get_db
 from backend.models import Profile
 from backend.schemas import ProfileResponse, ProfileUpdate
+from backend.agent.tools import parse_resume
 
 router = APIRouter(prefix="/api/profile", tags=["Profile"])
 
@@ -36,7 +39,9 @@ def get_profile(db: Session = Depends(get_db)):
 def update_profile(update_data: ProfileUpdate, db: Session = Depends(get_db)):
     profile = db.query(Profile).first()
     if not profile:
-        raise HTTPException(status_code=404, detail="No profile found to update.")
+        # Create new profile if none exists
+        profile = Profile()
+        db.add(profile)
 
     if update_data.name is not None:
         profile.name = update_data.name
@@ -60,7 +65,21 @@ def update_profile(update_data: ProfileUpdate, db: Session = Depends(get_db)):
     return profile_to_response(profile)
 
 
-@router.post("/upload")
+@router.post("/upload", response_model=ProfileResponse)
 async def upload_resume(file: UploadFile = File(...), db: Session = Depends(get_db)):
-    # Will be connected to agent parse_resume in Milestone 2
-    return {"message": "Upload endpoint ready", "filename": file.filename}
+    if not file.filename.lower().endswith(".pdf"):
+        raise HTTPException(status_code=400, detail="Only PDF files are supported.")
+
+    base_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+    upload_dir = os.path.join(base_dir, "outputs", "uploads")
+    os.makedirs(upload_dir, exist_ok=True)
+
+    file_path = os.path.join(upload_dir, file.filename)
+    with open(file_path, "wb") as buffer:
+        shutil.copyfileobj(file.file, buffer)
+
+    try:
+        profile = parse_resume(file_path=file_path, filename=file.filename, db=db)
+        return profile_to_response(profile)
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Failed to parse resume: {str(e)}")
