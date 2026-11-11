@@ -29,6 +29,10 @@ interface JobItem {
 
 export const JobsPage: React.FC = () => {
   const [jobs, setJobs] = useState<JobItem[]>([])
+  const [total, setTotal] = useState<number>(0)
+  const [pages, setPages] = useState<number>(1)
+  const [drawerJob, setDrawerJob] = useState<JobItem | null>(null)
+  const [drawerLoading, setDrawerLoading] = useState<boolean>(false)
   const [loading, setLoading] = useState<boolean>(true)
   const [error, setError] = useState<string | null>(null)
   const [selectedJobId, setSelectedJobId] = useState<number | null>(null)
@@ -47,37 +51,59 @@ export const JobsPage: React.FC = () => {
   const savedOnly = searchParams.get('saved_only') === 'true'
   const sortBy = searchParams.get('sort') || 'deadline'
   const currentPage = parseInt(searchParams.get('page') || '1', 10)
-  const pageSize = 8
 
-  // Fetch jobs from backend
+  // Fetch jobs from backend (server-side filtering + pagination)
   const fetchJobs = async () => {
     try {
       setLoading(true)
       setError(null)
       const params = new URLSearchParams()
-      if (searchQuery) params.append('search', searchQuery)
+      if (searchQuery) params.append('q', searchQuery)
       if (selectedRole !== 'all') params.append('role', selectedRole)
       if (selectedLocation !== 'all') params.append('location', selectedLocation)
       if (selectedType !== 'all') params.append('type', selectedType)
       if (closingSoon) params.append('closing_soon', 'true')
+      params.append('page', String(currentPage))
 
       const res = await fetch(`/api/jobs?${params.toString()}`)
       if (!res.ok) throw new Error('Failed to load job listings')
-      const data: JobItem[] = await res.json()
-      setJobs(data)
+      const data = await res.json()
+      setJobs(data.items || [])
+      setTotal(data.total || 0)
+      setPages(data.pages || 1)
 
       // Set initial selected job from URL if available
       const highlight = searchParams.get('highlight')
       if (highlight) {
         setSelectedJobId(parseInt(highlight, 10))
-      } else if (data.length > 0 && selectedJobId === null) {
-        setSelectedJobId(data[0].id)
+      } else if ((data.items || []).length > 0 && selectedJobId === null) {
+        setSelectedJobId(data.items[0].id)
       }
     } catch (err: any) {
       setError(err.message || 'Error fetching jobs')
     } finally {
       setLoading(false)
     }
+  }
+
+  // Drawer detail fetch: the only call where the LLM writes "why it fits" bullets
+  const fetchJobDetail = async (jobId: number) => {
+    setDrawerLoading(true)
+    try {
+      const res = await fetch(`/api/jobs/${jobId}`)
+      if (res.ok) setDrawerJob(await res.json())
+      else setDrawerJob(null)
+    } catch {
+      setDrawerJob(null)
+    } finally {
+      setDrawerLoading(false)
+    }
+  }
+
+  const selectJob = (jobId: number) => {
+    setSelectedJobId(jobId)
+    setDrawerJob(null)
+    fetchJobDetail(jobId)
   }
 
   // Fetch saved applications to highlight bookmarked jobs
@@ -97,7 +123,7 @@ export const JobsPage: React.FC = () => {
   useEffect(() => {
     fetchJobs()
     fetchApplications()
-  }, [searchQuery, selectedRole, selectedLocation, selectedType, closingSoon])
+  }, [searchQuery, selectedRole, selectedLocation, selectedType, closingSoon, currentPage])
 
   // Keybindings for closing drawer with Esc
   useEffect(() => {
@@ -118,7 +144,9 @@ export const JobsPage: React.FC = () => {
     } else {
       next.set(key, String(value))
     }
-    next.set('page', '1') // reset page on filter change
+    if (key !== 'page') {
+      next.set('page', '1') // reset page on filter change
+    }
     setSearchParams(next)
   }
 
@@ -145,7 +173,7 @@ export const JobsPage: React.FC = () => {
     }
   }
 
-  // Sorting & Client-side Filtering (e.g. saved roles only)
+  // Sorting & client-side filtering (saved-only) applied within the current page
   const filteredJobs = useMemo(() => {
     let result = [...jobs]
     if (savedOnly) {
@@ -164,16 +192,10 @@ export const JobsPage: React.FC = () => {
     return result
   }, [jobs, savedOnly, savedJobIds, sortBy])
 
-  // Pagination slice
-  const totalPages = Math.ceil(filteredJobs.length / pageSize) || 1
-  const paginatedJobs = useMemo(() => {
-    const start = (currentPage - 1) * pageSize
-    return filteredJobs.slice(start, start + pageSize)
-  }, [filteredJobs, currentPage, pageSize])
-
   const selectedJob = useMemo(() => {
+    if (drawerJob && drawerJob.id === selectedJobId) return drawerJob
     return jobs.find((j) => j.id === selectedJobId) || null
-  }, [jobs, selectedJobId])
+  }, [drawerJob, jobs, selectedJobId])
 
   // Days left computation
   const getDaysLeft = (dateStr: string) => {
@@ -194,7 +216,7 @@ export const JobsPage: React.FC = () => {
               Jobs Directory
             </h1>
             <span className="text-[11px] bg-accent-soft text-accent border border-accent/20 px-2 py-0.5 rounded font-medium">
-              40 Verified Listings
+              {total} listings
             </span>
           </div>
           <p className="text-[13px] text-muted mt-1">
@@ -400,16 +422,16 @@ export const JobsPage: React.FC = () => {
                     <th className="py-2 px-2 font-medium text-center">Fit</th>
                   </tr>
                 </thead>
-                <tbody className="divide-y divide-line">
-                  {paginatedJobs.map((job) => {
-                    const isSelected = selectedJobId === job.id
-                    const daysLeft = getDaysLeft(job.closes_on)
-                    const isClosingSoon = daysLeft <= 3 && daysLeft >= 0
+                 <tbody className="divide-y divide-line">
+                   {filteredJobs.map((job) => {
+                     const isSelected = selectedJobId === job.id
+                     const daysLeft = getDaysLeft(job.closes_on)
+                     const isClosingSoon = daysLeft <= 3 && daysLeft >= 0
 
-                    return (
-                      <tr
-                        key={job.id}
-                        onClick={() => setSelectedJobId(job.id)}
+                     return (
+                       <tr
+                         key={job.id}
+                         onClick={() => selectJob(job.id)}
                         className={`hover:bg-canvas/80 transition-colors duration-75 cursor-pointer ${
                           isSelected ? 'bg-accent-soft/50 border-l-2 border-l-accent' : ''
                         }`}
@@ -465,15 +487,15 @@ export const JobsPage: React.FC = () => {
             </div>
           )}
 
-          {/* Ledger Pagination Bar */}
+          {/* Ledger Pagination Bar (server-side pagination) */}
           <div className="mt-auto border-t border-line p-3 px-4 bg-canvas flex items-center justify-between text-[12px] text-muted">
             <span>
               Showing{' '}
               <strong className="text-ink font-mono">
-                {filteredJobs.length === 0 ? 0 : (currentPage - 1) * pageSize + 1}–
-                {Math.min(currentPage * pageSize, filteredJobs.length)}
+                {total === 0 ? 0 : (currentPage - 1) * 25 + 1}–
+                {Math.min(currentPage * 25, total)}
               </strong>{' '}
-              of <strong className="text-ink font-mono">{filteredJobs.length}</strong> postings
+              of <strong className="text-ink font-mono">{total}</strong> postings
             </span>
             <div className="flex items-center gap-1">
               <button
@@ -484,11 +506,11 @@ export const JobsPage: React.FC = () => {
                 Previous
               </button>
               <span className="px-2 font-mono text-ink text-[11px]">
-                {currentPage} / {totalPages}
+                {currentPage} / {pages}
               </span>
               <button
                 onClick={() => updateFilter('page', String(currentPage + 1))}
-                disabled={currentPage >= totalPages}
+                disabled={currentPage >= pages}
                 className="h-7 px-2 border border-line rounded bg-surface text-ink hover:bg-canvas disabled:opacity-40 disabled:cursor-not-allowed text-[11px]"
               >
                 Next
@@ -581,18 +603,20 @@ export const JobsPage: React.FC = () => {
                   </h3>
                   <span className="text-[11px] text-accent font-medium">Profile Match</span>
                 </div>
-                <ul className="space-y-2 text-[12px] text-muted">
-                  {(selectedJob.why_bullets || [
-                    'Matches required core technologies from your coursework.',
-                    'Directly aligns with your preferred role target.',
-                    'Prior projects showcase practical experience.',
-                  ]).map((bullet, idx) => (
-                    <li key={idx} className="flex items-start gap-2">
-                      <CheckCircle size={14} className="text-accent mt-0.5 shrink-0" />
-                      <span className="text-ink leading-snug">{bullet}</span>
-                    </li>
-                  ))}
-                </ul>
+                {drawerLoading ? (
+                  <p className="text-[12px] text-muted">Loading match details...</p>
+                ) : (
+                  <ul className="space-y-2 text-[12px] text-muted">
+                    {(selectedJob.why_bullets || [
+                      'Upload your resume in Profile to see personalized fit bullets.',
+                    ]).map((bullet, idx) => (
+                      <li key={idx} className="flex items-start gap-2">
+                        <CheckCircle size={14} className="text-accent mt-0.5 shrink-0" />
+                        <span className="text-ink leading-snug">{bullet}</span>
+                      </li>
+                    ))}
+                  </ul>
+                )}
               </div>
 
               {/* Section: Skills missing */}
@@ -648,6 +672,11 @@ export const JobsPage: React.FC = () => {
           </aside>
         )}
       </div>
+
+      {/* Footer note */}
+      <p className="text-[11px] text-muted pt-2 pb-1 border-t border-line">
+        Mock data — all listings and companies are fictional, generated for demonstration.
+      </p>
     </div>
   )
 }
