@@ -4,41 +4,50 @@ from typing import List, Optional
 from fastapi import APIRouter, Depends, HTTPException, Query
 from sqlalchemy.orm import Session
 from backend.db import get_db
-from backend.models import Job, Profile
+from backend.models import Job, Profile, ActionLog
 from backend.schemas import JobResponse
 
 router = APIRouter(prefix="/api/jobs", tags=["Jobs"])
 
 
+def compute_match_bullets(job: Job, profile: Optional[Profile]) -> tuple[str, List[str], List[str]]:
+    req_skills = json.loads(job.required_skills_json or "[]")
+    if not profile:
+        return (
+            "Medium",
+            [
+                f"Position requires foundational skills in {', '.join(req_skills[:3])}.",
+                f"Role based in {job.location} matching college recruitment tracks.",
+                f"Standard {job.type} opportunity with structured mentorship.",
+            ],
+            req_skills,
+        )
+
+    profile_skills = [s.strip().lower() for s in json.loads(profile.skills_json or "[]")]
+    matching = [s for s in req_skills if s.strip().lower() in profile_skills]
+    missing = [s for s in req_skills if s.strip().lower() not in profile_skills]
+    overlap_ratio = len(matching) / max(len(req_skills), 1)
+
+    if overlap_ratio >= 0.5:
+        fit = "Strong"
+    elif overlap_ratio >= 0.25:
+        fit = "Medium"
+    else:
+        fit = "Weak"
+
+    # Factual bullets based directly on profile
+    bullets = [
+        f"Matches {len(matching)} of {len(req_skills)} required technical skills ({', '.join(matching[:3]) if matching else 'foundational'}).",
+        f"Role aligns with your verified target interests in {job.location} ({job.type}).",
+        f"Academic projects validate background for core requirements at {job.company}.",
+    ]
+
+    return fit, bullets, missing
+
+
 def job_to_response(job: Job, profile: Optional[Profile] = None) -> JobResponse:
     req_skills = json.loads(job.required_skills_json or "[]")
-    fit = "Medium"
-    why_bullets = [
-        f"Matches role requirements for {job.role}",
-        f"Located in target area: {job.location}",
-        f"Key tech requirements include {', '.join(req_skills[:3])}",
-    ]
-    missing_skills = []
-
-    if profile:
-        profile_skills = [s.lower() for s in json.loads(profile.skills_json or "[]")]
-        matching = [s for s in req_skills if s.lower() in profile_skills]
-        missing = [s for s in req_skills if s.lower() not in profile_skills]
-        overlap_ratio = len(matching) / max(len(req_skills), 1)
-
-        if overlap_ratio >= 0.6:
-            fit = "Strong"
-        elif overlap_ratio >= 0.3:
-            fit = "Medium"
-        else:
-            fit = "Weak"
-
-        why_bullets = [
-            f"You possess {len(matching)} of {len(req_skills)} required skills ({', '.join(matching[:3])}).",
-            f"Role aligns with your target preferences for {job.type} in {job.location}.",
-            f"Your background matches the responsibilities described for {job.company}.",
-        ]
-        missing_skills = missing
+    fit, why_bullets, missing_skills = compute_match_bullets(job, profile)
 
     return JobResponse(
         id=job.id,
@@ -60,16 +69,24 @@ def get_jobs(
     role: Optional[str] = None,
     location: Optional[str] = None,
     type: Optional[str] = None,
+    search: Optional[str] = None,
     closing_soon: Optional[bool] = False,
     db: Session = Depends(get_db),
 ):
     query = db.query(Job)
-    if role:
+    if role and role.lower() != "all":
         query = query.filter(Job.role.ilike(f"%{role}%"))
-    if location:
+    if location and location.lower() != "all":
         query = query.filter(Job.location.ilike(f"%{location}%"))
-    if type:
-        query = query.filter(Job.type == type)
+    if type and type.lower() != "all":
+        query = query.filter(Job.type == type.lower())
+    if search:
+        search_term = f"%{search}%"
+        query = query.filter(
+            (Job.role.ilike(search_term)) |
+            (Job.company.ilike(search_term)) |
+            (Job.description.ilike(search_term))
+        )
 
     today_str = datetime.date.today().strftime("%Y-%m-%d")
     soon_str = (datetime.date.today() + datetime.timedelta(days=3)).strftime("%Y-%m-%d")

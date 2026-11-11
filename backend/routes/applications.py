@@ -35,20 +35,41 @@ def get_applications(db: Session = Depends(get_db)):
     return [app_to_response(a) for a in apps]
 
 
-@router.post("/prepare")
-def prepare_application(payload: PrepareApplicationRequest, db: Session = Depends(get_db)):
-    # In Milestone 4, this triggers the LangGraph agent
+@router.post("/save", response_model=ApplicationResponse)
+def save_application(payload: PrepareApplicationRequest, db: Session = Depends(get_db)):
     job = db.query(Job).filter(Job.id == payload.job_id).first()
     if not job:
         raise HTTPException(status_code=404, detail="Job not found")
 
-    # Check if existing
+    app = db.query(Application).filter(Application.job_id == payload.job_id).first()
+    if not app:
+        app = Application(
+            job_id=payload.job_id,
+            status="saved",
+            cover_note=None,
+        )
+        db.add(app)
+    else:
+        if app.status not in ["applied", "interview", "offer", "awaiting_approval"]:
+            app.status = "saved"
+
+    db.commit()
+    db.refresh(app)
+    return app_to_response(app)
+
+
+@router.post("/prepare", response_model=ApplicationResponse)
+def prepare_application(payload: PrepareApplicationRequest, db: Session = Depends(get_db)):
+    job = db.query(Job).filter(Job.id == payload.job_id).first()
+    if not job:
+        raise HTTPException(status_code=404, detail="Job not found")
+
     app = db.query(Application).filter(Application.job_id == payload.job_id).first()
     if not app:
         app = Application(
             job_id=payload.job_id,
             status="awaiting_approval",
-            cover_note=f"Dear Hiring Team at {job.company},\n\nI am writing to apply for the {job.role} position...",
+            cover_note=f"Dear Hiring Team at {job.company},\n\nI am writing to express my interest in the {job.role} opportunity...",
         )
         db.add(app)
         db.commit()
@@ -59,7 +80,6 @@ def prepare_application(payload: PrepareApplicationRequest, db: Session = Depend
 
 @router.post("/{id}/approve")
 def approve_application(id: int, db: Session = Depends(get_db)):
-    # The ONLY endpoint allowed to set status to 'applied'
     app = db.query(Application).filter(Application.id == id).first()
     if not app:
         raise HTTPException(status_code=404, detail="Application not found")
