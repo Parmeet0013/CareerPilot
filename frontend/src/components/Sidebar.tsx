@@ -24,14 +24,22 @@ export const Sidebar: React.FC<SidebarProps> = ({
     <aside className="fixed top-0 left-0 h-screen w-52 z-30 bg-surface border-r border-line flex flex-col justify-between p-4 select-none">
       {/* Brand & Navigation */}
       <div className="flex flex-col gap-4">
-        <div className="px-2 pt-1 pb-2">
-          <div className="flex items-center gap-2">
-            <div className="w-2.5 h-2.5 rounded-sm bg-accent"></div>
-            <span className="font-sans font-semibold text-[16px] text-ink tracking-tight">
-              CareerPilot
-            </span>
+        <div className="px-1 pt-1 pb-2">
+          <div className="flex items-center gap-2.5">
+            <div className="w-8 h-8 rounded-lg bg-accent flex items-center justify-center shrink-0">
+              <svg width="18" height="18" viewBox="0 0 32 32" fill="none" aria-hidden="true">
+                <path d="M7 15L26 6L17 25L15 17Z" fill="#FAF9F6" />
+              </svg>
+            </div>
+            <div className="flex flex-col min-w-0">
+              <span className="font-sans font-semibold text-[15px] text-ink tracking-tight leading-none">
+                CareerPilot
+              </span>
+              <p className="text-[10px] text-muted mt-1.5 leading-none truncate">
+                Recruitment Ledger • {studentCollege}
+              </p>
+            </div>
           </div>
-          <p className="text-[11px] text-muted mt-1">Recruitment Ledger • {studentCollege}</p>
         </div>
 
         <button
