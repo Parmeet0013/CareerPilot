@@ -1,5 +1,4 @@
 import os
-import json
 import shutil
 from fastapi import APIRouter, Depends, HTTPException, UploadFile, File
 from sqlalchemy.orm import Session
@@ -17,11 +16,11 @@ def profile_to_response(profile: Profile) -> ProfileResponse:
         name=profile.name,
         email=profile.email,
         education=profile.education,
-        skills=json.loads(profile.skills_json or "[]"),
-        projects=json.loads(profile.projects_json or "[]"),
-        experience=json.loads(profile.experience_json or "[]"),
-        target_roles=json.loads(profile.target_roles_json or "[]"),
-        preferences=json.loads(profile.preferences_json or "{}"),
+        skills=profile.skills_json or [],
+        projects=profile.projects_json or [],
+        experience=profile.experience_json or [],
+        target_roles=profile.target_roles_json or [],
+        preferences=profile.preferences_json or {},
         resume_filename=profile.resume_filename,
         parsed_at=profile.parsed_at,
     )
@@ -50,15 +49,15 @@ def update_profile(update_data: ProfileUpdate, db: Session = Depends(get_db)):
     if update_data.education is not None:
         profile.education = update_data.education
     if update_data.skills is not None:
-        profile.skills_json = json.dumps(update_data.skills)
+        profile.skills_json = update_data.skills
     if update_data.projects is not None:
-        profile.projects_json = json.dumps([p.dict() for p in update_data.projects])
+        profile.projects_json = [p.dict() for p in update_data.projects]
     if update_data.experience is not None:
-        profile.experience_json = json.dumps([e.dict() for e in update_data.experience])
+        profile.experience_json = [e.dict() for e in update_data.experience]
     if update_data.target_roles is not None:
-        profile.target_roles_json = json.dumps(update_data.target_roles)
+        profile.target_roles_json = update_data.target_roles
     if update_data.preferences is not None:
-        profile.preferences_json = json.dumps(update_data.preferences)
+        profile.preferences_json = update_data.preferences
 
     db.commit()
     db.refresh(profile)

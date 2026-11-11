@@ -1,13 +1,16 @@
 import datetime
+
 from sqlalchemy import (
+    JSON,
     Column,
+    DateTime,
+    ForeignKey,
     Integer,
     String,
     Text,
-    DateTime,
-    ForeignKey,
 )
 from sqlalchemy.orm import relationship
+
 from backend.db import Base
 
 
@@ -18,11 +21,11 @@ class Profile(Base):
     name = Column(String(255), nullable=True)
     email = Column(String(255), nullable=True)
     education = Column(Text, nullable=True)
-    skills_json = Column(Text, default="[]")
-    projects_json = Column(Text, default="[]")
-    experience_json = Column(Text, default="[]")
-    target_roles_json = Column(Text, default="[]")
-    preferences_json = Column(Text, default="{}")
+    skills_json = Column(JSON, default=list)
+    projects_json = Column(JSON, default=list)
+    experience_json = Column(JSON, default=list)
+    target_roles_json = Column(JSON, default=list)
+    preferences_json = Column(JSON, default=dict)
     resume_filename = Column(String(255), nullable=True)
     parsed_at = Column(DateTime, default=datetime.datetime.utcnow)
 
@@ -31,13 +34,13 @@ class Job(Base):
     __tablename__ = "jobs"
 
     id = Column(Integer, primary_key=True, index=True)
-    role = Column(String(255), nullable=False)
+    role = Column(String(255), nullable=False, index=True)
     company = Column(String(255), nullable=False)
-    location = Column(String(255), nullable=False)
-    type = Column(String(50), nullable=False)  # 'internship' or 'full-time'
-    closes_on = Column(String(50), nullable=False)  # YYYY-MM-DD string or datetime ISO
+    location = Column(String(255), nullable=False, index=True)
+    type = Column(String(50), nullable=False, index=True)  # 'internship' or 'full-time'
+    closes_on = Column(String(50), nullable=False, index=True)  # YYYY-MM-DD
     description = Column(Text, nullable=False)
-    required_skills_json = Column(Text, default="[]")
+    required_skills_json = Column(JSON, default=list)
 
     applications = relationship("Application", back_populates="job")
 
@@ -47,7 +50,7 @@ class Application(Base):
 
     id = Column(Integer, primary_key=True, index=True)
     job_id = Column(Integer, ForeignKey("jobs.id"), nullable=False)
-    status = Column(String(50), default="saved")  # saved, drafted, awaiting_approval, applied, interview, offer, rejected
+    status = Column(String(50), default="saved", index=True)  # saved, drafted, awaiting_approval, applied, interview, offer, rejected
     tailored_resume_path = Column(String(500), nullable=True)
     cover_note = Column(Text, nullable=True)
     created_at = Column(DateTime, default=datetime.datetime.utcnow)
@@ -110,7 +113,7 @@ class ActionLog(Base):
     __tablename__ = "action_log"
 
     id = Column(Integer, primary_key=True, index=True)
-    timestamp = Column(DateTime, default=datetime.datetime.utcnow)
+    timestamp = Column(DateTime, default=datetime.datetime.utcnow, index=True)
     tool = Column(String(100), nullable=False)
     input_summary = Column(Text, nullable=True)
     output_summary = Column(Text, nullable=True)

@@ -4,7 +4,6 @@ Receives a goal and shared state, plans, calls tools in a loop, and stops after 
 Max 8 steps per run.
 """
 
-import json
 from typing import TypedDict, List, Dict, Any, Optional
 from langgraph.graph import StateGraph, END
 from sqlalchemy.orm import Session
@@ -221,14 +220,14 @@ def run_prepare_application_agent(job_id: int, db: Session) -> Dict[str, Any]:
             "location": job_obj.location if job_obj else "",
             "type": job_obj.type if job_obj else "internship",
             "closes_on": job_obj.closes_on if job_obj else "",
-            "required_skills": json.loads(job_obj.required_skills_json or "[]") if job_obj else [],
+            "required_skills": job_obj.required_skills_json or [] if job_obj else [],
         },
         "master_profile": {
             "name": profile_obj.name if profile_obj else "Candidate",
             "email": profile_obj.email if profile_obj else "",
             "education": profile_obj.education if profile_obj else "",
-            "skills": json.loads(profile_obj.skills_json or "[]") if profile_obj else [],
-            "projects": json.loads(profile_obj.projects_json or "[]") if profile_obj else [],
-            "experience": json.loads(profile_obj.experience_json or "[]") if profile_obj else [],
+            "skills": (profile_obj.skills_json or []) if profile_obj else [],
+            "projects": (profile_obj.projects_json or []) if profile_obj else [],
+            "experience": (profile_obj.experience_json or []) if profile_obj else [],
         }
     }

@@ -1,5 +1,4 @@
 import datetime
-import json
 from typing import List, Optional, Any, Dict
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
@@ -59,15 +58,15 @@ def get_application_by_job(job_id: int, db: Session = Depends(get_db)):
             "location": job.location,
             "type": job.type,
             "closes_on": job.closes_on,
-            "required_skills": json.loads(job.required_skills_json or "[]"),
+            "required_skills": job.required_skills_json or [],
         },
         "master_profile": {
             "name": profile.name if profile else "Candidate",
             "email": profile.email if profile else "",
             "education": profile.education if profile else "",
-            "skills": json.loads(profile.skills_json or "[]") if profile else [],
-            "projects": json.loads(profile.projects_json or "[]") if profile else [],
-            "experience": json.loads(profile.experience_json or "[]") if profile else [],
+            "skills": (profile.skills_json or []) if profile else [],
+            "projects": (profile.projects_json or []) if profile else [],
+            "experience": (profile.experience_json or []) if profile else [],
         }
     }
 

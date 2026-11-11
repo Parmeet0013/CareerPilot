@@ -129,7 +129,7 @@ def heuristic_parse_resume(text: str) -> Dict[str, Any]:
         experience.append({
             "company": "TechVanguard Solutions",
             "role": "Software Engineering Intern",
-            "duration": "May 2024 – Jul 2024",
+            "duration": "May 2024 â€“ Jul 2024",
             "description": "Engineered RESTful microservice endpoints in FastAPI and reduced database latency with PostgreSQL indexing."
         })
 
@@ -185,11 +185,11 @@ def parse_resume(file_path: str, filename: str, db: Session) -> Profile:
     profile.name = parsed_data.get("name")
     profile.email = parsed_data.get("email")
     profile.education = parsed_data.get("education")
-    profile.skills_json = json.dumps(parsed_data.get("skills", []))
-    profile.projects_json = json.dumps(parsed_data.get("projects", []))
-    profile.experience_json = json.dumps(parsed_data.get("experience", []))
-    profile.target_roles_json = json.dumps(parsed_data.get("target_roles", []))
-    profile.preferences_json = json.dumps(parsed_data.get("preferences", {}))
+    profile.skills_json = parsed_data.get("skills", [])
+    profile.projects_json = parsed_data.get("projects", [])
+    profile.experience_json = parsed_data.get("experience", [])
+    profile.target_roles_json = parsed_data.get("target_roles", [])
+    profile.preferences_json = parsed_data.get("preferences", {})
     profile.resume_filename = filename
     profile.parsed_at = datetime.datetime.utcnow()
 
@@ -229,11 +229,11 @@ def search_jobs(db: Session, role: Optional[str] = None, location: Optional[str]
 
 # --- Tool 3: match_jobs ---
 def match_jobs(profile: Profile, jobs: List[Job], db: Session) -> List[Dict[str, Any]]:
-    profile_skills = [s.strip().lower() for s in json.loads(profile.skills_json or "[]")]
+    profile_skills = [s.strip().lower() for s in (profile.skills_json or [])]
     ranked = []
 
     for job in jobs:
-        req_skills = json.loads(job.required_skills_json or "[]")
+        req_skills = job.required_skills_json or []
         matching = [s for s in req_skills if s.strip().lower() in profile_skills]
         missing = [s for s in req_skills if s.strip().lower() not in profile_skills]
         ratio = len(matching) / max(len(req_skills), 1)
@@ -269,9 +269,9 @@ def match_jobs(profile: Profile, jobs: List[Job], db: Session) -> List[Dict[str,
 # --- Tool 4: tailor_application (With strict fact verification guard) ---
 def validate_tailored_facts(profile: Profile, tailored_output: Dict[str, Any]) -> Tuple[Dict[str, Any], int]:
     """HARD RULE: Drop any skill, project, or employer that does not exist in profile."""
-    verified_skills = set(s.strip().lower() for s in json.loads(profile.skills_json or "[]"))
-    verified_projects = set(p.get("title", "").strip().lower() for p in json.loads(profile.projects_json or "[]"))
-    verified_companies = set(e.get("company", "").strip().lower() for e in json.loads(profile.experience_json or "[]"))
+    verified_skills = set(s.strip().lower() for s in (profile.skills_json or []))
+    verified_projects = set(p.get("title", "").strip().lower() for p in (profile.projects_json or []))
+    verified_companies = set(e.get("company", "").strip().lower() for e in (profile.experience_json or []))
 
     resume_changes = tailored_output.get("resume_changes", {})
     dropped_count = 0
@@ -285,7 +285,7 @@ def validate_tailored_facts(profile: Profile, tailored_output: Dict[str, Any]) -
         else:
             dropped_count += 1
             print(f"[Warning] Dropped unverified skill '{s}' from tailored application.")
-    resume_changes["highlighted_skills"] = valid_skills if valid_skills else json.loads(profile.skills_json or "[]")
+    resume_changes["highlighted_skills"] = valid_skills if valid_skills else list(profile.skills_json or [])
 
     # 2. Validate projects
     orig_projects = resume_changes.get("reordered_projects", [])
@@ -299,7 +299,7 @@ def validate_tailored_facts(profile: Profile, tailored_output: Dict[str, Any]) -
             dropped_count += 1
             print(f"[Warning] Dropped unverified project '{p.get('title')}' from tailored output.")
     if not valid_projects:
-        resume_changes["reordered_projects"] = json.loads(profile.projects_json or "[]")
+        resume_changes["reordered_projects"] = list(profile.projects_json or [])
     else:
         resume_changes["reordered_projects"] = valid_projects
 
@@ -314,7 +314,7 @@ def validate_tailored_facts(profile: Profile, tailored_output: Dict[str, Any]) -
             dropped_count += 1
             print(f"[Warning] Dropped unverified employer '{e.get('company')}' from tailored output.")
     if not valid_exp:
-        resume_changes["reordered_experience"] = json.loads(profile.experience_json or "[]")
+        resume_changes["reordered_experience"] = list(profile.experience_json or [])
     else:
         resume_changes["reordered_experience"] = valid_exp
 
@@ -324,10 +324,10 @@ def validate_tailored_facts(profile: Profile, tailored_output: Dict[str, Any]) -
 
 def tailor_application(profile: Profile, job: Job, db: Session) -> Dict[str, Any]:
     """Tool 4: tailor_application(profile, job) -> {resume_changes, cover_note}."""
-    profile_skills = json.loads(profile.skills_json or "[]")
-    profile_projects = json.loads(profile.projects_json or "[]")
-    profile_exp = json.loads(profile.experience_json or "[]")
-    job_req_skills = json.loads(job.required_skills_json or "[]")
+    profile_skills = profile.skills_json or []
+    profile_projects = profile.projects_json or []
+    profile_exp = profile.experience_json or []
+    job_req_skills = job.required_skills_json or []
 
     # Align matching skills to top
     matching = [s for s in profile_skills if any(r.lower() in s.lower() for r in job_req_skills)]
@@ -469,7 +469,7 @@ def generate_resume_pdf(profile: Profile, resume_changes: Dict[str, Any], job: J
 
     story = [
         Paragraph(profile.name or "Candidate", name_style),
-        Paragraph(f"{profile.email or ''} • Verified Applicant • Tailored for {job.role} at {job.company}", sub_style),
+        Paragraph(f"{profile.email or ''} â€¢ Verified Applicant â€¢ Tailored for {job.role} at {job.company}", sub_style),
         Paragraph("EDUCATION", section_head),
         Paragraph(profile.education or "B.Tech in Computer Science and Engineering", body_style),
     ]
@@ -489,9 +489,9 @@ def generate_resume_pdf(profile: Profile, resume_changes: Dict[str, Any], job: J
             role = exp.get("role", "")
             dur = exp.get("duration", "")
             desc = exp.get("description", "")
-            story.append(Paragraph(f"<b>{role}</b> — {comp} <font color='#6B6860'>({dur})</font>", body_style))
+            story.append(Paragraph(f"<b>{role}</b> â€” {comp} <font color='#6B6860'>({dur})</font>", body_style))
             if desc:
-                story.append(Paragraph(f"• {desc}", bullet_style))
+                story.append(Paragraph(f"â€¢ {desc}", bullet_style))
 
     # Projects
     projs = resume_changes.get("reordered_projects", [])
@@ -503,7 +503,7 @@ def generate_resume_pdf(profile: Profile, resume_changes: Dict[str, Any], job: J
             desc = p.get("description", "")
             story.append(Paragraph(f"<b>{title}</b> | <font color='#1E5B4A'>{techs}</font>", body_style))
             if desc:
-                story.append(Paragraph(f"• {desc}", bullet_style))
+                story.append(Paragraph(f"â€¢ {desc}", bullet_style))
 
     doc.build(story)
 
@@ -611,8 +611,8 @@ def recall_memory(db: Session) -> Dict[str, Any]:
     data = {
         "profile": {
             "name": profile.name if profile else None,
-            "skills": json.loads(profile.skills_json or "[]") if profile else [],
-            "target_roles": json.loads(profile.target_roles_json or "[]") if profile else [],
+            "skills": (profile.skills_json or []) if profile else [],
+            "target_roles": (profile.target_roles_json or []) if profile else [],
         },
         "applications_count": len(apps),
         "weak_areas": [{"skill": w.skill, "score": w.last_score, "seen": w.times_seen} for w in weaks],

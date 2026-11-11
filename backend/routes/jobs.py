@@ -1,4 +1,3 @@
-import json
 import datetime
 from typing import List, Optional
 from fastapi import APIRouter, Depends, HTTPException, Query
@@ -11,7 +10,7 @@ router = APIRouter(prefix="/api/jobs", tags=["Jobs"])
 
 
 def compute_match_bullets(job: Job, profile: Optional[Profile]) -> tuple[str, List[str], List[str]]:
-    req_skills = json.loads(job.required_skills_json or "[]")
+    req_skills = job.required_skills_json or []
     if not profile:
         return (
             "Medium",
@@ -23,7 +22,7 @@ def compute_match_bullets(job: Job, profile: Optional[Profile]) -> tuple[str, Li
             req_skills,
         )
 
-    profile_skills = [s.strip().lower() for s in json.loads(profile.skills_json or "[]")]
+    profile_skills = [s.strip().lower() for s in (profile.skills_json or [])]
     matching = [s for s in req_skills if s.strip().lower() in profile_skills]
     missing = [s for s in req_skills if s.strip().lower() not in profile_skills]
     overlap_ratio = len(matching) / max(len(req_skills), 1)
@@ -46,7 +45,7 @@ def compute_match_bullets(job: Job, profile: Optional[Profile]) -> tuple[str, Li
 
 
 def job_to_response(job: Job, profile: Optional[Profile] = None) -> JobResponse:
-    req_skills = json.loads(job.required_skills_json or "[]")
+    req_skills = job.required_skills_json or []
     fit, why_bullets, missing_skills = compute_match_bullets(job, profile)
 
     return JobResponse(
