@@ -1,6 +1,6 @@
 import React from 'react'
-import { NavLink } from 'react-router-dom'
-import { Calendar, Briefcase, FileCheck, PenTool, User } from 'lucide-react'
+import { NavLink, useNavigate } from 'react-router-dom'
+import { Calendar, Briefcase, FileCheck, PenTool, User, Plus } from 'lucide-react'
 
 interface SidebarProps {
   studentName?: string
@@ -18,6 +18,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
     { name: 'Practice', path: '/practice', icon: PenTool },
     { name: 'Profile', path: '/profile', icon: User },
   ]
+  const navigate = useNavigate()
 
   return (
     <aside className="fixed top-0 left-0 h-screen w-52 z-30 bg-surface border-r border-line flex flex-col justify-between p-4 select-none">
@@ -32,6 +33,14 @@ export const Sidebar: React.FC<SidebarProps> = ({
           </div>
           <p className="text-[11px] text-muted mt-1">Recruitment Ledger • {studentCollege}</p>
         </div>
+
+        <button
+          onClick={() => navigate('/jobs')}
+          className="mx-1 flex items-center justify-center gap-2 py-2 rounded bg-accent text-surface text-[13px] font-semibold hover:bg-accent/90 transition-colors"
+        >
+          <Plus size={15} strokeWidth={2} />
+          Log Application
+        </button>
 
         <nav className="flex flex-col gap-1">
           {navItems.map((item) => {
