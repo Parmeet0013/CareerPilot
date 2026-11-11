@@ -1,6 +1,7 @@
 import os
 import re
 import json
+import random
 import datetime
 from typing import Dict, Any, Optional, List, Tuple
 import pymupdf
@@ -12,7 +13,7 @@ from reportlab.platypus import SimpleDocTemplate, Paragraph, Spacer
 from reportlab.lib.styles import getSampleStyleSheet, ParagraphStyle
 from reportlab.lib import colors
 
-from backend.models import Profile, Job, Application, ActionLog, WeakArea, Reminder
+from backend.models import Profile, Job, Application, ActionLog, WeakArea, Reminder, InterviewSession, InterviewTurn
 from backend.schemas import ProfileBase
 from backend.agent.prompts import (
     PARSE_RESUME_SYSTEM_PROMPT,
@@ -129,7 +130,7 @@ def heuristic_parse_resume(text: str) -> Dict[str, Any]:
         experience.append({
             "company": "TechVanguard Solutions",
             "role": "Software Engineering Intern",
-            "duration": "May 2024 â€“ Jul 2024",
+            "duration": "May 2024 – Jul 2024",
             "description": "Engineered RESTful microservice endpoints in FastAPI and reduced database latency with PostgreSQL indexing."
         })
 
@@ -469,7 +470,7 @@ def generate_resume_pdf(profile: Profile, resume_changes: Dict[str, Any], job: J
 
     story = [
         Paragraph(profile.name or "Candidate", name_style),
-        Paragraph(f"{profile.email or ''} â€¢ Verified Applicant â€¢ Tailored for {job.role} at {job.company}", sub_style),
+        Paragraph(f"{profile.email or ''} • Verified Applicant • Tailored for {job.role} at {job.company}", sub_style),
         Paragraph("EDUCATION", section_head),
         Paragraph(profile.education or "B.Tech in Computer Science and Engineering", body_style),
     ]
@@ -489,9 +490,9 @@ def generate_resume_pdf(profile: Profile, resume_changes: Dict[str, Any], job: J
             role = exp.get("role", "")
             dur = exp.get("duration", "")
             desc = exp.get("description", "")
-            story.append(Paragraph(f"<b>{role}</b> â€” {comp} <font color='#6B6860'>({dur})</font>", body_style))
+            story.append(Paragraph(f"<b>{role}</b> — {comp} <font color='#6B6860'>({dur})</font>", body_style))
             if desc:
-                story.append(Paragraph(f"â€¢ {desc}", bullet_style))
+                story.append(Paragraph(f"• {desc}", bullet_style))
 
     # Projects
     projs = resume_changes.get("reordered_projects", [])
@@ -503,7 +504,7 @@ def generate_resume_pdf(profile: Profile, resume_changes: Dict[str, Any], job: J
             desc = p.get("description", "")
             story.append(Paragraph(f"<b>{title}</b> | <font color='#1E5B4A'>{techs}</font>", body_style))
             if desc:
-                story.append(Paragraph(f"â€¢ {desc}", bullet_style))
+                story.append(Paragraph(f"• {desc}", bullet_style))
 
     doc.build(story)
 
@@ -599,6 +600,164 @@ END:VCALENDAR
         status="success",
     )
     return rem
+
+
+# --- Tool 8: run_interview_turn ---
+# Fallback question bank used when the LLM is unavailable, so practice stays usable.
+FALLBACK_QUESTIONS = [
+    ("SQL & Databases", "A query that used to run in 50ms now takes 5 seconds after a data import. Walk me through how you would debug it."),
+    ("REST API Design", "How would you design pagination for a REST endpoint that may return thousands of records? What are the trade-offs of offset vs cursor paging?"),
+    ("Debugging", "Tell me about a bug you fixed that taught you something lasting. How did you find the root cause?"),
+    ("Concurrency", "Two users submit the same form at the same moment and both writes succeed, corrupting data. How would you prevent that?"),
+    ("Frontend State", "In a React app, a list updates in one component but not another. How do you diagnose state management issues like this?"),
+    ("Testing", "You have limited time before a deadline. Which parts of the codebase do you test first, and why?"),
+    ("Networking Basics", "What happens between typing a URL in the browser and seeing the page? Name as many steps as you can."),
+    ("System Trade-offs", "When would you choose a cache like Redis over querying the database directly, and what risks does caching introduce?"),
+]
+
+
+def _heuristic_evaluation(answer: str, skill_tag: str) -> Dict[str, Any]:
+    """Plain heuristic score used only when the LLM is unavailable."""
+    length = len(answer.strip())
+    if length >= 200:
+        score, note = 4, "Detailed answer with concrete reasoning; specifics and examples would strengthen it further."
+    elif length >= 80:
+        score, note = 3, "Reasonable answer covering the basics; add specifics, trade-offs, or an example to go deeper."
+    elif length >= 25:
+        score, note = 2, "Answer is on topic but thin; explain the reasoning step by step."
+    else:
+        score, note = 1, "Answer is too short to demonstrate understanding of the concept."
+    return {"score_1_to_5": score, "feedback": note, "skill_tag": skill_tag}
+
+
+def _update_weak_area(db: Session, skill: str, score: int):
+    """Upserts weak_areas so scores persist across sessions."""
+    skill = (skill or "General").strip()[:100]
+    weak = db.query(WeakArea).filter(WeakArea.skill == skill).first()
+    if weak:
+        weak.last_score = score
+        weak.times_seen += 1
+        weak.updated_at = datetime.datetime.utcnow()
+    else:
+        db.add(WeakArea(skill=skill, last_score=score, times_seen=1, updated_at=datetime.datetime.utcnow()))
+
+
+def _generate_question(session: InterviewSession, db: Session) -> Tuple[Dict[str, Any], str]:
+    """Returns ({question, skill_tag}, source) where source is 'llm' or 'fallback'."""
+    profile = db.query(Profile).first()
+    weaks = db.query(WeakArea).order_by(WeakArea.last_score.asc()).all()
+    weak_summary = "; ".join(f"{w.skill} (scored {w.last_score}/5)" for w in weaks) or "none recorded yet"
+
+    asked = [t.skill_tag for t in session.turns if t.skill_tag]
+    recent_questions = [t.question for t in session.turns[-5:]]
+
+    user_content = (
+        f"TARGET ROLE: {session.role}\n"
+        f"CANDIDATE SKILLS: {', '.join(profile.skills_json or []) if profile else 'not provided'}\n"
+        f"RECORDED WEAK AREAS: {weak_summary}\n"
+        f"SKILLS ALREADY ASKED THIS SESSION: {', '.join(asked) if asked else 'none'}\n"
+        f"RECENT QUESTIONS (do not repeat): {json.dumps(recent_questions)}\n\n"
+        "Generate the next interview question."
+    )
+
+    result = call_llm_json(INTERVIEW_QUESTION_SYSTEM_PROMPT, user_content)
+    if result and isinstance(result.get("question"), str) and result.get("question").strip():
+        skill_tag = str(result.get("skill_tag") or "General").strip()[:100]
+        return {"question": result["question"].strip(), "skill_tag": skill_tag}, "llm"
+
+    # Fallback: rotate through the bank, preferring skills not yet asked
+    unasked = [q for q in FALLBACK_QUESTIONS if q[0] not in asked]
+    pick = random.choice(unasked or FALLBACK_QUESTIONS)
+    return {"question": pick[1], "skill_tag": pick[0]}, "fallback"
+
+
+def run_interview_turn(session_id: int, answer: Optional[str], db: Session) -> Dict[str, Any]:
+    """Tool 8: with answer=None asks the next question; with an answer evaluates it
+    (score 1-5, one-line feedback, skill_tag), updates weak_areas, then asks the next one."""
+    session = db.query(InterviewSession).filter(InterviewSession.id == session_id).first()
+    if not session:
+        raise ValueError(f"Interview session #{session_id} not found")
+
+    evaluation = None
+    source = "llm"
+
+    if answer is not None:
+        # Evaluate the oldest turn still awaiting an answer
+        turn = (
+            db.query(InterviewTurn)
+            .filter(InterviewTurn.session_id == session_id, InterviewTurn.answer.is_(None))
+            .order_by(InterviewTurn.id.asc())
+            .first()
+        )
+        if not turn:
+            raise ValueError("No open question in this session. Start a new session or ask for the next question.")
+
+        turn.answer = answer
+        turn.skill_tag = turn.skill_tag or "General"
+
+        llm_eval = call_llm_json(
+            INTERVIEW_EVALUATION_SYSTEM_PROMPT,
+            f"QUESTION: {turn.question}\nSKILL TESTED: {turn.skill_tag}\nCANDIDATE ANSWER: {answer}\n\nEvaluate this answer.",
+        )
+        if (
+            llm_eval
+            and isinstance(llm_eval.get("score_1_to_5"), int)
+            and 1 <= llm_eval["score_1_to_5"] <= 5
+            and isinstance(llm_eval.get("feedback"), str)
+        ):
+            evaluation = {
+                "score_1_to_5": llm_eval["score_1_to_5"],
+                "feedback": llm_eval["feedback"].strip(),
+                "skill_tag": str(llm_eval.get("skill_tag") or turn.skill_tag).strip()[:100],
+            }
+        else:
+            evaluation = _heuristic_evaluation(answer, turn.skill_tag)
+            source = "fallback"
+
+        turn.feedback = evaluation["feedback"]
+        turn.score_1_to_5 = evaluation["score_1_to_5"]
+        turn.skill_tag = evaluation["skill_tag"]
+        _update_weak_area(db, evaluation["skill_tag"], evaluation["score_1_to_5"])
+
+    # Next question (new turn)
+    question_data, q_source = _generate_question(session, db)
+    next_turn = InterviewTurn(
+        session_id=session_id,
+        question=question_data["question"],
+        skill_tag=question_data["skill_tag"],
+    )
+    db.add(next_turn)
+    db.commit()
+    db.refresh(next_turn)
+
+    weakest = db.query(WeakArea).order_by(WeakArea.last_score.asc()).first()
+
+    log_action(
+        db=db,
+        tool="run_interview_turn",
+        input_summary=f"Session #{session_id} ({session.role}): {'evaluated answer' if answer is not None else 'asked question'}",
+        output_summary=(
+            f"Score {evaluation['score_1_to_5']}/5 on '{evaluation['skill_tag']}' ({source}); "
+            f"next question on '{question_data['skill_tag']}' ({q_source})"
+            if evaluation else f"Question asked on '{question_data['skill_tag']}' ({q_source})"
+        ),
+        status="success" if source == "llm" and q_source == "llm" else "warning",
+    )
+
+    return {
+        "evaluation": evaluation,
+        "next_question": {
+            "turn_id": next_turn.id,
+            "question": next_turn.question,
+            "skill_tag": next_turn.skill_tag,
+        },
+        "source": "llm" if source == "llm" and q_source == "llm" else "fallback",
+        "weakest_skill": weakest.skill if weakest else None,
+        "weak_areas": [
+            {"id": w.id, "skill": w.skill, "last_score": w.last_score, "times_seen": w.times_seen}
+            for w in db.query(WeakArea).order_by(WeakArea.last_score.asc()).all()
+        ],
+    }
 
 
 # --- Tool 9: recall_memory ---

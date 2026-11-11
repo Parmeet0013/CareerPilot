@@ -156,6 +156,26 @@ class WeakAreaResponse(BaseModel):
         from_attributes = True
 
 
+class InterviewEvaluationOut(BaseModel):
+    score_1_to_5: int
+    feedback: str
+    skill_tag: str
+
+
+class InterviewQuestionOut(BaseModel):
+    turn_id: int
+    question: str
+    skill_tag: str
+
+
+class PracticeAnswerResponse(BaseModel):
+    evaluation: Optional[InterviewEvaluationOut] = None
+    next_question: InterviewQuestionOut
+    source: str = "llm"  # 'llm' | 'fallback'
+    weakest_skill: Optional[str] = None
+    weak_areas: List[Dict[str, Any]] = Field(default_factory=list)
+
+
 # --- Reminder & Log Schemas ---
 class ReminderResponse(BaseModel):
     id: int
