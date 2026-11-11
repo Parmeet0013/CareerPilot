@@ -1,0 +1,17 @@
+# Python
+.venv/
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.db
+backend/careerpilot.db
+outputs/
+
+# Node
+frontend/node_modules/
+frontend/dist/
+*.local
+
+# Environment
+.env

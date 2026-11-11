@@ -1,0 +1,362 @@
+[
+  {
+    "role": "Backend Engineering Intern",
+    "company": "Kavach Systems",
+    "location": "Bengaluru",
+    "type": "internship",
+    "closes_days": 2,
+    "description": "Design and build scalable REST APIs using Python and PostgreSQL. You will collaborate with senior engineers to implement distributed caching and optimize database query plans. Ideal for candidates with strong foundational knowledge in data structures and backend services.",
+    "required_skills": ["Python", "FastAPI", "PostgreSQL", "Redis", "Docker"]
+  },
+  {
+    "role": "Junior Data Analyst",
+    "company": "Nivesh Matrix",
+    "location": "Bengaluru",
+    "type": "full-time",
+    "closes_days": 5,
+    "description": "Analyze multi-tenant transactional metrics to extract actionable insights for growth teams. You will maintain daily reporting dashboards in PowerBI and write automated ETL pipelines in Python. Candidates must possess sharp SQL query tuning skills and statistical acumen.",
+    "required_skills": ["SQL", "Python", "PowerBI", "Pandas", "Statistics"]
+  },
+  {
+    "role": "Frontend Developer Intern",
+    "company": "PrismCloud Labs",
+    "location": "Hyderabad",
+    "type": "internship",
+    "closes_days": 3,
+    "description": "Develop high-performance React and TypeScript client components with Tailwind CSS. You will work directly with UX designers to translate Figma mockups into accessible web experiences. Proficiency in modern state management and asynchronous data fetching is expected.",
+    "required_skills": ["React", "TypeScript", "Tailwind CSS", "JavaScript", "REST APIs"]
+  },
+  {
+    "role": "Machine Learning Engineer (Fresher)",
+    "company": "Vyom AI Innovations",
+    "location": "Bengaluru",
+    "type": "full-time",
+    "closes_days": 8,
+    "description": "Train, evaluate and fine-tune transformer models and NLP pipelines for enterprise document analysis. You will collaborate on ML inference optimization and containerized model deployments. Strong grounding in PyTorch, scikit-learn, and vector embeddings is required.",
+    "required_skills": ["Python", "PyTorch", "NLP", "Machine Learning", "Docker"]
+  },
+  {
+    "role": "DevOps Engineer Intern",
+    "company": "Setu InfraTech",
+    "location": "Pune",
+    "type": "internship",
+    "closes_days": 4,
+    "description": "Assist our infrastructure reliability team in configuring automated CI/CD pipelines with GitHub Actions. You will gain hands-on experience provisioning AWS microservices and managing Kubernetes cluster health. Passion for Linux system internals and script automation is essential.",
+    "required_skills": ["Linux", "Docker", "Kubernetes", "AWS", "Bash"]
+  },
+  {
+    "role": "QA Automation Engineer (Fresher)",
+    "company": "Satya Quality Software",
+    "location": "Hyderabad",
+    "type": "full-time",
+    "closes_days": 11,
+    "description": "Author automated end-to-end regression suites using Playwright and Python. You will integrate automated testing gates into deployment workflows and document bug repro steps systematically. Strong analytical thinking and proficiency with REST API inspection tools are desired.",
+    "required_skills": ["Python", "Selenium", "Playwright", "API Testing", "Git"]
+  },
+  {
+    "role": "Full Stack Intern",
+    "company": "Aura Logistics",
+    "location": "Remote",
+    "type": "internship",
+    "closes_days": 1,
+    "description": "Build end-to-end parcel tracking interfaces and internal fleet dispatch tools. You will handle database schema migrations in Node/Python and build responsive views in React. Candidates must thrive in remote asynchronous collaboration environments.",
+    "required_skills": ["React", "Node.js", "Python", "SQL", "Git"]
+  },
+  {
+    "role": "Associate Backend Engineer",
+    "company": "Dhanvantari HealthTech",
+    "location": "Pune",
+    "type": "full-time",
+    "closes_days": 14,
+    "description": "Develop microservices handling patient records and appointment scheduling workflows under strict compliance. You will write unit tests and integrate payment gateway webhooks. Solid knowledge of relational database design and Python/Django or FastAPI is required.",
+    "required_skills": ["Python", "FastAPI", "SQLAlchemy", "PostgreSQL", "Git"]
+  },
+  {
+    "role": "Data Science Intern",
+    "company": "Samvaad Intelligence",
+    "location": "Bengaluru",
+    "type": "internship",
+    "closes_days": 6,
+    "description": "Clean, preprocess and analyze multimodal survey data to extract customer intent patterns. You will prototype statistical models and evaluate feature importances for downstream recommendation engines. Hands-on experience with Jupyter, Pandas, and Scikit-learn is mandatory.",
+    "required_skills": ["Python", "Pandas", "Scikit-Learn", "Data Analysis", "SQL"]
+  },
+  {
+    "role": "Cloud Support Associate",
+    "company": "Trishul Cloud Ops",
+    "location": "Patna/Remote-friendly",
+    "type": "full-time",
+    "closes_days": 9,
+    "description": "Monitor production alerts and triage network latency across hybrid cloud deployments. You will draft technical incident reports and automate diagnostic checks using Python and shell scripts. Familiarity with networking protocols and cloud virtual machines is beneficial.",
+    "required_skills": ["Networking", "Linux", "Python", "Cloud Fundamentals", "Troubleshooting"]
+  },
+  {
+    "role": "Frontend Engineer (Fresher)",
+    "company": "Vistara Commerce",
+    "location": "Bengaluru",
+    "type": "full-time",
+    "closes_days": 7,
+    "description": "Architect responsive storefront features with Next.js and Tailwind CSS for high-volume consumer traffic. You will optimize Core Web Vitals and build reusable design system components. Demonstrable experience with modern JavaScript, CSS, and component state lifecycle is required.",
+    "required_skills": ["React", "Next.js", "TypeScript", "Tailwind CSS", "HTML/CSS"]
+  },
+  {
+    "role": "Site Reliability Engineering Intern",
+    "company": "Jaladhi Networks",
+    "location": "Hyderabad",
+    "type": "internship",
+    "closes_days": 12,
+    "description": "Implement telemetry dashboards in Prometheus and Grafana for distributed messaging queues. You will assist in conducting chaos engineering tests and authoring runbooks for on-call engineers. Foundational skills in operating systems, networking, and scripting are prerequisites.",
+    "required_skills": ["Prometheus", "Grafana", "Linux", "Python", "Docker"]
+  },
+  {
+    "role": "Python Developer Intern",
+    "company": "Bodh AI Systems",
+    "location": "Patna/Remote-friendly",
+    "type": "internship",
+    "closes_days": 2,
+    "description": "Construct web scrapers and unstructured document extraction pipelines using BeautifulSoup and PyMuPDF. You will normalize extracted fields into clean SQLite/Postgres schemas and build administrative endpoints. Strong debugging capabilities in Python are essential.",
+    "required_skills": ["Python", "BeautifulSoup", "PyMuPDF", "SQLite", "REST APIs"]
+  },
+  {
+    "role": "Security Analyst Intern",
+    "company": "Rakshak CyberSec",
+    "location": "Pune",
+    "type": "internship",
+    "closes_days": 15,
+    "description": "Conduct automated vulnerability scanning across web endpoints and identify OWASP Top 10 security risks. You will assist in code security reviews and patch verification workflows. Curiosity regarding offensive security tools and defensive hygiene is paramount.",
+    "required_skills": ["Cybersecurity", "OWASP", "Python", "Linux", "Network Security"]
+  },
+  {
+    "role": "Data Engineer (Fresher)",
+    "company": "Ananta Data Stream",
+    "location": "Bengaluru",
+    "type": "full-time",
+    "closes_days": 10,
+    "description": "Build high-throughput batch and streaming pipelines to ingest clickstream telemetry into cloud data lakes. You will write PySpark jobs and orchestrate directed acyclic graphs in Airflow. Familiarity with schema design, partition strategies, and SQL is expected.",
+    "required_skills": ["Python", "SQL", "Apache Spark", "Data Pipelines", "Docker"]
+  },
+  {
+    "role": "Junior Android Developer",
+    "company": "Gramin Fintech",
+    "location": "Hyderabad",
+    "type": "full-time",
+    "closes_days": 13,
+    "description": "Build lightweight mobile banking and payments features using Kotlin and Jetpack Compose. You will optimize memory consumption for entry-level smartphone devices and integrate biometric authentication. Experience with Coroutines and REST client integration is required.",
+    "required_skills": ["Kotlin", "Android", "Jetpack Compose", "REST APIs", "Git"]
+  },
+  {
+    "role": "QA Test Engineer Intern",
+    "company": "Zenith Payments",
+    "location": "Remote",
+    "type": "internship",
+    "closes_days": 3,
+    "description": "Execute manual and automated test matrices for merchant checkout flows and payout reconciliations. You will simulate boundary failure conditions and verify webhook idempotency. Attention to edge cases and precise written communication are highly prized.",
+    "required_skills": ["Manual Testing", "Postman", "SQL", "API Testing", "Jira"]
+  },
+  {
+    "role": "Junior Backend Developer",
+    "company": "Tara Mobility",
+    "location": "Pune",
+    "type": "full-time",
+    "closes_days": 16,
+    "description": "Scale geospatial vehicle dispatch microservices using Go and PostgreSQL. You will implement spatial queries using PostGIS and optimize websocket connection handling for driver telemetry. Solid understanding of concurrency and network sockets is preferred.",
+    "required_skills": ["Go", "PostgreSQL", "WebSockets", "Docker", "Algorithms"]
+  },
+  {
+    "role": "Business Analyst Intern",
+    "company": "Drishti Strategy",
+    "location": "Patna/Remote-friendly",
+    "type": "internship",
+    "closes_days": 4,
+    "description": "Translate user research and operational metrics into product specification documents for engineering sprints. You will conduct user cohort analysis in Excel and SQL to identify churn drivers. Strong stakeholder communication and presentation skills are required.",
+    "required_skills": ["SQL", "Excel", "Data Analysis", "Communication", "Problem Solving"]
+  },
+  {
+    "role": "MLOps Engineer (Fresher)",
+    "company": "NeuroSutra Labs",
+    "location": "Bengaluru",
+    "type": "full-time",
+    "closes_days": 18,
+    "description": "Standardize model training runs with MLflow and maintain continuous deployment pipelines for deep learning models. You will package model artifacts into lightweight Docker containers and monitor prediction drift. Proficiency in Python and container orchestration is required.",
+    "required_skills": ["Python", "MLflow", "Docker", "Kubernetes", "Machine Learning"]
+  },
+  {
+    "role": "React Native Developer Intern",
+    "company": "Chalo Delivery",
+    "location": "Remote",
+    "type": "internship",
+    "closes_days": 5,
+    "description": "Develop cross-platform rider tracking and order confirmation views using React Native and Expo. You will handle offline SQLite caching and map rendering optimizations. Candidates should be comfortable working with JavaScript/TypeScript and asynchronous state.",
+    "required_skills": ["React Native", "TypeScript", "JavaScript", "Mobile Development", "Git"]
+  },
+  {
+    "role": "Junior Database Administrator",
+    "company": "Kosh Data Vault",
+    "location": "Hyderabad",
+    "type": "full-time",
+    "closes_days": 17,
+    "description": "Monitor relational database health, configure automated backups, and execute routine index maintenance. You will diagnose slow-running queries and advise application developers on optimal indexing strategies. Deep curiosity about database storage engines is a must.",
+    "required_skills": ["PostgreSQL", "MySQL", "Linux", "Database Tuning", "Bash"]
+  },
+  {
+    "role": "Backend Intern (Node.js)",
+    "company": "Tarang Media",
+    "location": "Bengaluru",
+    "type": "internship",
+    "closes_days": 1,
+    "description": "Build high-concurrency feed ingestion APIs and content notification services using Express and Redis. You will write comprehensive unit tests and optimize asynchronous event-loop workloads. Knowledge of MongoDB and Redis pub-sub is appreciated.",
+    "required_skills": ["Node.js", "Express", "TypeScript", "MongoDB", "Redis"]
+  },
+  {
+    "role": "Frontend Intern (Vue/Nuxt)",
+    "company": "Akashvaani Tech",
+    "location": "Pune",
+    "type": "internship",
+    "closes_days": 7,
+    "description": "Build internal portal screens for enterprise telemetry monitoring using Vue 3 and Pinia. You will construct chart dashboards with Chart.js and ensure consistent styling with CSS utility classes. Clean coding habits and familiarity with Git are essential.",
+    "required_skills": ["Vue.js", "JavaScript", "HTML/CSS", "Pinia", "REST APIs"]
+  },
+  {
+    "role": "AI Research Assistant (Fresher)",
+    "company": "Sankalp DeepTech",
+    "location": "Bengaluru",
+    "type": "full-time",
+    "closes_days": 19,
+    "description": "Collaborate with lead scientists to implement cutting-edge computer vision papers and benchmark dataset architectures. You will write performant PyTorch training routines on multi-GPU nodes. Strong academic foundation in linear algebra and neural networks is expected.",
+    "required_skills": ["PyTorch", "Computer Vision", "Python", "Deep Learning", "Mathematics"]
+  },
+  {
+    "role": "Technical Support Engineer (Fresher)",
+    "company": "Maitri SaaS Solutions",
+    "location": "Patna/Remote-friendly",
+    "type": "full-time",
+    "closes_days": 6,
+    "description": "Diagnose customer configuration errors, review API webhook logs, and assist enterprise developers in integrating our SDKs. You will replicate complex edge cases in staging environments and submit pull requests for documentation fixes. Empathetic communication is vital.",
+    "required_skills": ["Customer Support", "API Integration", "JavaScript", "SQL", "Debugging"]
+  },
+  {
+    "role": "Golang Backend Intern",
+    "company": "Garuda Routing",
+    "location": "Bengaluru",
+    "type": "internship",
+    "closes_days": 4,
+    "description": "Implement low-latency microservices for network packet inspection and load-balancer routing tables. You will profile memory allocations and optimize goroutine synchronization channels. Foundational knowledge in computer networking and Go syntax is required.",
+    "required_skills": ["Go", "Networking", "Concurrency", "Linux", "Docker"]
+  },
+  {
+    "role": "Junior Cloud Engineer",
+    "company": "Meghdoot Cloud Services",
+    "location": "Hyderabad",
+    "type": "full-time",
+    "closes_days": 10,
+    "description": "Provision and maintain AWS infrastructure resources using Terraform infrastructure-as-code modules. You will configure IAM roles, VPC peering, and CloudWatch log metric filters. Eagerness to master cloud architecture and automation is key.",
+    "required_skills": ["AWS", "Terraform", "Linux", "CloudFormation", "Python"]
+  },
+  {
+    "role": "Product Analyst Intern",
+    "company": "Indus Social",
+    "location": "Remote",
+    "type": "internship",
+    "closes_days": 3,
+    "description": "Design and analyze A/B tests for content feed ranking and user onboarding retention funnels. You will clean raw event logs using SQL and write summary presentations for product managers. Fluency with hypothesis testing and SQL window functions is expected.",
+    "required_skills": ["SQL", "A/B Testing", "Python", "Product Analytics", "Statistics"]
+  },
+  {
+    "role": "Junior Security Engineer",
+    "company": "Suraksha CyberLabs",
+    "location": "Bengaluru",
+    "type": "full-time",
+    "closes_days": 14,
+    "description": "Assist in running static application security testing (SAST) and dynamic scanning across repository branches. You will collaborate with software developers to triage false positives and remediate dependency vulnerabilities. Foundational knowledge of web vulnerabilities is required.",
+    "required_skills": ["Application Security", "Python", "OWASP", "Git", "Linux"]
+  },
+  {
+    "role": "Systems Programmer Intern",
+    "company": "Param Supercomputing",
+    "location": "Pune",
+    "type": "internship",
+    "closes_days": 8,
+    "description": "Work on memory-safe low-level utility libraries and file-system indexing modules using C++ and Rust. You will profile cache misses and benchmark throughput under multi-threaded loads. Candidates must have solid grasp of operating systems and memory management.",
+    "required_skills": ["C++", "Rust", "Operating Systems", "Data Structures", "Linux"]
+  },
+  {
+    "role": "UI/UX & Web Developer (Fresher)",
+    "company": "Lipi Design Tech",
+    "location": "Hyderabad",
+    "type": "full-time",
+    "closes_days": 12,
+    "description": "Design pixel-perfect layout components in Figma and implement them using modern React, Tailwind CSS, and Framer Motion. You will ensure strict accessibility compliance and cross-browser consistency. Strong aesthetic sensibilities combined with clean frontend coding are required.",
+    "required_skills": ["React", "Tailwind CSS", "Figma", "UI/UX Design", "JavaScript"]
+  },
+  {
+    "role": "Associate Data Scientist",
+    "company": "Veda Analytics",
+    "location": "Bengaluru",
+    "type": "full-time",
+    "closes_days": 15,
+    "description": "Develop predictive churn and lifetime value models for regional e-commerce merchants. You will perform exploratory feature engineering and cross-validation across massive transactional datasets. Solid grasp of gradient boosting, linear models, and Python is necessary.",
+    "required_skills": ["Python", "XGBoost", "Machine Learning", "SQL", "Pandas"]
+  },
+  {
+    "role": "DevOps Automation Intern",
+    "company": "Yantrika Ops",
+    "location": "Patna/Remote-friendly",
+    "type": "internship",
+    "closes_days": 5,
+    "description": "Automate routine server configuration audits and environment spinning using Ansible and Python scripts. You will assist in upgrading container registries and managing SSL certificate rotations. High curiosity regarding Linux systems administration is required.",
+    "required_skills": ["Ansible", "Linux", "Python", "Docker", "Git"]
+  },
+  {
+    "role": "Junior Blockchain Developer",
+    "company": "Chakra Ledger Labs",
+    "location": "Remote",
+    "type": "full-time",
+    "closes_days": 16,
+    "description": "Develop and audit smart contracts written in Solidity for decentralized supply chain verification. You will write automated test harnesses with Hardhat and build web3 RPC interaction wrappers in TypeScript. Understanding of cryptographic hashing and EVM mechanics is needed.",
+    "required_skills": ["Solidity", "TypeScript", "Ethereum", "Hardhat", "Cryptography"]
+  },
+  {
+    "role": "Microservices Backend Intern",
+    "company": "Vahak Logistics Engine",
+    "location": "Bengaluru",
+    "type": "internship",
+    "closes_days": 2,
+    "description": "Implement asynchronous event consumers for order dispatch and shipment status updates using Kafka and FastAPI. You will write integration test suites and simulate network timeout retries. Strong grounding in algorithms, databases, and Python is required.",
+    "required_skills": ["FastAPI", "Python", "Kafka", "SQLAlchemy", "PostgreSQL"]
+  },
+  {
+    "role": "Embedded Software Intern",
+    "company": "Agni IoT Solutions",
+    "location": "Pune",
+    "type": "internship",
+    "closes_days": 9,
+    "description": "Program microcontroller firmware in C for smart agriculture sensor nodes transmitting over LoRaWAN. You will debug hardware interrupts with logic analyzers and optimize sleep-mode battery consumption. Strong fundamentals in C and microcontroller peripherals are required.",
+    "required_skills": ["C", "Embedded Systems", "Microcontrollers", "IoT", "Debugging"]
+  },
+  {
+    "role": "Junior SRE",
+    "company": "Dhruv Observability",
+    "location": "Hyderabad",
+    "type": "full-time",
+    "closes_days": 13,
+    "description": "Maintain uptime across mission-critical API clusters and construct actionable paging alert rules in Datadog. You will automate post-incident metric tracking and configure ingress rate limiters. Excellent troubleshooting tenacity and Linux proficiency are expected.",
+    "required_skills": ["Linux", "SRE Principles", "Datadog", "Kubernetes", "Python"]
+  },
+  {
+    "role": "Frontend Intern (React/Next)",
+    "company": "Sahaj Education",
+    "location": "Patna/Remote-friendly",
+    "type": "internship",
+    "closes_days": 3,
+    "description": "Build interactive quiz players and video classroom dashboards using React, Next.js, and Tailwind CSS. You will handle client caching and websocket chat integration for live tutoring sessions. Strong understanding of responsive CSS and React state hooks is required.",
+    "required_skills": ["React", "Next.js", "Tailwind CSS", "JavaScript", "HTML/CSS"]
+  },
+  {
+    "role": "Junior Data Engineer",
+    "company": "Prayag Data Lake",
+    "location": "Bengaluru",
+    "type": "full-time",
+    "closes_days": 11,
+    "description": "Maintain daily ingestion workflows pulling relational database tables into Snowflake data warehouses. You will write dbt transformation models and monitor data quality assertions. Solid SQL mastery and understanding of dimensional modeling are prerequisites.",
+    "required_skills": ["SQL", "dbt", "Snowflake", "Python", "Data Modeling"]
+  }
+]

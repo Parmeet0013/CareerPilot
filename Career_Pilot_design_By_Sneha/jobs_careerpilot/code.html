@@ -1,0 +1,729 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>CareerPilot — Jobs Directory</title>
+<!-- Fonts: Newsreader for scholarly serif accents & Geist for precision tabular UI -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700&amp;family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&amp;display=swap" rel="stylesheet"/>
+<!-- Material Symbols Outlined -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS v3 with Plugins -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          "colors": {
+            "surface": "#fef9ee",
+            "inverse-surface": "#32302a",
+            "primary": "#004334",
+            "tertiary": "#7b0001",
+            "surface-container-high": "#ede8dd",
+            "tertiary-fixed-dim": "#ffb4a8",
+            "surface-dim": "#dfd9d0",
+            "tertiary-container": "#a2140c",
+            "on-tertiary-fixed-variant": "#930303",
+            "on-error-container": "#93000a",
+            "on-secondary": "#ffffff",
+            "error-container": "#ffdad6",
+            "inverse-on-surface": "#f6f0e6",
+            "outline-variant": "#bfc9c3",
+            "surface-container": "#f3ede3",
+            "secondary-fixed": "#ffddb8",
+            "error": "#ba1a1a",
+            "on-surface": "#1d1c16",
+            "on-primary-fixed": "#002118",
+            "on-tertiary-fixed": "#410000",
+            "on-secondary-container": "#734700",
+            "secondary-fixed-dim": "#ffb95f",
+            "surface-container-highest": "#e7e2d8",
+            "background": "#fef9ee",
+            "on-surface-variant": "#404945",
+            "on-error": "#ffffff",
+            "primary-fixed-dim": "#96d3bd",
+            "surface-variant": "#e7e2d8",
+            "on-secondary-fixed": "#2a1700",
+            "on-primary-container": "#94d1bb",
+            "primary-fixed": "#b2efd9",
+            "tertiary-fixed": "#ffdad5",
+            "on-secondary-fixed-variant": "#653e00",
+            "on-background": "#1d1c16",
+            "surface-container-lowest": "#ffffff",
+            "secondary-container": "#feb557",
+            "on-tertiary-container": "#ffb0a4",
+            "primary-container": "#1e5b4a",
+            "on-tertiary": "#ffffff",
+            "outline": "#707975",
+            "secondary": "#855300",
+            "on-primary-fixed-variant": "#0f5040",
+            "surface-bright": "#fef9ee",
+            "surface-tint": "#2d6857",
+            "surface-container-low": "#f9f3e9",
+            "inverse-primary": "#96d3bd",
+            "on-primary": "#ffffff"
+          },
+          "borderRadius": {
+            "DEFAULT": "0.25rem",
+            "lg": "0.5rem",
+            "xl": "0.75rem",
+            "full": "9999px"
+          },
+          "spacing": {
+            "margin-tablet": "1.5rem",
+            "space-lg": "1.25rem",
+            "gutter-desktop": "1.5rem",
+            "gutter": "1rem",
+            "margin-desktop": "2.5rem",
+            "space-xl": "2rem",
+            "space-md": "0.75rem",
+            "space-xs": "0.25rem",
+            "margin": "1rem",
+            "space-sm": "0.5rem"
+          },
+          "fontFamily": {
+            "body-sm": ["Geist"],
+            "tabular-mono": ["Geist"],
+            "label-sm": ["Geist"],
+            "headline-lg-mobile": ["Newsreader"],
+            "body-md": ["Geist"],
+            "headline-md-mobile": ["Newsreader"],
+            "body-lg": ["Geist"],
+            "headline-lg": ["Newsreader"],
+            "headline-md": ["Newsreader"],
+            "title-md": ["Geist"],
+            "headline-sm": ["Newsreader"],
+            "label-md": ["Geist"],
+            "title-sm": ["Geist"]
+          },
+          "fontSize": {
+            "body-sm": ["12px", { "lineHeight": "16px", "fontWeight": "400" }],
+            "tabular-mono": ["13px", { "lineHeight": "18px", "fontWeight": "400" }],
+            "label-sm": ["11px", { "lineHeight": "14px", "letterSpacing": "0.03em", "fontWeight": "500" }],
+            "headline-lg-mobile": ["28px", { "lineHeight": "36px", "fontWeight": "400" }],
+            "body-md": ["13px", { "lineHeight": "18px", "fontWeight": "400" }],
+            "headline-md-mobile": ["22px", { "lineHeight": "28px", "fontWeight": "400" }],
+            "body-lg": ["15px", { "lineHeight": "22px", "fontWeight": "400" }],
+            "headline-lg": ["36px", { "lineHeight": "44px", "fontWeight": "400" }],
+            "headline-md": ["28px", { "lineHeight": "36px", "fontWeight": "400" }],
+            "title-md": ["16px", { "lineHeight": "22px", "fontWeight": "600" }],
+            "headline-sm": ["20px", { "lineHeight": "28px", "fontWeight": "500" }],
+            "label-md": ["12px", { "lineHeight": "16px", "letterSpacing": "0.02em", "fontWeight": "500" }],
+            "title-sm": ["14px", { "lineHeight": "20px", "fontWeight": "600" }]
+          }
+        },
+      },
+    }
+  </script>
+<style>
+    /* Strict Hairline & Tabular Typography Enforcements */
+    * {
+      border-color: #E7E5E0;
+    }
+    .font-tabular {
+      font-variant-numeric: tabular-nums;
+    }
+    /* Material symbol alignment */
+    .material-symbols-outlined {
+      font-size: 18px;
+      line-height: 1;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      vertical-align: middle;
+    }
+  </style>
+</head>
+<body class="bg-[#FAF9F6] text-[#1A1A1A] antialiased selection:bg-[#1E5B4A]/10 selection:text-[#1E5B4A] min-h-screen flex flex-col font-body-md text-body-md overflow-x-hidden">
+<!-- ========================================================================= -->
+<!-- 1. SHARED COMPONENT: SideNavBar                                           -->
+<!-- ========================================================================= -->
+<aside class="fixed top-0 left-0 h-screen w-60 z-30 bg-surface-container-lowest border-r border-[#E7E5E0] flex flex-col justify-between p-space-md">
+<!-- Top Segment: Brand & Navigation -->
+<div class="flex flex-col gap-5">
+<!-- Brand Anchor -->
+<div class="px-2 pt-1">
+<div class="flex items-center gap-2">
+<span class="w-2.5 h-2.5 rounded-full bg-[#1E5B4A]"></span>
+<span class="font-headline-sm text-headline-sm font-normal text-on-surface tracking-tight">CareerPilot</span>
+</div>
+<p class="font-label-sm text-label-sm text-outline mt-1 tracking-normal font-normal">Recruitment Ledger • B.Tech CSE '25</p>
+</div>
+<!-- Action Button: Log Application -->
+<button class="w-full h-9 bg-primary-container hover:bg-[#164639] active:bg-[#0E3228] text-on-primary font-title-sm text-title-sm rounded-lg flex items-center justify-center gap-2 transition-colors duration-150">
+<span class="material-symbols-outlined text-[17px]">add</span>
+<span>Log Application</span>
+</button>
+<!-- Navigation Links (Exact Shared Component items with 'Jobs' active) -->
+<nav class="flex flex-col gap-1 mt-1">
+<!-- Item 1: Today -->
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-on-surface-variant font-body-md text-body-md hover:bg-surface-container-high hover:text-on-surface transition-colors duration-150" href="#">
+<span class="material-symbols-outlined text-[#707975]">calendar_today</span>
+<span>Today</span>
+</a>
+<!-- Item 2: Jobs (ACTIVE - Exact Execution from JSON + Style Spec) -->
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg bg-surface-container-low text-primary font-title-sm text-title-sm border border-outline-variant/50" href="#">
+<span class="material-symbols-outlined text-[#1E5B4A]" style="font-variation-settings: 'FILL' 1;">work_outline</span>
+<span>Jobs</span>
+<span class="ml-auto font-label-sm text-label-sm px-1.5 py-0.5 rounded bg-[#1E5B4A]/10 text-[#1E5B4A] font-tabular">28</span>
+</a>
+<!-- Item 3: Applications -->
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-on-surface-variant font-body-md text-body-md hover:bg-surface-container-high hover:text-on-surface transition-colors duration-150" href="#">
+<span class="material-symbols-outlined text-[#707975]">fact_check</span>
+<span>Applications</span>
+</a>
+<!-- Item 4: Practice -->
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-on-surface-variant font-body-md text-body-md hover:bg-surface-container-high hover:text-on-surface transition-colors duration-150" href="#">
+<span class="material-symbols-outlined text-[#707975]">edit_note</span>
+<span>Practice</span>
+</a>
+</nav>
+</div>
+<!-- Bottom Segment: User Context Pill -->
+<div class="pt-3 border-t border-[#E7E5E0]">
+<div class="flex items-center gap-2.5 px-2 py-1.5 rounded-lg hover:bg-surface-container-low cursor-pointer transition-colors duration-150">
+<span class="material-symbols-outlined text-outline">account_circle</span>
+<div class="flex flex-col min-w-0">
+<span class="font-title-sm text-title-sm truncate text-on-surface leading-tight">Ananya Sharma</span>
+<span class="font-label-sm text-label-sm text-outline truncate">IIT Delhi • CSE</span>
+</div>
+</div>
+</div>
+</aside>
+<!-- ========================================================================= -->
+<!-- 2. SHARED COMPONENT: TopNavBar                                            -->
+<!-- ========================================================================= -->
+<header class="sticky top-0 z-20 w-full ml-60 h-14 bg-surface-container-lowest border-b border-[#E7E5E0] flex items-center justify-between px-gutter-desktop pr-[calc(2.5rem+240px)]">
+<!-- Left: Search Box -->
+<div class="flex items-center gap-3 w-96">
+<div class="relative w-full">
+<span class="material-symbols-outlined absolute left-2.5 top-1/2 -translate-y-1/2 text-outline text-[16px]">search</span>
+<input class="w-full h-8 pl-8 pr-12 bg-[#FAF9F6] border border-[#E7E5E0] rounded-lg font-body-sm text-body-sm placeholder:text-[#6B6860] focus:border-primary-container focus:ring-0 focus:outline-none transition-colors" placeholder="Search roles, companies, eligibility (⌘K)..." type="text"/>
+<kbd class="absolute right-2 top-1/2 -translate-y-1/2 font-label-sm text-[10px] text-outline border border-[#E7E5E0] bg-white px-1.5 py-0.5 rounded leading-none">⌘K</kbd>
+</div>
+</div>
+<!-- Right: Active Ledger Context, Secondary & Primary Actions -->
+<div class="flex items-center gap-3">
+<!-- Navigation Context Link Chips -->
+<div class="hidden lg:flex items-center gap-2 border-r border-[#E7E5E0] pr-3 mr-1">
+<span class="font-title-sm text-title-sm text-primary border-b border-primary pb-0.5">Season 2024–25</span>
+<span class="text-outline text-xs">•</span>
+<span class="font-body-md text-body-md text-on-surface-variant hover:text-on-surface cursor-pointer">Phase 1 Drives</span>
+</div>
+<!-- Icon Actions -->
+<button class="w-8 h-8 flex items-center justify-center rounded-lg text-outline hover:text-on-surface hover:bg-[#FAF9F6] transition-colors" title="Notifications">
+<span class="material-symbols-outlined">notifications_none</span>
+</button>
+<button class="w-8 h-8 flex items-center justify-center rounded-lg text-outline hover:text-on-surface hover:bg-[#FAF9F6] transition-colors" title="Filter View">
+<span class="material-symbols-outlined">tune</span>
+</button>
+<!-- Trailing Action: Export Ledger -->
+<button class="h-8 px-3 rounded-lg border border-[#E7E5E0] bg-white hover:bg-[#FAF9F6] hover:border-[#D6D3CC] font-body-sm text-body-sm text-on-surface flex items-center gap-1.5 transition-colors duration-150">
+<span class="material-symbols-outlined text-[15px] text-outline">file_download</span>
+<span>Export Ledger</span>
+</button>
+</div>
+</header>
+<!-- ========================================================================= -->
+<!-- 3. MAIN WORKBENCH LAYOUT                                                  -->
+<!-- ========================================================================= -->
+<main class="ml-60 flex-1 flex flex-col bg-[#FAF9F6]">
+<!-- Top Page Header Zone -->
+<div class="px-space-xl pt-6 pb-4 border-b border-[#E7E5E0] bg-white">
+<div class="flex flex-col md:flex-row md:items-end justify-between gap-4">
+<div>
+<div class="flex items-center gap-2">
+<h1 class="font-headline-md text-headline-md text-on-surface font-normal">Jobs Directory</h1>
+<span class="font-label-sm text-label-sm bg-[#1E5B4A]/10 text-[#1E5B4A] border border-[#1E5B4A]/20 px-2 py-0.5 rounded font-tabular">Phase 1 Active</span>
+</div>
+<p class="font-body-md text-body-md text-outline mt-1">28 verified campus &amp; off-campus opportunities • Placement Drive 2024–25</p>
+</div>
+<!-- Filter Controls Row -->
+<div class="flex items-center gap-2 flex-wrap">
+<div class="flex items-center bg-[#FAF9F6] border border-[#E7E5E0] rounded-lg px-2 h-8 text-on-surface-variant text-body-sm">
+<span class="material-symbols-outlined text-[15px] mr-1.5 text-outline">swap_vert</span>
+<span class="text-outline mr-1">Sort by:</span>
+<select class="bg-transparent border-0 p-0 text-on-surface font-title-sm text-title-sm text-xs focus:ring-0 cursor-pointer">
+<option>Deadline (Soonest)</option>
+<option>Fit Score (Highest)</option>
+<option>Stipend / CTC (Descending)</option>
+<option>Company Name (A-Z)</option>
+</select>
+</div>
+<button class="h-8 px-2.5 rounded-lg border border-[#E7E5E0] bg-white hover:bg-[#FAF9F6] text-outline hover:text-on-surface font-body-sm text-body-sm flex items-center gap-1 transition-colors">
+<span class="material-symbols-outlined text-[14px]">refresh</span>
+<span>Reset filters</span>
+</button>
+</div>
+</div>
+</div>
+<!-- 3-PANE SPLIT: Left Filter Rail + Center Ledger Table + Right Persistent Inspect Drawer -->
+<div class="flex-1 flex overflow-hidden">
+<!-- --------------------------------------------------------------------- -->
+<!-- PANE A: Compact Left Filter Rail (210px)                              -->
+<!-- --------------------------------------------------------------------- -->
+<aside class="w-52 shrink-0 border-r border-[#E7E5E0] bg-[#FAF9F6] p-4 flex flex-col gap-5 overflow-y-auto">
+<!-- Quick Saved Toggle -->
+<div class="flex items-center justify-between pb-3 border-b border-[#E7E5E0]">
+<span class="font-title-sm text-title-sm text-on-surface text-xs">Saved roles only</span>
+<input class="w-4 h-4 rounded text-primary-container focus:ring-0 border-[#D6D3CC] cursor-pointer" type="checkbox"/>
+</div>
+<!-- Filter Group: Role Type -->
+<div>
+<h3 class="font-label-sm text-label-sm text-outline uppercase tracking-wider mb-2 font-medium">Role Type</h3>
+<div class="flex flex-col gap-1.5">
+<label class="flex items-center justify-between text-body-sm text-on-surface hover:text-primary cursor-pointer select-none">
+<span class="flex items-center gap-2">
+<input checked="" class="w-3.5 h-3.5 rounded text-primary-container focus:ring-0 border-[#D6D3CC]" type="checkbox"/>
+<span>Software Engineer</span>
+</span>
+<span class="font-label-sm text-label-sm text-outline font-tabular">14</span>
+</label>
+<label class="flex items-center justify-between text-body-sm text-on-surface hover:text-primary cursor-pointer select-none">
+<span class="flex items-center gap-2">
+<input class="w-3.5 h-3.5 rounded text-primary-container focus:ring-0 border-[#D6D3CC]" type="checkbox"/>
+<span>Data &amp; Analytics</span>
+</span>
+<span class="font-label-sm text-label-sm text-outline font-tabular">8</span>
+</label>
+<label class="flex items-center justify-between text-body-sm text-on-surface hover:text-primary cursor-pointer select-none">
+<span class="flex items-center gap-2">
+<input class="w-3.5 h-3.5 rounded text-primary-container focus:ring-0 border-[#D6D3CC]" type="checkbox"/>
+<span>Product Analyst</span>
+</span>
+<span class="font-label-sm text-label-sm text-outline font-tabular">4</span>
+</label>
+<label class="flex items-center justify-between text-body-sm text-on-surface hover:text-primary cursor-pointer select-none">
+<span class="flex items-center gap-2">
+<input class="w-3.5 h-3.5 rounded text-primary-container focus:ring-0 border-[#D6D3CC]" type="checkbox"/>
+<span>Systems &amp; DevOps</span>
+</span>
+<span class="font-label-sm text-label-sm text-outline font-tabular">2</span>
+</label>
+</div>
+</div>
+<!-- Filter Group: Location -->
+<div class="pt-3 border-t border-[#E7E5E0]">
+<h3 class="font-label-sm text-label-sm text-outline uppercase tracking-wider mb-2 font-medium">Location</h3>
+<div class="flex flex-col gap-1.5">
+<label class="flex items-center justify-between text-body-sm text-on-surface hover:text-primary cursor-pointer select-none">
+<span class="flex items-center gap-2">
+<input checked="" class="w-3.5 h-3.5 rounded text-primary-container focus:ring-0 border-[#D6D3CC]" type="checkbox"/>
+<span>Bangalore</span>
+</span>
+<span class="font-label-sm text-label-sm text-outline font-tabular">16</span>
+</label>
+<label class="flex items-center justify-between text-body-sm text-on-surface hover:text-primary cursor-pointer select-none">
+<span class="flex items-center gap-2">
+<input class="w-3.5 h-3.5 rounded text-primary-container focus:ring-0 border-[#D6D3CC]" type="checkbox"/>
+<span>Hyderabad</span>
+</span>
+<span class="font-label-sm text-label-sm text-outline font-tabular">7</span>
+</label>
+<label class="flex items-center justify-between text-body-sm text-on-surface hover:text-primary cursor-pointer select-none">
+<span class="flex items-center gap-2">
+<input class="w-3.5 h-3.5 rounded text-primary-container focus:ring-0 border-[#D6D3CC]" type="checkbox"/>
+<span>Gurgaon / NCR</span>
+</span>
+<span class="font-label-sm text-label-sm text-outline font-tabular">5</span>
+</label>
+<label class="flex items-center justify-between text-body-sm text-on-surface hover:text-primary cursor-pointer select-none">
+<span class="flex items-center gap-2">
+<input class="w-3.5 h-3.5 rounded text-primary-container focus:ring-0 border-[#D6D3CC]" type="checkbox"/>
+<span>Remote</span>
+</span>
+<span class="font-label-sm text-label-sm text-outline font-tabular">3</span>
+</label>
+</div>
+</div>
+<!-- Filter Group: Eligibility -->
+<div class="pt-3 border-t border-[#E7E5E0]">
+<h3 class="font-label-sm text-label-sm text-outline uppercase tracking-wider mb-2 font-medium">Eligibility</h3>
+<div class="flex flex-col gap-1.5">
+<label class="flex items-center gap-2 text-body-sm text-on-surface hover:text-primary cursor-pointer select-none">
+<input checked="" class="w-3.5 h-3.5 rounded text-primary-container focus:ring-0 border-[#D6D3CC]" type="checkbox"/>
+<span>2025 Batch (All)</span>
+</label>
+<label class="flex items-center justify-between text-body-sm text-on-surface hover:text-primary cursor-pointer select-none">
+<span class="flex items-center gap-2">
+<input checked="" class="w-3.5 h-3.5 rounded text-primary-container focus:ring-0 border-[#D6D3CC]" type="checkbox"/>
+<span>CGPA ≥ 7.5</span>
+</span>
+<span class="font-label-sm text-label-sm text-outline font-tabular">22</span>
+</label>
+<label class="flex items-center gap-2 text-body-sm text-on-surface hover:text-primary cursor-pointer select-none">
+<input checked="" class="w-3.5 h-3.5 rounded text-primary-container focus:ring-0 border-[#D6D3CC]" type="checkbox"/>
+<span>No active backlogs</span>
+</label>
+</div>
+</div>
+<!-- Filter Group: Closes -->
+<div class="pt-3 border-t border-[#E7E5E0]">
+<h3 class="font-label-sm text-label-sm text-outline uppercase tracking-wider mb-2 font-medium">Closing Window</h3>
+<div class="flex flex-col gap-1.5">
+<label class="flex items-center justify-between text-body-sm text-on-surface hover:text-primary cursor-pointer select-none">
+<span class="flex items-center gap-2">
+<input class="w-3.5 h-3.5 rounded text-primary-container focus:ring-0 border-[#D6D3CC]" type="checkbox"/>
+<span>Closing in 48h</span>
+</span>
+<span class="font-label-sm text-label-sm text-[#B7791F] font-tabular">3</span>
+</label>
+<label class="flex items-center justify-between text-body-sm text-on-surface hover:text-primary cursor-pointer select-none">
+<span class="flex items-center gap-2">
+<input class="w-3.5 h-3.5 rounded text-primary-container focus:ring-0 border-[#D6D3CC]" type="checkbox"/>
+<span>This week</span>
+</span>
+<span class="font-label-sm text-label-sm text-outline font-tabular">9</span>
+</label>
+<label class="flex items-center justify-between text-body-sm text-on-surface hover:text-primary cursor-pointer select-none">
+<span class="flex items-center gap-2">
+<input class="w-3.5 h-3.5 rounded text-primary-container focus:ring-0 border-[#D6D3CC]" type="checkbox"/>
+<span>Later this month</span>
+</span>
+<span class="font-label-sm text-label-sm text-outline font-tabular">16</span>
+</label>
+</div>
+</div>
+</aside>
+<!-- --------------------------------------------------------------------- -->
+<!-- PANE B: Main Ledger Table (Dense, Hairline Rules, Tabular Numerals)   -->
+<!-- --------------------------------------------------------------------- -->
+<section class="flex-1 bg-white overflow-y-auto flex flex-col">
+<div class="w-full">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="h-8 bg-[#FAF9F6] border-b border-[#E7E5E0] text-outline font-label-sm text-label-sm uppercase tracking-wider select-none sticky top-0 z-10">
+<th class="py-1 px-4 font-medium w-8 text-center">
+<input class="w-3.5 h-3.5 rounded text-primary-container focus:ring-0 border-[#D6D3CC]" type="checkbox"/>
+</th>
+<th class="py-1 px-4 font-medium">Role &amp; Level</th>
+<th class="py-1 px-4 font-medium">Company</th>
+<th class="py-1 px-4 font-medium">Location</th>
+<th class="py-1 px-4 font-medium text-right">Compensation</th>
+<th class="py-1 px-4 font-medium">Closes / Deadline</th>
+<th class="py-1 px-3 font-medium text-center">Fit</th>
+<th class="py-1 px-4 font-medium text-right">Action</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-[#E7E5E0] font-body-md text-body-md text-on-surface">
+<!-- ROW 1: ACTIVE / SELECTED (Razorpay) -->
+<tr class="h-12 bg-surface-container-low/60 hover:bg-surface-container-low transition-colors duration-75 cursor-pointer border-l-2 border-l-primary-container">
+<td class="py-1 px-4 text-center">
+<input checked="" class="w-3.5 h-3.5 rounded text-primary-container focus:ring-0 border-[#D6D3CC]" type="checkbox"/>
+</td>
+<td class="py-1 px-4 font-title-sm text-title-sm text-on-surface">
+<div class="flex items-center gap-1.5">
+<span>Software Development Engineer (Frontend / Fullstack)</span>
+<span class="font-label-sm text-label-sm text-[#1E5B4A] bg-[#1E5B4A]/10 px-1 rounded text-[10px]">Active View</span>
+</div>
+</td>
+<td class="py-1 px-4">
+<div class="flex items-center gap-1.5">
+<span class="w-4 h-4 rounded bg-[#0C2340] text-[10px] text-white flex items-center justify-center font-bold">R</span>
+<span class="font-medium">Razorpay</span>
+</div>
+</td>
+<td class="py-1 px-4 text-outline font-normal">Bangalore</td>
+<td class="py-1 px-4 text-right font-tabular text-on-surface font-medium">₹1.2L/mo intern</td>
+<td class="py-1 px-4 font-tabular">
+<span class="inline-flex items-center gap-1 bg-[#B7791F]/10 text-[#B7791F] border border-[#B7791F]/20 px-1.5 py-0.5 rounded text-[11px] font-medium">
+<span class="w-1.5 h-1.5 rounded-full bg-[#B7791F]"></span>
+                    Tomorrow, 6:00 PM (18h)
+                  </span>
+</td>
+<td class="py-1 px-3 text-center">
+<span class="inline-block bg-[#1E5B4A]/10 text-[#1E5B4A] border border-[#1E5B4A]/20 px-2 py-0.5 rounded text-[11px] font-medium font-tabular">
+                    Strong
+                  </span>
+</td>
+<td class="py-1 px-4 text-right">
+<button class="h-7 px-2.5 bg-primary-container text-white text-xs font-title-sm rounded hover:bg-[#164639] transition-colors">
+                    Inspect
+                  </button>
+</td>
+</tr>
+<!-- ROW 2: Swiggy -->
+<tr class="h-12 hover:bg-[#FAF9F6] transition-colors duration-75 cursor-pointer">
+<td class="py-1 px-4 text-center">
+<input class="w-3.5 h-3.5 rounded text-primary-container focus:ring-0 border-[#D6D3CC]" type="checkbox"/>
+</td>
+<td class="py-1 px-4 font-title-sm text-title-sm text-on-surface">Data Analyst Intern</td>
+<td class="py-1 px-4">
+<div class="flex items-center gap-1.5">
+<span class="w-4 h-4 rounded bg-[#FC8019] text-[10px] text-white flex items-center justify-center font-bold">S</span>
+<span>Swiggy</span>
+</div>
+</td>
+<td class="py-1 px-4 text-outline">Bangalore</td>
+<td class="py-1 px-4 text-right font-tabular text-on-surface">₹80k/mo</td>
+<td class="py-1 px-4 font-tabular text-outline">14 Nov, 11:59 PM</td>
+<td class="py-1 px-3 text-center">
+<span class="inline-block bg-[#1E5B4A]/10 text-[#1E5B4A] border border-[#1E5B4A]/20 px-2 py-0.5 rounded text-[11px] font-medium font-tabular">
+                    Strong
+                  </span>
+</td>
+<td class="py-1 px-4 text-right">
+<button class="h-7 px-2.5 border border-[#E7E5E0] bg-white hover:bg-[#FAF9F6] text-on-surface text-xs font-medium rounded transition-colors">
+                    View
+                  </button>
+</td>
+</tr>
+<!-- ROW 3: Cred -->
+<tr class="h-12 hover:bg-[#FAF9F6] transition-colors duration-75 cursor-pointer">
+<td class="py-1 px-4 text-center">
+<input class="w-3.5 h-3.5 rounded text-primary-container focus:ring-0 border-[#D6D3CC]" type="checkbox"/>
+</td>
+<td class="py-1 px-4 font-title-sm text-title-sm text-on-surface">Associate Product Manager (APM)</td>
+<td class="py-1 px-4">
+<div class="flex items-center gap-1.5">
+<span class="w-4 h-4 rounded bg-[#000000] text-[10px] text-white flex items-center justify-center font-bold">C</span>
+<span>Cred</span>
+</div>
+</td>
+<td class="py-1 px-4 text-outline">Bangalore</td>
+<td class="py-1 px-4 text-right font-tabular text-on-surface">₹24 LPA</td>
+<td class="py-1 px-4 font-tabular text-outline">15 Nov, 6:00 PM</td>
+<td class="py-1 px-3 text-center">
+<span class="inline-block bg-[#FAF9F6] text-outline border border-[#E7E5E0] px-2 py-0.5 rounded text-[11px] font-medium font-tabular">
+                    Medium
+                  </span>
+</td>
+<td class="py-1 px-4 text-right">
+<button class="h-7 px-2.5 border border-[#E7E5E0] bg-white hover:bg-[#FAF9F6] text-on-surface text-xs font-medium rounded transition-colors">
+                    View
+                  </button>
+</td>
+</tr>
+<!-- ROW 4: Postman -->
+<tr class="h-12 hover:bg-[#FAF9F6] transition-colors duration-75 cursor-pointer">
+<td class="py-1 px-4 text-center">
+<input class="w-3.5 h-3.5 rounded text-primary-container focus:ring-0 border-[#D6D3CC]" type="checkbox"/>
+</td>
+<td class="py-1 px-4 font-title-sm text-title-sm text-on-surface">Member of Technical Staff 1 (Backend)</td>
+<td class="py-1 px-4">
+<div class="flex items-center gap-1.5">
+<span class="w-4 h-4 rounded bg-[#FF6C37] text-[10px] text-white flex items-center justify-center font-bold">P</span>
+<span>Postman</span>
+</div>
+</td>
+<td class="py-1 px-4 text-outline">Bangalore</td>
+<td class="py-1 px-4 text-right font-tabular text-on-surface font-medium">₹28 LPA</td>
+<td class="py-1 px-4 font-tabular text-outline">18 Nov, 12:00 PM</td>
+<td class="py-1 px-3 text-center">
+<span class="inline-block bg-[#1E5B4A]/10 text-[#1E5B4A] border border-[#1E5B4A]/20 px-2 py-0.5 rounded text-[11px] font-medium font-tabular">
+                    Strong
+                  </span>
+</td>
+<td class="py-1 px-4 text-right">
+<button class="h-7 px-2.5 border border-[#E7E5E0] bg-white hover:bg-[#FAF9F6] text-on-surface text-xs font-medium rounded transition-colors">
+                    View
+                  </button>
+</td>
+</tr>
+<!-- ROW 5: Flipkart -->
+<tr class="h-12 hover:bg-[#FAF9F6] transition-colors duration-75 cursor-pointer">
+<td class="py-1 px-4 text-center">
+<input class="w-3.5 h-3.5 rounded text-primary-container focus:ring-0 border-[#D6D3CC]" type="checkbox"/>
+</td>
+<td class="py-1 px-4 font-title-sm text-title-sm text-on-surface">Graduate Engineer Trainee - Distributed Systems</td>
+<td class="py-1 px-4">
+<div class="flex items-center gap-1.5">
+<span class="w-4 h-4 rounded bg-[#2874F0] text-[10px] text-white flex items-center justify-center font-bold">F</span>
+<span>Flipkart</span>
+</div>
+</td>
+<td class="py-1 px-4 text-outline">Bangalore</td>
+<td class="py-1 px-4 text-right font-tabular text-on-surface font-medium">₹26 LPA</td>
+<td class="py-1 px-4 font-tabular text-outline">20 Nov, 5:00 PM</td>
+<td class="py-1 px-3 text-center">
+<span class="inline-block bg-[#1E5B4A]/10 text-[#1E5B4A] border border-[#1E5B4A]/20 px-2 py-0.5 rounded text-[11px] font-medium font-tabular">
+                    Strong
+                  </span>
+</td>
+<td class="py-1 px-4 text-right">
+<button class="h-7 px-2.5 border border-[#E7E5E0] bg-white hover:bg-[#FAF9F6] text-on-surface text-xs font-medium rounded transition-colors">
+                    View
+                  </button>
+</td>
+</tr>
+<!-- ROW 6: Graviton -->
+<tr class="h-12 hover:bg-[#FAF9F6] transition-colors duration-75 cursor-pointer">
+<td class="py-1 px-4 text-center">
+<input class="w-3.5 h-3.5 rounded text-primary-container focus:ring-0 border-[#D6D3CC]" type="checkbox"/>
+</td>
+<td class="py-1 px-4 font-title-sm text-title-sm text-on-surface">Quantitative Developer Intern</td>
+<td class="py-1 px-4">
+<div class="flex items-center gap-1.5">
+<span class="w-4 h-4 rounded bg-[#111827] text-[10px] text-white flex items-center justify-center font-bold">G</span>
+<span>Graviton Research</span>
+</div>
+</td>
+<td class="py-1 px-4 text-outline">Gurgaon</td>
+<td class="py-1 px-4 text-right font-tabular text-on-surface font-medium">₹2.5L/mo</td>
+<td class="py-1 px-4 font-tabular text-outline">22 Nov, 11:59 PM</td>
+<td class="py-1 px-3 text-center">
+<span class="inline-block bg-[#FAF9F6] text-outline border border-[#E7E5E0] px-2 py-0.5 rounded text-[11px] font-medium font-tabular">
+                    Medium
+                  </span>
+</td>
+<td class="py-1 px-4 text-right">
+<button class="h-7 px-2.5 border border-[#E7E5E0] bg-white hover:bg-[#FAF9F6] text-on-surface text-xs font-medium rounded transition-colors">
+                    View
+                  </button>
+</td>
+</tr>
+<!-- ROW 7: Zomato -->
+<tr class="h-12 hover:bg-[#FAF9F6] transition-colors duration-75 cursor-pointer">
+<td class="py-1 px-4 text-center">
+<input class="w-3.5 h-3.5 rounded text-primary-container focus:ring-0 border-[#D6D3CC]" type="checkbox"/>
+</td>
+<td class="py-1 px-4 font-title-sm text-title-sm text-on-surface">DevOps &amp; Cloud Engineer</td>
+<td class="py-1 px-4">
+<div class="flex items-center gap-1.5">
+<span class="w-4 h-4 rounded bg-[#E23744] text-[10px] text-white flex items-center justify-center font-bold">Z</span>
+<span>Zomato</span>
+</div>
+</td>
+<td class="py-1 px-4 text-outline">Gurgaon</td>
+<td class="py-1 px-4 text-right font-tabular text-outline">₹18 LPA</td>
+<td class="py-1 px-4 font-tabular text-outline">25 Nov, 6:00 PM</td>
+<td class="py-1 px-3 text-center">
+<span class="inline-block text-outline border border-[#E7E5E0] px-2 py-0.5 rounded text-[11px] font-medium font-tabular">
+                    Weak
+                  </span>
+</td>
+<td class="py-1 px-4 text-right">
+<button class="h-7 px-2.5 border border-[#E7E5E0] bg-white hover:bg-[#FAF9F6] text-on-surface text-xs font-medium rounded transition-colors">
+                    View
+                  </button>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<!-- Ledger Footer Pagination Bar -->
+<div class="mt-auto border-t border-[#E7E5E0] p-3 px-4 bg-[#FAF9F6] flex items-center justify-between font-label-sm text-label-sm text-outline">
+<div class="flex items-center gap-2">
+<span>Showing <span class="font-tabular text-on-surface font-medium">1–7</span> of <span class="font-tabular text-on-surface font-medium">28</span> active postings</span>
+</div>
+<div class="flex items-center gap-1">
+<button class="w-7 h-7 flex items-center justify-center border border-[#E7E5E0] rounded bg-white text-outline hover:text-on-surface disabled:opacity-40" disabled="">
+<span class="material-symbols-outlined text-[14px]">chevron_left</span>
+</button>
+<span class="px-2 py-0.5 font-tabular text-on-surface">1 / 4</span>
+<button class="w-7 h-7 flex items-center justify-center border border-[#E7E5E0] rounded bg-white text-outline hover:text-on-surface">
+<span class="material-symbols-outlined text-[14px]">chevron_right</span>
+</button>
+</div>
+</div>
+</section>
+<!-- --------------------------------------------------------------------- -->
+<!-- PANE C: Right Detail Inspect Drawer (~370px wide, White surface)      -->
+<!-- --------------------------------------------------------------------- -->
+<aside class="w-[370px] shrink-0 border-l border-[#E7E5E0] bg-white flex flex-col justify-between overflow-y-auto">
+<!-- Content Container -->
+<div class="p-space-lg flex flex-col gap-5">
+<!-- Drawer Header -->
+<div class="flex items-center justify-between pb-3 border-b border-[#E7E5E0]">
+<span class="font-label-sm text-label-sm uppercase tracking-wider text-outline font-medium">Role Details</span>
+<button class="text-outline hover:text-on-surface w-6 h-6 flex items-center justify-center rounded hover:bg-[#FAF9F6] transition-colors" title="Close inspector">
+<span class="material-symbols-outlined text-[18px]">close</span>
+</button>
+</div>
+<!-- Role Identity & Tags -->
+<div>
+<div class="flex items-center gap-2 mb-1.5">
+<span class="w-5 h-5 rounded bg-[#0C2340] text-[11px] text-white flex items-center justify-center font-bold">R</span>
+<span class="font-body-md text-body-md font-medium text-on-surface">Razorpay</span>
+<span class="text-outline text-xs">•</span>
+<span class="font-body-sm text-body-sm text-outline">Bangalore • On-campus Phase 1</span>
+</div>
+<h2 class="font-headline-sm text-headline-sm text-on-surface leading-snug">
+              Software Development Engineer (Frontend / Fullstack)
+            </h2>
+<!-- Pills Row -->
+<div class="flex items-center gap-2 mt-3 flex-wrap">
+<span class="inline-flex items-center gap-1 bg-[#B7791F]/10 text-[#B7791F] border border-[#B7791F]/20 px-2 py-0.5 rounded text-label-sm font-medium font-tabular">
+<span class="w-1.5 h-1.5 rounded-full bg-[#B7791F]"></span>
+                Closes in 18h • 13 Nov, 6:00 PM IST
+              </span>
+<span class="bg-[#FAF9F6] border border-[#E7E5E0] text-on-surface-variant px-2 py-0.5 rounded text-label-sm font-medium">
+                CGPA 7.5+ • B.Tech CSE / IT / EE
+              </span>
+</div>
+</div>
+<!-- Section: Why it fits -->
+<div class="pt-3 border-t border-[#E7E5E0]">
+<div class="flex items-center justify-between mb-2">
+<h3 class="font-title-sm text-title-sm text-on-surface">Why it fits</h3>
+<span class="font-label-sm text-label-sm text-[#1E5B4A] bg-[#1E5B4A]/10 px-1.5 py-0.5 rounded font-tabular">94% profile match</span>
+</div>
+<ul class="flex flex-col gap-2 font-body-sm text-body-sm text-on-surface-variant">
+<li class="flex items-start gap-2">
+<span class="material-symbols-outlined text-[#1E5B4A] text-[16px] mt-0.5 shrink-0">check_circle</span>
+<span>Matches primary tech stack: <strong class="text-on-surface font-medium">React, TypeScript</strong>, and REST APIs from your semester projects.</span>
+</li>
+<li class="flex items-start gap-2">
+<span class="material-symbols-outlined text-[#1E5B4A] text-[16px] mt-0.5 shrink-0">check_circle</span>
+<span>Past interview records show high aptitude in Data Structures (<span class="font-tabular font-medium text-on-surface">88th percentile</span> in campus mocks).</span>
+</li>
+<li class="flex items-start gap-2">
+<span class="material-symbols-outlined text-[#1E5B4A] text-[16px] mt-0.5 shrink-0">check_circle</span>
+<span>Meets 8.2 CGPA cutoff without prerequisites (Your CGPA: <strong class="text-[#1E5B4A] font-tabular">8.64</strong>).</span>
+</li>
+</ul>
+</div>
+<!-- Section: Skills missing -->
+<div class="pt-3 border-t border-[#E7E5E0]">
+<h3 class="font-title-sm text-title-sm text-on-surface mb-2">Skills you're missing</h3>
+<div class="flex items-center gap-2 flex-wrap">
+<span class="inline-flex items-center gap-1.5 bg-[#FAF9F6] border border-[#E7E5E0] text-on-surface-variant px-2.5 py-1 rounded text-body-sm font-medium">
+<span class="material-symbols-outlined text-[13px] text-outline">info</span>
+<span>Kafka basics</span>
+</span>
+<span class="inline-flex items-center gap-1.5 bg-[#FAF9F6] border border-[#E7E5E0] text-on-surface-variant px-2.5 py-1 rounded text-body-sm font-medium">
+<span class="material-symbols-outlined text-[13px] text-outline">info</span>
+<span>Jest / RTL testing</span>
+</span>
+</div>
+<p class="font-label-sm text-label-sm text-outline mt-1.5">Preparation modules for these 2 areas are ready in Practice section.</p>
+</div>
+<!-- Section: Compensation & Bond -->
+<div class="pt-3 border-t border-[#E7E5E0]">
+<h3 class="font-title-sm text-title-sm text-on-surface mb-1.5">Compensation &amp; Bond</h3>
+<div class="p-2.5 rounded-lg bg-[#FAF9F6] border border-[#E7E5E0] font-body-sm text-body-sm flex flex-col gap-1">
+<div class="flex items-center justify-between">
+<span class="text-outline">Internship Stipend:</span>
+<span class="font-tabular font-medium text-on-surface">₹1,20,000 / month (6 mos)</span>
+</div>
+<div class="flex items-center justify-between">
+<span class="text-outline">PPO Conversion CTC:</span>
+<span class="font-tabular font-medium text-on-surface">₹22.0 – ₹26.0 LPA</span>
+</div>
+<div class="flex items-center justify-between">
+<span class="text-outline">Service Bond:</span>
+<span class="font-medium text-[#1E5B4A]">No bond required</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Pinned Actions at Bottom of Detail Drawer -->
+<div class="p-space-lg border-t border-[#E7E5E0] bg-white flex items-center gap-2 mt-auto">
+<!-- Primary: Prepare Application -->
+<button class="flex-1 h-9 bg-primary-container hover:bg-[#164639] active:bg-[#0E3228] text-white font-title-sm text-title-sm rounded-lg flex items-center justify-center gap-1.5 transition-colors duration-150">
+<span>Prepare application</span>
+<span class="material-symbols-outlined text-[16px]">arrow_forward</span>
+</button>
+<!-- Secondary: Save -->
+<button class="w-9 h-9 border border-[#E7E5E0] bg-white hover:bg-[#FAF9F6] rounded-lg flex items-center justify-center text-outline hover:text-on-surface transition-colors" title="Bookmark role">
+<span class="material-symbols-outlined text-[17px]">bookmark_border</span>
+</button>
+</div>
+</aside>
+</div>
+</main>
+</body></html>

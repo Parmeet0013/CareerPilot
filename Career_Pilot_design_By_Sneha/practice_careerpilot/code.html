@@ -1,0 +1,481 @@
+<!DOCTYPE html>
+
+<html class="h-full bg-surface" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>CareerPilot — Practice: Technical Interview Mock</title>
+<!-- Fonts -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700&amp;family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap" rel="stylesheet"/>
+<!-- Material Symbols Outlined -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          "colors": {
+            "tertiary-fixed-dim": "#ffb4a8",
+            "surface-dim": "#dfd9d0",
+            "error-container": "#ffdad6",
+            "on-secondary-container": "#734700",
+            "inverse-on-surface": "#f6f0e6",
+            "surface-variant": "#e7e2d8",
+            "on-tertiary": "#ffffff",
+            "outline": "#707975",
+            "on-background": "#1d1c16",
+            "secondary-fixed-dim": "#ffb95f",
+            "on-tertiary-fixed-variant": "#930303",
+            "surface-container-high": "#ede8dd",
+            "error": "#ba1a1a",
+            "surface-container-low": "#f9f3e9",
+            "on-primary-fixed-variant": "#0f5040",
+            "on-tertiary-fixed": "#410000",
+            "background": "#fef9ee",
+            "primary-fixed": "#b2efd9",
+            "secondary": "#855300",
+            "secondary-container": "#feb557",
+            "primary": "#004334",
+            "surface-bright": "#fef9ee",
+            "tertiary": "#7b0001",
+            "on-primary-fixed": "#002118",
+            "on-surface": "#1d1c16",
+            "tertiary-container": "#a2140c",
+            "outline-variant": "#bfc9c3",
+            "primary-container": "#1e5b4a",
+            "on-tertiary-container": "#ffb0a4",
+            "on-error-container": "#93000a",
+            "tertiary-fixed": "#ffdad5",
+            "on-secondary-fixed-variant": "#653e00",
+            "inverse-primary": "#96d3bd",
+            "surface-container-highest": "#e7e2d8",
+            "on-primary-container": "#94d1bb",
+            "on-secondary-fixed": "#2a1700",
+            "surface-tint": "#2d6857",
+            "on-surface-variant": "#404945",
+            "on-error": "#ffffff",
+            "secondary-fixed": "#ffddb8",
+            "inverse-surface": "#32302a",
+            "on-secondary": "#ffffff",
+            "surface": "#fef9ee",
+            "on-primary": "#ffffff",
+            "primary-fixed-dim": "#96d3bd",
+            "surface-container-lowest": "#ffffff",
+            "surface-container": "#f3ede3"
+          },
+          "borderRadius": {
+            "DEFAULT": "0.25rem",
+            "lg": "0.5rem",
+            "xl": "0.75rem",
+            "full": "9999px"
+          },
+          "spacing": {
+            "gutter-desktop": "1.5rem",
+            "margin-desktop": "2.5rem",
+            "margin-tablet": "1.5rem",
+            "space-md": "0.75rem",
+            "margin": "1rem",
+            "space-lg": "1.25rem",
+            "space-xs": "0.25rem",
+            "space-sm": "0.5rem",
+            "gutter": "1rem",
+            "space-xl": "2rem"
+          },
+          "fontFamily": {
+            "label-sm": ["Geist"],
+            "headline-lg-mobile": ["Newsreader"],
+            "label-md": ["Geist"],
+            "title-md": ["Geist"],
+            "headline-md-mobile": ["Newsreader"],
+            "body-lg": ["Geist"],
+            "body-md": ["Geist"],
+            "headline-md": ["Newsreader"],
+            "headline-lg": ["Newsreader"],
+            "tabular-mono": ["Geist"],
+            "title-sm": ["Geist"],
+            "headline-sm": ["Newsreader"],
+            "body-sm": ["Geist"],
+            "code": ["JetBrains Mono", "monospace"]
+          },
+          "fontSize": {
+            "label-sm": ["11px", { "lineHeight": "14px", "letterSpacing": "0.03em", "fontWeight": "500" }],
+            "headline-lg-mobile": ["28px", { "lineHeight": "36px", "fontWeight": "400" }],
+            "label-md": ["12px", { "lineHeight": "16px", "letterSpacing": "0.02em", "fontWeight": "500" }],
+            "title-md": ["16px", { "lineHeight": "22px", "fontWeight": "600" }],
+            "headline-md-mobile": ["22px", { "lineHeight": "28px", "fontWeight": "400" }],
+            "body-lg": ["15px", { "lineHeight": "22px", "fontWeight": "400" }],
+            "body-md": ["13px", { "lineHeight": "18px", "fontWeight": "400" }],
+            "headline-md": ["28px", { "lineHeight": "36px", "fontWeight": "400" }],
+            "headline-lg": ["36px", { "lineHeight": "44px", "fontWeight": "400" }],
+            "tabular-mono": ["13px", { "lineHeight": "18px", "fontWeight": "400" }],
+            "title-sm": ["14px", { "lineHeight": "20px", "fontWeight": "600" }],
+            "headline-sm": ["20px", { "lineHeight": "28px", "fontWeight": "500" }],
+            "body-sm": ["12px", { "lineHeight": "16px", "fontWeight": "400" }]
+          }
+        }
+      }
+    }
+  </script>
+<style>
+    .material-symbols-outlined {
+      font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 20;
+      font-size: 18px;
+      line-height: 1;
+      display: inline-block;
+      vertical-align: middle;
+    }
+    textarea:focus {
+      outline: none;
+    }
+    ::selection {
+      background-color: #b2efd9;
+      color: #004334;
+    }
+  </style>
+</head>
+<body class="h-full bg-surface text-on-surface antialiased font-body-md text-body-md flex overflow-hidden">
+<!-- LEFT SIDEBAR (Standard CareerPilot SideNavBar Anchor) -->
+<aside class="fixed top-0 left-0 h-screen w-60 z-30 bg-surface-container-lowest border-r border-outline-variant flex flex-col justify-between p-space-md select-none">
+<!-- Brand & Top Hierarchy -->
+<div class="flex flex-col gap-6">
+<div class="px-2 pt-1">
+<div class="flex items-center gap-2">
+<div class="w-6 h-6 rounded bg-primary-container text-on-primary flex items-center justify-center font-title-sm text-title-sm font-bold">
+            C
+          </div>
+<span class="font-headline-sm text-headline-sm font-normal text-on-surface tracking-tight">CareerPilot</span>
+</div>
+<p class="font-label-sm text-label-sm text-on-surface-variant mt-1 tracking-wider uppercase font-medium">Recruitment Ledger</p>
+</div>
+<!-- Quick Action CTA -->
+<div class="px-1">
+<button class="w-full flex items-center justify-center gap-2 px-3 py-2 rounded-lg bg-surface-container-lowest border border-outline-variant text-on-surface font-title-sm text-title-sm hover:bg-surface-container-low hover:text-on-surface transition-colors duration-150" type="button">
+<span class="material-symbols-outlined" data-icon="add">add</span>
+<span>Log Application</span>
+</button>
+</div>
+<!-- Primary Navigation Cluster -->
+<nav class="flex flex-col gap-1 px-1">
+<!-- Today Tab -->
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-on-surface-variant font-body-md text-body-md hover:bg-surface-container-high hover:text-on-surface transition-colors duration-150" href="#">
+<span class="material-symbols-outlined text-outline" data-icon="calendar_today">calendar_today</span>
+<span>Today</span>
+</a>
+<!-- Jobs Tab -->
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-on-surface-variant font-body-md text-body-md hover:bg-surface-container-high hover:text-on-surface transition-colors duration-150" href="#">
+<span class="material-symbols-outlined text-outline" data-icon="work_outline">work_outline</span>
+<span>Jobs</span>
+</a>
+<!-- Applications Tab -->
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-on-surface-variant font-body-md text-body-md hover:bg-surface-container-high hover:text-on-surface transition-colors duration-150" href="#">
+<span class="material-symbols-outlined text-outline" data-icon="fact_check">fact_check</span>
+<span>Applications</span>
+</a>
+<!-- Practice Tab (ACTIVE STATE) -->
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg bg-surface-container-low text-primary font-title-sm text-title-sm border border-outline-variant/50" href="#">
+<span class="material-symbols-outlined text-primary font-semibold" data-icon="edit_note" style="font-variation-settings: 'FILL' 1;">edit_note</span>
+<span class="font-medium">Practice</span>
+<span class="ml-auto w-1.5 h-1.5 rounded-full bg-primary-container"></span>
+</a>
+</nav>
+</div>
+<!-- Sidebar Bottom Profile Section -->
+<div class="pt-4 border-t border-outline-variant/60 flex flex-col gap-2">
+<div class="px-2 py-1.5 rounded-lg flex items-center justify-between hover:bg-surface-container-low transition-colors duration-150 cursor-pointer">
+<div class="flex items-center gap-2.5 overflow-hidden">
+<div class="w-8 h-8 rounded-lg bg-surface-container flex items-center justify-center border border-outline-variant text-primary font-title-sm">
+            AS
+          </div>
+<div class="flex flex-col truncate">
+<span class="font-title-sm text-title-sm text-on-surface truncate leading-tight">Ananya Sharma</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant truncate">B.Tech CSE '25 · IIT Delhi</span>
+</div>
+</div>
+<span class="material-symbols-outlined text-on-surface-variant" data-icon="unfold_more">unfold_more</span>
+</div>
+<div class="px-2 flex items-center justify-between text-outline text-label-sm">
+<span class="font-label-sm">IITD Day 1 Countdown</span>
+<span class="font-tabular-mono font-medium text-on-surface">18d 04h</span>
+</div>
+</div>
+</aside>
+<!-- MAIN VIEWPORT WRAPPER (Shifted by 240px sidebar) -->
+<div class="ml-60 flex-1 flex flex-col h-screen overflow-hidden bg-surface">
+<!-- TOP NAVIGATION BAR / UTILITY HEADER -->
+<header class="h-14 border-b border-outline-variant bg-surface-container-lowest px-gutter-desktop flex items-center justify-between shrink-0 select-none z-20">
+<!-- Left: Breadcrumb / Topic indicator -->
+<div class="flex items-center gap-3">
+<span class="inline-flex items-center gap-1.5 px-2 py-0.5 rounded bg-surface-container border border-outline-variant/70 text-on-surface-variant font-label-sm">
+<span class="w-1.5 h-1.5 rounded-full bg-primary-container"></span>
+<span>Live Session #4</span>
+</span>
+<div class="flex items-center gap-1.5 text-on-surface-variant font-body-sm">
+<span class="text-on-surface font-medium">Backend &amp; Database Systems</span>
+<span>·</span>
+<span>Razorpay SDE prep</span>
+</div>
+</div>
+<!-- Right Actions: Timer, Audio status, End Session -->
+<div class="flex items-center gap-4">
+<!-- Session duration timer with tabular font -->
+<div class="flex items-center gap-1.5 px-2.5 py-1 rounded bg-surface-container border border-outline-variant/60 font-tabular-mono text-label-md text-on-surface">
+<span class="material-symbols-outlined text-on-surface-variant" data-icon="timer">timer</span>
+<span>14:20 elapsed</span>
+</div>
+<!-- Audio controls -->
+<button class="h-8 w-8 rounded-lg border border-outline-variant/80 flex items-center justify-center text-on-surface-variant hover:text-on-surface hover:bg-surface-container transition-colors duration-150" title="Audio Settings" type="button">
+<span class="material-symbols-outlined" data-icon="volume_up">volume_up</span>
+</button>
+<!-- Divider rule -->
+<div class="h-4 w-px bg-outline-variant"></div>
+<!-- End Session Quiet Button -->
+<button class="px-3 py-1.5 rounded-lg border border-outline-variant text-on-surface-variant hover:text-error hover:border-error/40 hover:bg-error-container/20 font-label-md transition-colors duration-150" type="button">
+          End Session
+        </button>
+</div>
+</header>
+<!-- WORKSPACE CANVAS: Split Screen (65% / 35%) -->
+<main class="flex-1 flex overflow-hidden">
+<!-- LEFT COLUMN: Practice Interview View (~63% width) -->
+<div class="flex-1 border-r border-outline-variant overflow-y-auto px-margin-desktop py-space-xl flex flex-col gap-6">
+<!-- Screen Title & Phase Header -->
+<div class="flex flex-col gap-1 pb-1 border-b border-outline-variant/60">
+<div class="flex items-center justify-between">
+<h1 class="font-headline-md text-headline-md text-on-surface font-normal tracking-tight">Practice: Technical Interview Mock</h1>
+<span class="font-label-sm text-label-sm px-2 py-0.5 rounded border border-outline-variant text-on-surface-variant">
+              Round 2 / 3 Modules
+            </span>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant">Simulating synchronous engineering interview loops under strict placement evaluation guidelines.</p>
+</div>
+<!-- Collapsed Previous Question Quiet Row -->
+<div class="px-3.5 py-2.5 bg-surface-container-lowest border border-outline-variant rounded-lg flex items-center justify-between text-on-surface-variant">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary" data-icon="check_circle" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+<span class="font-title-sm text-title-sm text-on-surface font-normal">Question 1: Idempotency keys in payment webhooks</span>
+</div>
+<div class="flex items-center gap-2">
+<span class="font-label-sm px-2 py-0.5 rounded bg-primary-container/10 border border-primary-container/30 text-primary-container font-medium">Completed (Evaluated)</span>
+<span class="material-symbols-outlined text-outline cursor-pointer" data-icon="expand_more">expand_more</span>
+</div>
+</div>
+<!-- CURRENT INTERVIEW SEQUENCE CONTAINER -->
+<div class="flex flex-col gap-4">
+<!-- Context metadata chip -->
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-2">
+<span class="px-2 py-0.5 rounded bg-surface-container-high font-label-sm text-on-surface font-semibold tracking-wide">QUESTION 2 OF 4</span>
+<span class="text-on-surface-variant text-body-sm">· Database Systems &amp; Query Optimization</span>
+</div>
+<span class="font-label-sm px-2 py-0.5 rounded bg-surface-container border border-outline-variant text-on-surface-variant font-mono">
+              SQL / PostgreSQL
+            </span>
+</div>
+<!-- Interviewer Prompt Box (Editorial reference sheet style) -->
+<div class="bg-surface-container-lowest border border-outline-variant rounded-lg p-space-lg flex flex-col gap-3">
+<div class="flex items-center gap-2 pb-2 border-b border-outline-variant/50">
+<span class="w-2 h-2 rounded-full bg-primary-container"></span>
+<span class="font-title-sm text-title-sm text-on-surface font-semibold">Interviewer Prompt</span>
+<span class="text-on-surface-variant text-label-sm ml-auto">Simulated SDE-1 Engineering Lead</span>
+</div>
+<blockquote class="font-headline-sm text-headline-sm text-on-surface font-normal italic leading-relaxed">
+              “In our checkout flow, we query the transactions table by <code class="not-italic font-code text-body-md bg-surface-container px-1 py-0.5 rounded border border-outline-variant/60 font-medium">merchant_id</code> and <code class="not-italic font-code text-body-md bg-surface-container px-1 py-0.5 rounded border border-outline-variant/60 font-medium">created_at</code> ordered descending. Under peak Diwali sale volume, this query’s p99 latency spikes from 8ms to 420ms. How would you diagnose the index usage, and what composite index structure would you propose to eliminate disk sort?”
+            </blockquote>
+<div class="flex items-center gap-3 pt-1 text-on-surface-variant text-label-sm">
+<span class="flex items-center gap-1">
+<span class="material-symbols-outlined text-outline" data-icon="schema">schema</span>
+                Table cardinality: ~45M rows
+              </span>
+<span>·</span>
+<span class="flex items-center gap-1">
+<span class="material-symbols-outlined text-outline" data-icon="speed">speed</span>
+                SLA target: ≤ 15ms p99
+              </span>
+</div>
+</div>
+<!-- Student Response Interface -->
+<div class="bg-surface-container-lowest border border-outline-variant rounded-lg flex flex-col overflow-hidden">
+<!-- Response Mode Toggle Bar -->
+<div class="h-10 px-3 bg-surface-container-low border-b border-outline-variant flex items-center justify-between select-none">
+<div class="flex items-center gap-1">
+<!-- Text Mode Tab (Active) -->
+<button class="px-3 py-1 rounded bg-surface-container-lowest border border-outline-variant/80 text-on-surface font-title-sm text-title-sm flex items-center gap-1.5" type="button">
+<span class="material-symbols-outlined text-primary" data-icon="terminal">terminal</span>
+<span>Text &amp; Code</span>
+</button>
+<!-- Voice Mode Tab -->
+<button class="px-3 py-1 rounded text-on-surface-variant hover:text-on-surface font-body-md text-body-md flex items-center gap-1.5 transition-colors" type="button">
+<span class="material-symbols-outlined text-outline" data-icon="mic_none">mic_none</span>
+<span>Voice Mode</span>
+</button>
+</div>
+<!-- Dictation status pill -->
+<div class="flex items-center gap-1.5 text-label-sm text-on-surface-variant">
+<span class="w-1.5 h-1.5 rounded-full bg-outline-variant"></span>
+<span>Voice input off · Click mic to dictate</span>
+</div>
+</div>
+<!-- Plaintext & Code Friendly Textarea (Pre-filled with Ananya's draft) -->
+<div class="p-space-lg flex flex-col gap-2">
+<label class="sr-only" for="answer-draft">Ananya's Answer Draft</label>
+<textarea class="w-full resize-none border-0 p-0 text-on-surface font-body-md leading-relaxed bg-transparent focus:ring-0 placeholder:text-outline" id="answer-draft" placeholder="Structure your diagnosis step-by-step, including SQL statements and memory execution details..." rows="7">First, run EXPLAIN (ANALYZE, BUFFERS) to verify if Postgres is choosing a Seq Scan or Bitmap Heap Scan due to index bloat or high cardinality. If it's sorting on disk (`Sort Method: external merge Disk`), the existing single-column index on merchant_id forces an in-memory or temp-file sort for created_at DESC.
+
+I would create a composite index:
+CREATE INDEX CONCURRENTLY idx_transactions_merchant_created ON transactions (merchant_id, created_at DESC);
+
+Because merchant_id is evaluated with equality (=), the index allows an index scan directly matching the ordering without an explicit sort node.</textarea>
+</div>
+<!-- Editor Sub-ribbon (Metrics & Syntax Helpers) -->
+<div class="px-space-lg py-2 border-t border-outline-variant/40 bg-surface-container-lowest flex items-center justify-between text-label-sm text-on-surface-variant">
+<div class="flex items-center gap-4">
+<span class="font-tabular-mono">128 words · 864 characters</span>
+<span>·</span>
+<span class="flex items-center gap-1 text-on-surface-variant">
+<span class="material-symbols-outlined text-outline" data-icon="check">check</span>
+                  Draft auto-saved to local buffer
+                </span>
+</div>
+<div class="flex items-center gap-2 font-mono text-label-sm">
+<span class="px-1.5 py-0.5 rounded bg-surface-container border border-outline-variant/70 text-on-surface-variant">markdown + sql</span>
+</div>
+</div>
+<!-- Action Footer -->
+<div class="px-space-lg py-3 bg-surface-container-low border-t border-outline-variant flex items-center justify-between">
+<div class="flex items-center gap-2">
+<button class="px-2.5 py-1.5 rounded-lg border border-outline-variant bg-surface-container-lowest text-on-surface-variant hover:text-on-surface font-body-md text-body-md flex items-center gap-1.5 transition-colors" type="button">
+<span class="material-symbols-outlined" data-icon="mic">mic</span>
+<span>Record voice instead</span>
+</button>
+<button class="px-2.5 py-1.5 rounded-lg text-on-surface-variant hover:text-error font-body-md text-body-md transition-colors" type="button">
+                  Discard draft
+                </button>
+</div>
+<div class="flex items-center gap-3">
+<button class="px-3 py-1.5 rounded-lg border border-outline-variant bg-surface-container-lowest text-on-surface font-body-md text-body-md hover:bg-surface-container transition-colors" type="button">
+                  Run Syntax Check
+                </button>
+<button class="px-4 py-1.5 rounded-lg bg-primary-container text-on-primary font-title-sm text-title-sm flex items-center gap-2 hover:bg-primary transition-colors active:bg-[#0E3228]" type="button">
+<span>Submit Answer</span>
+<span class="material-symbols-outlined text-on-primary" data-icon="arrow_forward">arrow_forward</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Subsequent Queue Preview -->
+<div class="flex items-center justify-between px-3 py-2 border border-dashed border-outline-variant rounded-lg text-on-surface-variant text-label-sm">
+<span class="flex items-center gap-2">
+<span class="material-symbols-outlined text-outline" data-icon="schedule">schedule</span>
+              Next in queue: Question 3: Distributed rate limiter under multi-region replication
+            </span>
+<span class="font-tabular-mono">Estimated time: 10 mins</span>
+</div>
+</div>
+</div>
+<!-- RIGHT COLUMN: Session Feedback & Diagnosis (~37% width) -->
+<div class="w-[410px] xl:w-[440px] shrink-0 overflow-y-auto px-gutter-desktop py-space-xl bg-surface flex flex-col gap-5">
+<!-- Feedback Panel Header Card -->
+<div class="bg-surface-container-lowest border border-outline-variant rounded-lg p-space-lg flex flex-col gap-4">
+<div class="flex flex-col gap-1 pb-3 border-b border-outline-variant/60">
+<div class="flex items-center justify-between">
+<h2 class="font-headline-sm text-headline-sm text-on-surface font-normal">Session Feedback &amp; Diagnosis</h2>
+<span class="w-2 h-2 rounded-full bg-primary-container"></span>
+</div>
+<p class="font-label-sm text-label-sm text-on-surface-variant leading-snug">
+              Evaluated against SDE-1 Placement Benchmark (Razorpay / Swiggy).
+            </p>
+</div>
+<!-- Skill Evaluation Section (Strict Rule: NO meters, NO gauges, NO bars, NO stars) -->
+<div class="flex flex-col gap-4">
+<div class="flex items-center justify-between">
+<span class="font-label-sm uppercase tracking-wider text-on-surface-variant font-semibold">Assessed Competencies</span>
+<span class="font-label-sm text-outline">Q1 &amp; Q2 Analysis</span>
+</div>
+<!-- Skill 1 -->
+<div class="flex flex-col gap-1.5 p-3 rounded-lg bg-surface-container-low border border-outline-variant/50">
+<div class="flex items-center justify-between">
+<span class="font-title-sm text-title-sm text-on-surface font-medium">Database Indexing &amp; Query Plans</span>
+<!-- Restrained tag: Solid -->
+<span class="font-label-sm px-2 py-0.5 rounded border border-primary-container/30 bg-primary-container/10 text-primary-container font-semibold">
+                  Solid
+                </span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant leading-normal">
+                Correctly identified composite ordering and disk-sort bottleneck using EXPLAIN buffers.
+              </p>
+</div>
+<!-- Skill 2 -->
+<div class="flex flex-col gap-1.5 p-3 rounded-lg bg-surface-container-low border border-outline-variant/50">
+<div class="flex items-center justify-between">
+<span class="font-title-sm text-title-sm text-on-surface font-medium">Concurrency &amp; Lock Contention</span>
+<!-- Restrained tag: Adequate -->
+<span class="font-label-sm px-2 py-0.5 rounded border border-secondary/30 bg-secondary/10 text-secondary font-semibold">
+                  Adequate
+                </span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant leading-normal">
+                Addressed pessimistic vs optimistic locking, but omitted row-level <code class="font-code font-medium text-on-surface bg-surface-container px-1 py-0.5 rounded">FOR UPDATE SKIP LOCKED</code> patterns for queue workers.
+              </p>
+</div>
+<!-- Skill 3 -->
+<div class="flex flex-col gap-1.5 p-3 rounded-lg bg-surface-container-low border border-outline-variant/50">
+<div class="flex items-center justify-between">
+<span class="font-title-sm text-title-sm text-on-surface font-medium">API Resilience &amp; Idempotency</span>
+<!-- Restrained tag: Strong -->
+<span class="font-label-sm px-2 py-0.5 rounded border border-primary-container/30 bg-primary-container/10 text-primary-container font-semibold">
+                  Strong
+                </span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant leading-normal">
+                Clear grasp of Redis key TTLs and client-side retry replay safety.
+              </p>
+</div>
+</div>
+<!-- Crucial Required Takeaway Row -->
+<div class="pt-3 border-t border-outline-variant flex flex-col gap-2">
+<div class="flex items-center gap-2">
+<span class="w-1.5 h-1.5 rounded-full bg-primary-container shrink-0"></span>
+<span class="font-title-sm text-title-sm text-on-surface font-medium">
+                Next session will focus on: <span class="text-primary font-semibold">SQL joins</span>
+</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant pl-3.5 leading-snug">
+              Based on 4 weak spots identified across your last 2 campus mocks.
+            </p>
+</div>
+</div>
+<!-- Target Role Alignment Note Card -->
+<div class="bg-surface-container-lowest border border-outline-variant rounded-lg p-space-lg flex flex-col gap-3">
+<div class="flex items-center justify-between">
+<span class="font-label-sm uppercase tracking-wider text-on-surface-variant font-semibold">Drive Targeting Ledger</span>
+<span class="material-symbols-outlined text-outline" data-icon="flag">flag</span>
+</div>
+<div class="flex flex-col gap-1.5">
+<div class="font-title-sm text-title-sm text-on-surface font-medium flex items-center justify-between">
+<span>Targeting Razorpay SDE 1</span>
+<span class="font-label-sm px-2 py-0.5 rounded bg-tertiary-container/10 border border-tertiary-container/20 text-tertiary font-medium">
+                Closes 13 Nov
+              </span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant leading-normal">
+              2 more practice modules recommended before Day 1 drive.
+            </p>
+</div>
+<div class="pt-3 border-t border-outline-variant/60 flex items-center justify-between text-label-sm text-on-surface-variant">
+<span>Historical Cutoff: 84/100</span>
+<span class="font-tabular-mono text-on-surface font-medium">Current Index: 88.4</span>
+</div>
+</div>
+<!-- Session Controls / Quiet Finish CTA -->
+<div class="flex items-center justify-between pt-1">
+<button class="w-full py-2 px-3 rounded-lg border border-outline-variant text-on-surface font-title-sm text-title-sm hover:bg-surface-container-high transition-colors" type="button">
+            Finish Practice &amp; Review All Notes
+          </button>
+</div>
+</div>
+</main>
+</div>
+</body></html>

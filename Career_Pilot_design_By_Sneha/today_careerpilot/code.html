@@ -1,0 +1,540 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>CareerPilot — Today</title>
+<!-- Google Fonts: Newsreader & Geist -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700&amp;family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&amp;display=swap" rel="stylesheet"/>
+<!-- Material Symbols Outlined -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS CDN -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Tailwind Configuration verbatim as instructed -->
+<script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          "colors": {
+            "error-container": "#ffdad6",
+            "tertiary-fixed-dim": "#ffb4a8",
+            "background": "#fef9ee",
+            "surface-tint": "#2d6857",
+            "tertiary-fixed": "#ffdad5",
+            "surface": "#fef9ee",
+            "primary-fixed-dim": "#96d3bd",
+            "on-tertiary-container": "#ffb0a4",
+            "surface-container-high": "#ede8dd",
+            "secondary-container": "#feb557",
+            "on-surface": "#1d1c16",
+            "on-error-container": "#93000a",
+            "primary-container": "#1e5b4a",
+            "surface-container-highest": "#e7e2d8",
+            "inverse-on-surface": "#f6f0e6",
+            "outline-variant": "#bfc9c3",
+            "on-secondary-container": "#734700",
+            "secondary-fixed": "#ffddb8",
+            "on-error": "#ffffff",
+            "surface-container": "#f3ede3",
+            "on-secondary-fixed-variant": "#653e00",
+            "outline": "#707975",
+            "secondary": "#855300",
+            "tertiary": "#7b0001",
+            "on-tertiary-fixed-variant": "#930303",
+            "inverse-primary": "#96d3bd",
+            "on-surface-variant": "#404945",
+            "on-primary-fixed": "#002118",
+            "inverse-surface": "#32302a",
+            "surface-container-lowest": "#ffffff",
+            "tertiary-container": "#a2140c",
+            "on-primary-container": "#94d1bb",
+            "on-tertiary-fixed": "#410000",
+            "surface-variant": "#e7e2d8",
+            "on-primary": "#ffffff",
+            "primary": "#004334",
+            "on-background": "#1d1c16",
+            "error": "#ba1a1a",
+            "surface-container-low": "#f9f3e9",
+            "secondary-fixed-dim": "#ffb95f",
+            "surface-bright": "#fef9ee",
+            "primary-fixed": "#b2efd9",
+            "on-tertiary": "#ffffff",
+            "on-secondary-fixed": "#2a1700",
+            "on-secondary": "#ffffff",
+            "on-primary-fixed-variant": "#0f5040",
+            "surface-dim": "#dfd9d0"
+          },
+          "borderRadius": {
+            "DEFAULT": "0.25rem",
+            "lg": "0.5rem",
+            "xl": "0.75rem",
+            "full": "9999px"
+          },
+          "spacing": {
+            "margin": "1rem",
+            "space-md": "0.75rem",
+            "space-sm": "0.5rem",
+            "space-xl": "2rem",
+            "space-xs": "0.25rem",
+            "space-lg": "1.25rem",
+            "gutter-desktop": "1.5rem",
+            "gutter": "1rem",
+            "margin-desktop": "2.5rem",
+            "margin-tablet": "1.5rem"
+          },
+          "fontFamily": {
+            "headline-lg": ["Newsreader"],
+            "title-md": ["Geist"],
+            "body-md": ["Geist"],
+            "headline-md": ["Newsreader"],
+            "title-sm": ["Geist"],
+            "headline-sm": ["Newsreader"],
+            "headline-lg-mobile": ["Newsreader"],
+            "headline-md-mobile": ["Newsreader"],
+            "tabular-mono": ["Geist"],
+            "body-lg": ["Geist"],
+            "body-sm": ["Geist"],
+            "label-md": ["Geist"],
+            "label-sm": ["Geist"]
+          },
+          "fontSize": {
+            "headline-lg": ["36px", { "lineHeight": "44px", "fontWeight": "400" }],
+            "title-md": ["16px", { "lineHeight": "22px", "fontWeight": "600" }],
+            "body-md": ["13px", { "lineHeight": "18px", "fontWeight": "400" }],
+            "headline-md": ["28px", { "lineHeight": "36px", "fontWeight": "400" }],
+            "title-sm": ["14px", { "lineHeight": "20px", "fontWeight": "600" }],
+            "headline-sm": ["20px", { "lineHeight": "28px", "fontWeight": "500" }],
+            "headline-lg-mobile": ["28px", { "lineHeight": "36px", "fontWeight": "400" }],
+            "headline-md-mobile": ["22px", { "lineHeight": "28px", "fontWeight": "400" }],
+            "tabular-mono": ["13px", { "lineHeight": "18px", "fontWeight": "400" }],
+            "body-lg": ["15px", { "lineHeight": "22px", "fontWeight": "400" }],
+            "body-sm": ["12px", { "lineHeight": "16px", "fontWeight": "400" }],
+            "label-md": ["12px", { "lineHeight": "16px", "letterSpacing": "0.02em", "fontWeight": "500" }],
+            "label-sm": ["11px", { "lineHeight": "14px", "letterSpacing": "0.03em", "fontWeight": "500" }]
+          }
+        },
+      },
+    }
+  </script>
+<style>
+    body {
+      background-color: #FAF9F6;
+      color: #1A1A1A;
+      font-family: 'Geist', sans-serif;
+      margin: 0;
+      padding: 0;
+      -webkit-font-smoothing: antialiased;
+    }
+    .material-symbols-outlined {
+      font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 20;
+      font-size: 18px;
+      line-height: 1;
+      display: inline-block;
+      vertical-align: middle;
+    }
+    .tabular-nums {
+      font-variant-numeric: tabular-nums;
+    }
+  </style>
+</head>
+<body class="bg-surface text-on-surface min-h-screen">
+<!-- ========================================================================= -->
+<!-- SHARED COMPONENT: SideNavBar                                              -->
+<!-- ========================================================================= -->
+<aside class="fixed top-0 left-0 h-screen w-60 z-30 bg-surface-container-lowest border-r border-outline-variant/60 flex flex-col justify-between p-space-md select-none">
+<!-- Top Segment: Brand & Navigation -->
+<div class="flex flex-col gap-space-md">
+<!-- Brand & Student Subtitle Anchor -->
+<div class="px-2 pt-1 pb-2">
+<div class="flex items-center gap-2">
+<div class="w-2.5 h-2.5 rounded-sm bg-primary-container"></div>
+<span class="font-headline-sm text-headline-sm font-medium text-on-surface tracking-tight">CareerPilot</span>
+</div>
+<p class="font-label-sm text-label-sm text-on-surface-variant mt-1">Recruitment Ledger • B.Tech CSE '25</p>
+</div>
+<!-- Action CTA Button -->
+<button class="w-full h-9 px-3 rounded-lg bg-primary-container text-on-primary font-title-sm text-title-sm flex items-center justify-center gap-2 hover:opacity-95 active:opacity-90 transition-opacity">
+<span class="material-symbols-outlined text-[16px]">add</span>
+<span>Log Application</span>
+</button>
+<!-- Navigation Tabs: Exact JSON labels & icons -->
+<nav class="flex flex-col gap-1 mt-1">
+<!-- 1. Today (ACTIVE) -->
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg bg-surface-container-low text-primary font-title-sm text-title-sm border border-outline-variant/50" href="#today">
+<span class="material-symbols-outlined" data-icon="calendar_today">calendar_today</span>
+<span>Today</span>
+<span class="ml-auto w-1.5 h-1.5 rounded-full bg-primary-container"></span>
+</a>
+<!-- 2. Jobs (INACTIVE) -->
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-on-surface-variant font-body-md text-body-md hover:bg-surface-container-high hover:text-on-surface transition-colors duration-150" href="#jobs">
+<span class="material-symbols-outlined" data-icon="work_outline">work_outline</span>
+<span>Jobs</span>
+</a>
+<!-- 3. Applications (INACTIVE) -->
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-on-surface-variant font-body-md text-body-md hover:bg-surface-container-high hover:text-on-surface transition-colors duration-150" href="#applications">
+<span class="material-symbols-outlined" data-icon="fact_check">fact_check</span>
+<span>Applications</span>
+</a>
+<!-- 4. Practice (INACTIVE) -->
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-on-surface-variant font-body-md text-body-md hover:bg-surface-container-high hover:text-on-surface transition-colors duration-150" href="#practice">
+<span class="material-symbols-outlined" data-icon="edit_note">edit_note</span>
+<span>Practice</span>
+</a>
+</nav>
+</div>
+<!-- Bottom User Profile Card -->
+<div class="pt-3 border-t border-outline-variant/50 flex flex-col gap-1">
+<div class="px-2 py-1.5 rounded-lg flex items-center gap-2.5 hover:bg-surface-container-high transition-colors">
+<div class="w-8 h-8 rounded-full bg-surface-container-highest border border-outline-variant/60 flex items-center justify-center text-on-surface font-title-sm text-title-sm">
+          AS
+        </div>
+<div class="flex flex-col min-w-0">
+<span class="font-title-sm text-title-sm text-on-surface truncate">Ananya Sharma</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant truncate">IIT Delhi • CSE</span>
+</div>
+<span class="material-symbols-outlined ml-auto text-outline" data-icon="unfold_more">unfold_more</span>
+</div>
+</div>
+</aside>
+<!-- ========================================================================= -->
+<!-- SHARED COMPONENT: TopNavBar                                               -->
+<!-- ========================================================================= -->
+<header class="sticky top-0 w-[calc(100%-15rem)] ml-60 z-20 h-14 bg-surface-container-lowest border-b border-outline-variant/60 flex justify-between items-center px-gutter-desktop">
+<!-- Left Section: Search Bar & Context Indicator -->
+<div class="flex items-center gap-4">
+<div class="relative flex items-center">
+<span class="material-symbols-outlined absolute left-2.5 text-outline text-[16px]" data-icon="search">search</span>
+<input class="h-8 pl-8 pr-3 w-72 rounded-lg bg-surface text-on-surface placeholder:text-outline border border-outline-variant/60 font-body-md text-body-md focus:border-primary-container focus:ring-0 focus:outline-none transition-colors" placeholder="Search roll-lists, roles, recruiters (⌘K)..." type="text"/>
+</div>
+<div class="h-4 w-px bg-outline-variant/60 hidden sm:block"></div>
+<!-- Navigation links from JSON -->
+<div class="hidden md:flex items-center gap-4">
+<span class="text-primary font-title-sm text-title-sm border-b border-primary pb-0.5 cursor-pointer">
+          Season 2024–25
+        </span>
+<span class="text-on-surface-variant font-body-md text-body-md hover:text-on-surface transition-colors cursor-pointer">
+          Phase 1 Drives
+        </span>
+</div>
+</div>
+<!-- Right Section: Actions & Settings -->
+<div class="flex items-center gap-2">
+<button class="h-8 px-2.5 rounded-lg border border-outline-variant/60 bg-surface-container-lowest text-on-surface hover:bg-surface font-body-md text-body-md flex items-center gap-1.5 transition-colors">
+<span class="material-symbols-outlined text-[16px]" data-icon="tune">tune</span>
+<span>Filter View</span>
+</button>
+<button class="h-8 px-2.5 rounded-lg border border-outline-variant/60 bg-surface-container-lowest text-on-surface hover:bg-surface font-body-md text-body-md flex items-center gap-1.5 transition-colors">
+<span class="material-symbols-outlined text-[16px]" data-icon="download">download</span>
+<span>Export Ledger</span>
+</button>
+<div class="h-4 w-px bg-outline-variant/60 mx-1"></div>
+<button aria-label="Notifications" class="w-8 h-8 rounded-lg flex items-center justify-center text-on-surface-variant hover:bg-surface transition-colors">
+<span class="material-symbols-outlined" data-icon="notifications_none">notifications_none</span>
+</button>
+</div>
+</header>
+<!-- ========================================================================= -->
+<!-- MAIN CONTENT CANVAS                                                       -->
+<!-- ========================================================================= -->
+<main class="ml-60 p-margin-desktop min-h-[calc(100vh-3.5rem)]">
+<div class="max-w-[1240px] mx-auto flex flex-col gap-6">
+<!-- Editorial Header Section -->
+<header class="flex flex-col md:flex-row md:items-baseline justify-between border-b border-outline-variant/50 pb-4 gap-2">
+<div>
+<h1 class="font-headline-lg text-headline-lg font-normal text-on-surface tracking-tight">Thursday, 12 Nov</h1>
+<p class="font-body-md text-body-md text-on-surface-variant mt-0.5">
+            4 items require action before <span class="tabular-nums font-medium text-on-surface">6:00 PM IST</span> • Placement Season Day 14
+          </p>
+</div>
+<div class="flex items-center gap-3">
+<span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded bg-[#1E5B4A]/10 text-primary border border-primary/20 font-label-sm text-label-sm">
+<span class="w-1.5 h-1.5 rounded-full bg-primary-container"></span>
+            OAS Portal Sync Active
+          </span>
+<span class="text-outline font-label-sm text-label-sm tabular-nums">Sync: 14 mins ago</span>
+</div>
+</header>
+<!-- Two-Column Workspace Layout (65% / 35%) -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-gutter-desktop items-start">
+<!-- =================================================================== -->
+<!-- LEFT COLUMN (~65% width: 8 cols of 12)                              -->
+<!-- =================================================================== -->
+<div class="lg:col-span-8 flex flex-col gap-6">
+<!-- Section 1: Needs Your Attention -->
+<section class="flex flex-col gap-2.5">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-2">
+<h2 class="font-title-md text-title-md text-on-surface">Needs your attention</h2>
+<span class="px-1.5 py-0.5 rounded bg-surface-container-high text-on-surface font-label-sm text-label-sm tabular-nums">4</span>
+</div>
+<button class="font-label-sm text-label-sm text-outline hover:text-on-surface transition-colors">
+                Mark all completed
+              </button>
+</div>
+<!-- Attention Rows Container -->
+<div class="bg-surface-container-lowest rounded-lg border border-outline-variant/60 divide-y divide-outline-variant/40 overflow-hidden">
+<!-- Row 1: Swiggy -->
+<div class="p-space-lg flex flex-col sm:flex-row sm:items-center justify-between gap-3 hover:bg-surface-container-low transition-colors">
+<div class="flex flex-col gap-1 min-w-0">
+<div class="flex items-center gap-2">
+<span class="w-2 h-2 rounded-full bg-primary-container shrink-0"></span>
+<h3 class="font-title-sm text-title-sm text-on-surface truncate">Review tailored resume: Data Analyst Intern</h3>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant pl-4">
+                    Swiggy • Submitted via Campus Portal • Generated tailored ATS draft
+                  </p>
+</div>
+<div class="flex items-center gap-2 pl-4 sm:pl-0 shrink-0">
+<button class="h-8 px-3 rounded-lg bg-primary-container text-on-primary font-title-sm text-title-sm hover:opacity-95 transition-opacity">
+                    Review
+                  </button>
+</div>
+</div>
+<!-- Row 2: Razorpay -->
+<div class="p-space-lg flex flex-col sm:flex-row sm:items-center justify-between gap-3 hover:bg-surface-container-low transition-colors">
+<div class="flex flex-col gap-1 min-w-0">
+<div class="flex items-center gap-2 flex-wrap">
+<span class="w-2 h-2 rounded-full bg-[#B7791F] shrink-0"></span>
+<h3 class="font-title-sm text-title-sm text-on-surface">Applications close tomorrow: Backend Intern</h3>
+<span class="inline-flex items-center px-1.5 py-0.5 rounded text-[11px] font-medium bg-[#B7791F]/10 text-[#B7791F] border border-[#B7791F]/20 tabular-nums">
+                      Closes in 18h
+                    </span>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant pl-4">
+                    Razorpay • Bangalore • CTC ₹1.2L/month internship
+                  </p>
+</div>
+<div class="flex items-center gap-2 pl-4 sm:pl-0 shrink-0">
+<button class="h-8 px-3 rounded-lg border border-outline-variant/60 bg-surface-container-lowest text-on-surface hover:bg-surface font-title-sm text-title-sm flex items-center gap-1 transition-colors">
+<span>Complete Form</span>
+<span class="material-symbols-outlined text-[14px]">arrow_forward</span>
+</button>
+</div>
+</div>
+<!-- Row 3: Cred -->
+<div class="p-space-lg flex flex-col sm:flex-row sm:items-center justify-between gap-3 hover:bg-surface-container-low transition-colors">
+<div class="flex flex-col gap-1 min-w-0">
+<div class="flex items-center gap-2">
+<span class="w-2 h-2 rounded-full bg-outline shrink-0"></span>
+<h3 class="font-title-sm text-title-sm text-on-surface truncate">Follow up with recruiter, 5 days since applied</h3>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant pl-4">
+                    Cred • Product Analyst Intern • Applied 07 Nov
+                  </p>
+</div>
+<div class="flex items-center gap-2 pl-4 sm:pl-0 shrink-0">
+<button class="h-8 px-3 rounded-lg text-primary hover:bg-primary-container/10 font-title-sm text-title-sm transition-colors">
+                    Send Follow-up Email
+                  </button>
+</div>
+</div>
+<!-- Row 4: Practice weak spot -->
+<div class="p-space-lg flex flex-col sm:flex-row sm:items-center justify-between gap-3 hover:bg-surface-container-low transition-colors">
+<div class="flex flex-col gap-1 min-w-0">
+<div class="flex items-center gap-2">
+<span class="w-2 h-2 rounded-full bg-primary-container shrink-0"></span>
+<h3 class="font-title-sm text-title-sm text-on-surface truncate">Weak spot from last mock interview: SQL joins</h3>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant pl-4">
+                    Identified in 45-min technical assessment • 3 questions recommended
+                  </p>
+</div>
+<div class="flex items-center gap-2 pl-4 sm:pl-0 shrink-0">
+<button class="h-8 px-3 rounded-lg border border-primary-container text-primary hover:bg-primary-container/10 font-title-sm text-title-sm transition-colors">
+                    Practice
+                  </button>
+</div>
+</div>
+</div>
+</section>
+<!-- Section 2: Upcoming Schedule -->
+<section class="flex flex-col gap-2.5">
+<div class="flex items-center justify-between">
+<h2 class="font-title-md text-title-md text-on-surface">Upcoming Schedule</h2>
+<span class="font-label-sm text-label-sm text-outline tabular-nums">Next 5 Days</span>
+</div>
+<div class="bg-surface-container-lowest rounded-lg border border-outline-variant/60 overflow-hidden">
+<div class="divide-y divide-outline-variant/40 font-body-md text-body-md">
+<!-- Schedule Item 1 -->
+<div class="p-3.5 flex flex-col sm:flex-row sm:items-center justify-between gap-2 hover:bg-surface-container-low transition-colors">
+<div class="flex items-start sm:items-center gap-3">
+<div class="w-28 shrink-0 flex flex-col">
+<span class="font-title-sm text-title-sm text-on-surface tabular-nums">13 Nov, 10:00 AM</span>
+<span class="font-label-sm text-label-sm text-outline">Tomorrow</span>
+</div>
+<div class="flex flex-col">
+<span class="font-title-sm text-title-sm text-on-surface">Pre-Placement Talk: Google India</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Auditorium 2 / Google Meet • Mandatory Attendance</span>
+</div>
+</div>
+<div class="flex items-center gap-2 shrink-0">
+<span class="px-2 py-0.5 rounded bg-surface-container text-on-surface-variant font-label-sm text-label-sm">PPT Session</span>
+<button class="w-7 h-7 rounded border border-outline-variant/60 flex items-center justify-center text-outline hover:text-on-surface">
+<span class="material-symbols-outlined text-[16px]">open_in_new</span>
+</button>
+</div>
+</div>
+<!-- Schedule Item 2 -->
+<div class="p-3.5 flex flex-col sm:flex-row sm:items-center justify-between gap-2 hover:bg-surface-container-low transition-colors">
+<div class="flex items-start sm:items-center gap-3">
+<div class="w-28 shrink-0 flex flex-col">
+<span class="font-title-sm text-title-sm text-on-surface tabular-nums">14 Nov, 02:30 PM</span>
+<span class="font-label-sm text-label-sm text-outline">Saturday</span>
+</div>
+<div class="flex flex-col">
+<span class="font-title-sm text-title-sm text-on-surface">Technical Round 1: Flipkart</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Online Assessment • HackerRank Proctoring</span>
+</div>
+</div>
+<div class="flex items-center gap-2 shrink-0">
+<span class="px-2 py-0.5 rounded bg-[#1E5B4A]/10 text-primary border border-primary/20 font-label-sm text-label-sm">Round 1</span>
+<button class="w-7 h-7 rounded border border-outline-variant/60 flex items-center justify-center text-outline hover:text-on-surface">
+<span class="material-symbols-outlined text-[16px]">open_in_new</span>
+</button>
+</div>
+</div>
+<!-- Schedule Item 3 -->
+<div class="p-3.5 flex flex-col sm:flex-row sm:items-center justify-between gap-2 hover:bg-surface-container-low transition-colors">
+<div class="flex items-start sm:items-center gap-3">
+<div class="w-28 shrink-0 flex flex-col">
+<span class="font-title-sm text-title-sm text-on-surface tabular-nums">16 Nov, 11:00 AM</span>
+<span class="font-label-sm text-label-sm text-outline">Monday</span>
+</div>
+<div class="flex flex-col">
+<span class="font-title-sm text-title-sm text-on-surface">System Design Discussion: Zomato</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">1-on-1 with Engineering Lead • Zoom Room 4</span>
+</div>
+</div>
+<div class="flex items-center gap-2 shrink-0">
+<span class="px-2 py-0.5 rounded bg-surface-container text-on-surface-variant font-label-sm text-label-sm">Interview</span>
+<button class="w-7 h-7 rounded border border-outline-variant/60 flex items-center justify-center text-outline hover:text-on-surface">
+<span class="material-symbols-outlined text-[16px]">open_in_new</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+</section>
+</div>
+<!-- =================================================================== -->
+<!-- RIGHT COLUMN (~35% width: 4 cols of 12)                             -->
+<!-- =================================================================== -->
+<div class="lg:col-span-4 flex flex-col gap-6">
+<!-- Panel: This Week Overview -->
+<section class="bg-surface-container-lowest rounded-lg border border-outline-variant/60 p-space-lg flex flex-col gap-4">
+<div class="flex items-center justify-between">
+<h2 class="font-title-md text-title-md text-on-surface">This week</h2>
+<span class="font-label-sm text-label-sm text-outline tabular-nums">09 Nov – 15 Nov</span>
+</div>
+<!-- Summary Metrics 3-column split -->
+<div class="grid grid-cols-3 gap-2 border-y border-outline-variant/40 py-3">
+<div class="flex flex-col">
+<span class="font-label-sm text-label-sm text-on-surface-variant">Applied</span>
+<div class="flex items-baseline gap-1 mt-0.5">
+<span class="text-[22px] font-title-md text-on-surface tabular-nums">6</span>
+<span class="text-[11px] font-medium text-primary tabular-nums">+2</span>
+</div>
+<span class="text-[10px] text-outline mt-0.5">vs last week</span>
+</div>
+<div class="flex flex-col border-l border-outline-variant/40 pl-3">
+<span class="font-label-sm text-label-sm text-on-surface-variant">Interviews</span>
+<div class="flex items-baseline gap-1 mt-0.5">
+<span class="text-[22px] font-title-md text-on-surface tabular-nums">2</span>
+</div>
+<span class="text-[10px] text-outline mt-0.5">Scheduled</span>
+</div>
+<div class="flex flex-col border-l border-outline-variant/40 pl-3">
+<span class="font-label-sm text-label-sm text-on-surface-variant">Saved</span>
+<div class="flex items-baseline gap-1 mt-0.5">
+<span class="text-[22px] font-title-md text-on-surface tabular-nums">11</span>
+</div>
+<span class="text-[10px] text-outline mt-0.5">Open JD roles</span>
+</div>
+</div>
+<!-- Week Strip Calendar View -->
+<div class="flex flex-col gap-2">
+<span class="font-label-sm text-label-sm text-outline">Placement Timeline</span>
+<div class="grid grid-cols-7 gap-1 text-center bg-surface p-1 rounded-lg border border-outline-variant/40">
+<!-- Mon 09 -->
+<div class="flex flex-col items-center py-1.5 rounded">
+<span class="text-[10px] text-outline">M</span>
+<span class="text-[12px] font-medium text-on-surface tabular-nums mt-0.5">09</span>
+<span class="w-1 h-1 rounded-full mt-1 bg-transparent"></span>
+</div>
+<!-- Tue 10 -->
+<div class="flex flex-col items-center py-1.5 rounded">
+<span class="text-[10px] text-outline">T</span>
+<span class="text-[12px] font-medium text-on-surface tabular-nums mt-0.5">10</span>
+<span class="w-1 h-1 rounded-full mt-1 bg-transparent"></span>
+</div>
+<!-- Wed 11 (Green dot for submitted app) -->
+<div class="flex flex-col items-center py-1.5 rounded">
+<span class="text-[10px] text-outline">W</span>
+<span class="text-[12px] font-medium text-on-surface tabular-nums mt-0.5">11</span>
+<span class="w-1 h-1 rounded-full mt-1 bg-primary-container" title="Applications Submitted"></span>
+</div>
+<!-- Thu 12 (TODAY - Active column) -->
+<div class="flex flex-col items-center py-1.5 rounded bg-surface-container-lowest border border-outline-variant/60">
+<span class="text-[10px] font-bold text-primary">T</span>
+<span class="text-[12px] font-bold text-primary tabular-nums mt-0.5">12</span>
+<span class="w-1 h-1 rounded-full mt-1 bg-primary-container"></span>
+</div>
+<!-- Fri 13 (Amber dot for Razorpay deadline) -->
+<div class="flex flex-col items-center py-1.5 rounded">
+<span class="text-[10px] text-outline">F</span>
+<span class="text-[12px] font-medium text-on-surface tabular-nums mt-0.5">13</span>
+<span class="w-1 h-1 rounded-full mt-1 bg-[#B7791F]" title="Razorpay Application Deadline"></span>
+</div>
+<!-- Sat 14 -->
+<div class="flex flex-col items-center py-1.5 rounded">
+<span class="text-[10px] text-outline">S</span>
+<span class="text-[12px] font-medium text-on-surface tabular-nums mt-0.5">14</span>
+<span class="w-1 h-1 rounded-full mt-1 bg-transparent"></span>
+</div>
+<!-- Sun 15 -->
+<div class="flex flex-col items-center py-1.5 rounded">
+<span class="text-[10px] text-outline">S</span>
+<span class="text-[12px] font-medium text-on-surface tabular-nums mt-0.5">15</span>
+<span class="w-1 h-1 rounded-full mt-1 bg-transparent"></span>
+</div>
+</div>
+</div>
+</section>
+<!-- Quick Shortcuts Box -->
+<section class="bg-surface-container-lowest rounded-lg border border-outline-variant/60 p-space-lg flex flex-col gap-3">
+<h3 class="font-title-sm text-title-sm text-on-surface">Quick Shortcuts</h3>
+<nav class="flex flex-col divide-y divide-outline-variant/40">
+<a class="py-2.5 flex items-center justify-between text-on-surface hover:text-primary transition-colors group" href="#download-csv">
+<span class="font-body-md text-body-md">Download Ledger CSV</span>
+<span class="material-symbols-outlined text-[16px] text-outline group-hover:text-primary transition-colors">file_download</span>
+</a>
+<a class="py-2.5 flex items-center justify-between text-on-surface hover:text-primary transition-colors group" href="#update-resume">
+<span class="font-body-md text-body-md">Update CGPA &amp; Resume Master</span>
+<span class="material-symbols-outlined text-[16px] text-outline group-hover:text-primary transition-colors">edit_document</span>
+</a>
+<a class="py-2.5 flex items-center justify-between text-on-surface hover:text-primary transition-colors group" href="#notice-board">
+<div class="flex flex-col">
+<span class="font-body-md text-body-md">Placement Cell Notice Board</span>
+<span class="text-[10px] text-[#B7791F] font-medium">Updated 2h ago</span>
+</div>
+<span class="material-symbols-outlined text-[16px] text-outline group-hover:text-primary transition-colors">arrow_outward</span>
+</a>
+</nav>
+</section>
+<!-- Placement Policy & Eligibility Mini Callout -->
+<div class="p-3 rounded-lg border border-outline-variant/40 bg-surface flex items-start gap-2.5">
+<span class="material-symbols-outlined text-outline text-[16px] mt-0.5">verified_user</span>
+<div class="flex flex-col text-[11px] leading-tight text-on-surface-variant">
+<span class="font-medium text-on-surface">1-Offer Policy In Effect</span>
+<span class="mt-0.5">Acceptance of a Dream Tier offer automatically locks eligibility for secondary drives.</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+</body></html>

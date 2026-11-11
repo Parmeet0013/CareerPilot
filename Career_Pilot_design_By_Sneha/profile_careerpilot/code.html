@@ -1,0 +1,640 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>CareerPilot — Profile &amp; Master Resume</title>
+<!-- Material Symbols Outlined -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Editorial and utilitarian typography -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400..600;1,6..72,400..600&amp;family=Geist:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          "colors": {
+            "tertiary-fixed-dim": "#ffb4a8",
+            "primary-fixed": "#b2efd9",
+            "surface-variant": "#e7e2d8",
+            "on-background": "#1d1c16",
+            "surface-bright": "#fef9ee",
+            "inverse-primary": "#96d3bd",
+            "on-secondary": "#ffffff",
+            "surface-container-high": "#ede8dd",
+            "on-primary-fixed-variant": "#0f5040",
+            "inverse-surface": "#32302a",
+            "on-tertiary-fixed": "#410000",
+            "on-error": "#ffffff",
+            "secondary": "#855300",
+            "secondary-container": "#feb557",
+            "on-error-container": "#93000a",
+            "surface-container-highest": "#e7e2d8",
+            "surface-container-low": "#f9f3e9",
+            "primary": "#004334",
+            "surface-container-lowest": "#ffffff",
+            "on-primary": "#ffffff",
+            "on-tertiary": "#ffffff",
+            "surface-dim": "#dfd9d0",
+            "on-secondary-container": "#734700",
+            "inverse-on-surface": "#f6f0e6",
+            "on-tertiary-fixed-variant": "#930303",
+            "on-surface-variant": "#404945",
+            "on-primary-fixed": "#002118",
+            "on-surface": "#1d1c16",
+            "primary-fixed-dim": "#96d3bd",
+            "on-secondary-fixed-variant": "#653e00",
+            "on-primary-container": "#94d1bb",
+            "on-tertiary-container": "#ffb0a4",
+            "tertiary-container": "#a2140c",
+            "error-container": "#ffdad6",
+            "surface": "#fef9ee",
+            "secondary-fixed": "#ffddb8",
+            "background": "#fef9ee",
+            "tertiary": "#7b0001",
+            "outline-variant": "#bfc9c3",
+            "secondary-fixed-dim": "#ffb95f",
+            "primary-container": "#1e5b4a",
+            "tertiary-fixed": "#ffdad5",
+            "surface-tint": "#2d6857",
+            "outline": "#707975",
+            "on-secondary-fixed": "#2a1700",
+            "surface-container": "#f3ede3",
+            "error": "#ba1a1a"
+          },
+          "borderRadius": {
+            "DEFAULT": "0.25rem",
+            "lg": "0.5rem",
+            "xl": "0.75rem",
+            "full": "9999px"
+          },
+          "spacing": {
+            "margin-tablet": "1.5rem",
+            "space-xl": "2rem",
+            "space-xs": "0.25rem",
+            "margin": "1rem",
+            "space-sm": "0.5rem",
+            "margin-desktop": "2.5rem",
+            "gutter-desktop": "1.5rem",
+            "space-md": "0.75rem",
+            "gutter": "1rem",
+            "space-lg": "1.25rem"
+          },
+          "fontFamily": {
+            "headline-lg-mobile": ["Newsreader"],
+            "headline-sm": ["Newsreader"],
+            "headline-md-mobile": ["Newsreader"],
+            "headline-md": ["Newsreader"],
+            "body-lg": ["Geist"],
+            "body-sm": ["Geist"],
+            "label-md": ["Geist"],
+            "headline-lg": ["Newsreader"],
+            "label-sm": ["Geist"],
+            "title-md": ["Geist"],
+            "body-md": ["Geist"],
+            "title-sm": ["Geist"],
+            "tabular-mono": ["Geist"]
+          },
+          "fontSize": {
+            "headline-lg-mobile": ["28px", { "lineHeight": "36px", "fontWeight": "400" }],
+            "headline-sm": ["20px", { "lineHeight": "28px", "fontWeight": "500" }],
+            "headline-md-mobile": ["22px", { "lineHeight": "28px", "fontWeight": "400" }],
+            "headline-md": ["28px", { "lineHeight": "36px", "fontWeight": "400" }],
+            "body-lg": ["15px", { "lineHeight": "22px", "fontWeight": "400" }],
+            "body-sm": ["12px", { "lineHeight": "16px", "fontWeight": "400" }],
+            "label-md": ["12px", { "lineHeight": "16px", "letterSpacing": "0.02em", "fontWeight": "500" }],
+            "headline-lg": ["36px", { "lineHeight": "44px", "fontWeight": "400" }],
+            "label-sm": ["11px", { "lineHeight": "14px", "letterSpacing": "0.03em", "fontWeight": "500" }],
+            "title-md": ["16px", { "lineHeight": "22px", "fontWeight": "600" }],
+            "body-md": ["13px", { "lineHeight": "18px", "fontWeight": "400" }],
+            "title-sm": ["14px", { "lineHeight": "20px", "fontWeight": "600" }],
+            "tabular-mono": ["13px", { "lineHeight": "18px", "fontWeight": "400" }]
+          }
+        },
+      },
+    }
+  </script>
+<style>
+    .material-symbols-outlined {
+      font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 20;
+      font-size: 18px;
+      line-height: 1;
+      display: inline-block;
+      vertical-align: middle;
+    }
+    body {
+      background-color: #FAF9F6;
+      color: #1A1A1A;
+      font-feature-settings: "cv02", "cv03", "cv04", "cv11", "tnum";
+    }
+    .tnum {
+      font-variant-numeric: tabular-nums;
+    }
+  </style>
+</head>
+<body class="bg-surface text-on-surface antialiased flex min-h-screen">
+<!-- ==================== SHARED COMPONENT: SideNavBar ==================== -->
+<aside class="fixed top-0 left-0 h-screen w-60 z-30 bg-surface-container-lowest border-r border-outline-variant flex flex-col justify-between p-space-md">
+<div class="flex flex-col gap-6">
+<!-- Brand Header -->
+<div class="px-2 pt-1">
+<div class="flex items-center gap-2">
+<span class="w-2.5 h-2.5 bg-primary-container rounded-sm inline-block"></span>
+<span class="font-headline-sm text-headline-sm font-normal text-on-surface tracking-tight">CareerPilot</span>
+</div>
+<p class="font-label-sm text-label-sm text-on-surface-variant mt-0.5 tracking-wide">Recruitment Ledger</p>
+</div>
+<!-- Main Navigation Items -->
+<nav class="flex flex-col gap-1">
+<!-- Tab 1: Today (Inactive) -->
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-on-surface-variant font-body-md text-body-md hover:bg-surface-container-high hover:text-on-surface transition-colors duration-150 active:bg-surface-container-highest" href="#">
+<span class="material-symbols-outlined">calendar_today</span>
+<span>Today</span>
+</a>
+<!-- Tab 2: Jobs (Inactive) -->
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-on-surface-variant font-body-md text-body-md hover:bg-surface-container-high hover:text-on-surface transition-colors duration-150 active:bg-surface-container-highest" href="#">
+<span class="material-symbols-outlined">work_outline</span>
+<span>Jobs</span>
+</a>
+<!-- Tab 3: Applications (Inactive) -->
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-on-surface-variant font-body-md text-body-md hover:bg-surface-container-high hover:text-on-surface transition-colors duration-150 active:bg-surface-container-highest" href="#">
+<span class="material-symbols-outlined">fact_check</span>
+<span>Applications</span>
+</a>
+<!-- Tab 4: Practice (Inactive) -->
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-on-surface-variant font-body-md text-body-md hover:bg-surface-container-high hover:text-on-surface transition-colors duration-150 active:bg-surface-container-highest" href="#">
+<span class="material-symbols-outlined">edit_note</span>
+<span>Practice</span>
+</a>
+</nav>
+<!-- Log Application CTA Button -->
+<div class="px-1">
+<button class="w-full flex items-center justify-center gap-2 h-9 px-3 bg-surface-container-lowest border border-outline-variant hover:border-outline text-on-surface font-title-sm text-title-sm rounded-lg transition-colors duration-150">
+<span class="material-symbols-outlined text-[16px]">add</span>
+<span>Log Application</span>
+</button>
+</div>
+</div>
+<!-- Footer & Active Profile Nav Target -->
+<div class="flex flex-col gap-2 pt-3 border-t border-outline-variant/60">
+<!-- Active navigation item is 'Profile - Ananya Sharma' per page intent -->
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg bg-surface-container-low text-primary font-title-sm text-title-sm border border-outline-variant/50" href="#">
+<span class="material-symbols-outlined text-primary" style="font-variation-settings: 'FILL' 1;">account_circle</span>
+<span class="truncate">Profile - Ananya Sharma</span>
+</a>
+<div class="px-3 py-1 flex items-center justify-between text-on-surface-variant font-label-sm text-label-sm">
+<span class="text-xs text-outline">v3.2 · IITD TPO</span>
+<span class="w-2 h-2 rounded-full bg-primary-container" title="Connected to IITD OAS"></span>
+</div>
+</div>
+</aside>
+<!-- ==================== MAIN CONTENT CONTAINER ==================== -->
+<div class="ml-60 flex-1 flex flex-col min-w-0 bg-surface">
+<!-- ==================== SHARED COMPONENT: TopNavBar ==================== -->
+<header class="sticky top-0 w-full z-20 bg-surface-container-lowest border-b border-outline-variant h-14 px-gutter-desktop flex items-center justify-between">
+<!-- Left side: Context and Search/Status -->
+<div class="flex items-center gap-4">
+<div class="flex items-center gap-2 font-body-md text-body-md text-on-surface">
+<span class="text-primary font-title-sm text-title-sm border-b border-primary pb-0.5">Season 2024–25</span>
+<span class="text-outline">/</span>
+<span class="text-on-surface-variant font-body-md text-body-md">Phase 1 Drives</span>
+</div>
+<span class="inline-flex items-center gap-1.5 px-2 py-0.5 rounded bg-surface-container border border-outline-variant text-on-surface-variant font-label-sm text-label-sm">
+<span class="w-1.5 h-1.5 rounded-full bg-primary-container"></span>
+          IIT Delhi TPO OAS Synced
+        </span>
+</div>
+<!-- Right side actions -->
+<div class="flex items-center gap-3">
+<button class="h-9 px-3 flex items-center gap-2 rounded-lg bg-surface-container-lowest border border-outline-variant text-on-surface font-title-sm text-title-sm hover:bg-surface-container-high transition-colors duration-150">
+<span class="material-symbols-outlined text-[16px]">tune</span>
+<span>Filter View</span>
+</button>
+<button class="h-9 px-3.5 flex items-center gap-2 rounded-lg bg-primary-container text-on-primary font-title-sm text-title-sm hover:opacity-95 transition-opacity duration-150">
+<span class="material-symbols-outlined text-[16px]">upload_file</span>
+<span>Upload New Resume (.pdf)</span>
+</button>
+<div class="h-5 w-px bg-outline-variant mx-1"></div>
+<button class="w-8 h-8 flex items-center justify-center rounded-lg text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high transition-colors">
+<span class="material-symbols-outlined">notifications_none</span>
+</button>
+</div>
+</header>
+<!-- ==================== BODY WORKSPACE / CANVAS ==================== -->
+<main class="flex-1 p-margin-desktop max-w-[1440px] mx-auto w-full">
+<!-- Breadcrumbs & Meta Bar -->
+<div class="mb-6 flex flex-col md:flex-row md:items-end justify-between gap-4 pb-4 border-b border-outline-variant">
+<div>
+<div class="flex items-center gap-2 text-on-surface-variant font-label-md text-label-md mb-1.5">
+<span>CareerPilot Ledger</span>
+<span>›</span>
+<span>Candidates</span>
+<span>›</span>
+<span class="text-on-surface font-title-sm text-title-sm">Ananya Sharma (2021CS10198)</span>
+</div>
+<h1 class="font-headline-lg text-headline-lg font-normal text-on-surface tracking-tight">Profile &amp; Master Resume</h1>
+<p class="font-body-md text-body-md text-on-surface-variant mt-1">Verifiable source of truth for all campus applications and automated tailoring.</p>
+</div>
+<!-- Sync / Parsed Timestamp Strip -->
+<div class="flex flex-col items-start md:items-end gap-1">
+<div class="flex items-center gap-2 text-on-surface-variant font-body-sm text-body-sm">
+<span class="material-symbols-outlined text-[15px] text-outline">history</span>
+<span>Last parsed from <code class="bg-surface-container px-1.5 py-0.5 rounded text-on-surface font-tabular-mono text-tabular-mono border border-outline-variant/60">resume.pdf</code> · 3 days ago (10 Nov, 14:22 IST)</span>
+</div>
+<div class="flex items-center gap-3">
+<a class="font-label-md text-label-md text-primary-container hover:underline inline-flex items-center gap-1" href="#">
+<span class="material-symbols-outlined text-[14px]">download</span>
+<span>Download original PDF</span>
+</a>
+<span class="text-outline text-xs">·</span>
+<a class="font-label-md text-label-md text-on-surface-variant hover:text-on-surface hover:underline inline-flex items-center gap-1" href="#">
+<span class="material-symbols-outlined text-[14px]">refresh</span>
+<span>Re-parse</span>
+</a>
+</div>
+</div>
+</div>
+<!-- 2-Column Responsive Layout (Main form 8 cols / Right Ledger 4 cols) -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-gutter-desktop items-start">
+<!-- LEFT / PRIMARY FORM CANVAS (8 cols) -->
+<div class="lg:col-span-8 flex flex-col gap-6">
+<!-- 1. Personal & Academic Header / Basic Details -->
+<section class="bg-surface-container-lowest border border-outline-variant rounded-lg p-space-lg">
+<div class="flex items-center justify-between pb-3 border-b border-outline-variant">
+<div class="flex items-center gap-2">
+<span class="w-1.5 h-3 bg-primary-container rounded-xs"></span>
+<h2 class="font-title-md text-title-md text-on-surface font-semibold">Personal &amp; Academic Details</h2>
+</div>
+<button class="font-label-md text-label-md text-primary-container hover:underline flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">edit</span>
+<span>Edit</span>
+</button>
+</div>
+<div class="mt-4 grid grid-cols-1 md:grid-cols-2 gap-y-4 gap-x-6">
+<div>
+<label class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider block">Full Name</label>
+<div class="mt-1 font-title-sm text-title-sm text-on-surface font-semibold">Ananya Sharma</div>
+</div>
+<div>
+<label class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider block">Roll Number</label>
+<div class="mt-1 font-tabular-mono text-tabular-mono text-on-surface tnum">2021CS10198</div>
+</div>
+<div class="md:col-span-2">
+<label class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider block">Department &amp; Institution</label>
+<div class="mt-1 font-body-md text-body-md text-on-surface">Computer Science &amp; Engineering, Indian Institute of Technology Delhi</div>
+</div>
+<div>
+<label class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider block">Institutional Email</label>
+<div class="mt-1 font-body-md text-body-md text-on-surface">ananya.s.cse21@iitd.ac.in</div>
+</div>
+<div>
+<label class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider block">Contact Phone</label>
+<div class="mt-1 font-tabular-mono text-tabular-mono text-on-surface tnum">+91 98101 XXXXX</div>
+</div>
+<div>
+<label class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider block">GitHub Repository</label>
+<div class="mt-1 font-body-md text-body-md text-primary-container hover:underline">
+<a href="https://github.com/ananya-sharma" rel="noreferrer" target="_blank">github.com/ananya-sharma</a>
+</div>
+</div>
+<div>
+<label class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider block">Campus Verification</label>
+<div class="mt-1 inline-flex items-center gap-1.5 px-2.5 py-1 rounded bg-[rgba(30,91,74,0.08)] border border-[rgba(30,91,74,0.2)] text-[#1E5B4A] font-label-sm text-label-sm">
+<span class="material-symbols-outlined text-[14px]">verified</span>
+<span>Verified via IITD LDAP</span>
+</div>
+</div>
+</div>
+</section>
+<!-- 2. Education Section -->
+<section class="bg-surface-container-lowest border border-outline-variant rounded-lg p-space-lg">
+<div class="flex items-center justify-between pb-3 border-b border-outline-variant">
+<div class="flex items-center gap-2">
+<span class="w-1.5 h-3 bg-primary-container rounded-xs"></span>
+<h2 class="font-title-md text-title-md text-on-surface font-semibold">Education</h2>
+</div>
+<button class="font-label-md text-label-md text-primary-container hover:underline flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">edit</span>
+<span>Edit</span>
+</button>
+</div>
+<!-- College Tier -->
+<div class="mt-4 pb-5 border-b border-outline-variant/60">
+<div class="flex flex-col md:flex-row md:items-baseline justify-between gap-1">
+<h3 class="font-title-sm text-title-sm font-semibold text-on-surface">Indian Institute of Technology Delhi</h3>
+<span class="font-tabular-mono text-tabular-mono text-on-surface-variant tnum">2021 – 2025</span>
+</div>
+<p class="font-body-md text-body-md text-on-surface mt-0.5">Bachelor of Technology in Computer Science &amp; Engineering</p>
+<div class="mt-2.5 flex items-center gap-2">
+<span class="font-label-sm text-label-sm text-on-surface-variant uppercase">Cumulative Grade:</span>
+<span class="font-tabular-mono text-tabular-mono font-semibold text-on-surface tnum px-1.5 py-0.5 bg-surface-container rounded border border-outline-variant/60">8.92 / 10.0</span>
+<span class="font-label-sm text-label-sm text-[#1E5B4A] inline-flex items-center gap-1">
+<span class="material-symbols-outlined text-[13px]">check_circle</span>
+                  Verified by TPO portal
+                </span>
+</div>
+<div class="mt-3">
+<span class="font-label-sm text-label-sm text-on-surface-variant block mb-1">Relevant Coursework:</span>
+<div class="flex flex-wrap gap-1.5">
+<span class="px-2 py-0.5 bg-surface-container rounded text-on-surface font-body-sm text-body-sm border border-outline-variant/60">Data Structures &amp; Algorithms</span>
+<span class="px-2 py-0.5 bg-surface-container rounded text-on-surface font-body-sm text-body-sm border border-outline-variant/60">Operating Systems</span>
+<span class="px-2 py-0.5 bg-surface-container rounded text-on-surface font-body-sm text-body-sm border border-outline-variant/60">Database Management Systems</span>
+<span class="px-2 py-0.5 bg-surface-container rounded text-on-surface font-body-sm text-body-sm border border-outline-variant/60">Distributed Systems</span>
+<span class="px-2 py-0.5 bg-surface-container rounded text-on-surface font-body-sm text-body-sm border border-outline-variant/60">Computer Networks</span>
+</div>
+</div>
+</div>
+<!-- School Tier -->
+<div class="mt-4">
+<div class="flex flex-col md:flex-row md:items-baseline justify-between gap-1">
+<h3 class="font-title-sm text-title-sm font-semibold text-on-surface">Delhi Public School, R.K. Puram</h3>
+<span class="font-tabular-mono text-tabular-mono text-on-surface-variant tnum">2019 – 2021</span>
+</div>
+<div class="mt-1 flex flex-wrap items-center gap-3 text-body-md font-body-md text-on-surface">
+<span>Class XII (CBSE): <strong class="font-tabular-mono text-tabular-mono font-semibold tnum">98.4%</strong></span>
+<span class="text-outline">·</span>
+<span>JEE Advanced All India Rank: <strong class="font-tabular-mono text-tabular-mono font-semibold tnum">142</strong></span>
+</div>
+</div>
+</section>
+<!-- 3. Technical Skills Section -->
+<section class="bg-surface-container-lowest border border-outline-variant rounded-lg p-space-lg">
+<div class="flex items-center justify-between pb-2 border-b border-outline-variant">
+<div>
+<div class="flex items-center gap-2">
+<span class="w-1.5 h-3 bg-primary-container rounded-xs"></span>
+<h2 class="font-title-md text-title-md text-on-surface font-semibold">Skills</h2>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-0.5">Categorized competencies parsed from projects and coursework.</p>
+</div>
+<button class="font-label-md text-label-md text-primary-container hover:underline flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">edit</span>
+<span>Edit</span>
+</button>
+</div>
+<div class="mt-4 space-y-3.5">
+<!-- Programming Languages -->
+<div class="flex flex-col md:flex-row md:items-baseline gap-2">
+<span class="w-48 font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider shrink-0">Programming Languages</span>
+<div class="flex flex-wrap gap-1.5 flex-1">
+<span class="px-2 py-0.5 bg-surface-container rounded text-on-surface font-body-sm text-body-sm border border-outline-variant/60">TypeScript</span>
+<span class="px-2 py-0.5 bg-surface-container rounded text-on-surface font-body-sm text-body-sm border border-outline-variant/60">JavaScript</span>
+<span class="px-2 py-0.5 bg-surface-container rounded text-on-surface font-body-sm text-body-sm border border-outline-variant/60">Python</span>
+<span class="px-2 py-0.5 bg-surface-container rounded text-on-surface font-body-sm text-body-sm border border-outline-variant/60">C++</span>
+<span class="px-2 py-0.5 bg-surface-container rounded text-on-surface font-body-sm text-body-sm border border-outline-variant/60">Go</span>
+<span class="px-2 py-0.5 bg-surface-container rounded text-on-surface font-body-sm text-body-sm border border-outline-variant/60">SQL</span>
+</div>
+</div>
+<!-- Frameworks & Web -->
+<div class="flex flex-col md:flex-row md:items-baseline gap-2 pt-2 border-t border-outline-variant/40">
+<span class="w-48 font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider shrink-0">Frameworks &amp; Web</span>
+<div class="flex flex-wrap gap-1.5 flex-1">
+<span class="px-2 py-0.5 bg-surface-container rounded text-on-surface font-body-sm text-body-sm border border-outline-variant/60">React 18</span>
+<span class="px-2 py-0.5 bg-surface-container rounded text-on-surface font-body-sm text-body-sm border border-outline-variant/60">Next.js</span>
+<span class="px-2 py-0.5 bg-surface-container rounded text-on-surface font-body-sm text-body-sm border border-outline-variant/60">Node.js</span>
+<span class="px-2 py-0.5 bg-surface-container rounded text-on-surface font-body-sm text-body-sm border border-outline-variant/60">Express</span>
+<span class="px-2 py-0.5 bg-surface-container rounded text-on-surface font-body-sm text-body-sm border border-outline-variant/60">Tailwind CSS</span>
+<span class="px-2 py-0.5 bg-surface-container rounded text-on-surface font-body-sm text-body-sm border border-outline-variant/60">REST APIs</span>
+<span class="px-2 py-0.5 bg-surface-container rounded text-on-surface font-body-sm text-body-sm border border-outline-variant/60">Webhooks</span>
+</div>
+</div>
+<!-- Systems & Storage -->
+<div class="flex flex-col md:flex-row md:items-baseline gap-2 pt-2 border-t border-outline-variant/40">
+<span class="w-48 font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider shrink-0">Systems &amp; Storage</span>
+<div class="flex flex-wrap gap-1.5 flex-1">
+<span class="px-2 py-0.5 bg-surface-container rounded text-on-surface font-body-sm text-body-sm border border-outline-variant/60">PostgreSQL</span>
+<span class="px-2 py-0.5 bg-surface-container rounded text-on-surface font-body-sm text-body-sm border border-outline-variant/60">Redis</span>
+<span class="px-2 py-0.5 bg-surface-container rounded text-on-surface font-body-sm text-body-sm border border-outline-variant/60">Docker</span>
+<span class="px-2 py-0.5 bg-surface-container rounded text-on-surface font-body-sm text-body-sm border border-outline-variant/60">Git</span>
+<span class="px-2 py-0.5 bg-surface-container rounded text-on-surface font-body-sm text-body-sm border border-outline-variant/60">Linux</span>
+<span class="px-2 py-0.5 bg-surface-container rounded text-on-surface font-body-sm text-body-sm border border-outline-variant/60">Webpack</span>
+</div>
+</div>
+<!-- Placement Focus -->
+<div class="flex flex-col md:flex-row md:items-baseline gap-2 pt-2 border-t border-outline-variant/40">
+<span class="w-48 font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider shrink-0">Placement Focus</span>
+<div class="flex flex-wrap gap-1.5 flex-1">
+<span class="px-2 py-0.5 bg-[rgba(30,91,74,0.08)] border border-[rgba(30,91,74,0.2)] text-[#1E5B4A] rounded font-body-sm text-body-sm">System Design</span>
+<span class="px-2 py-0.5 bg-[rgba(30,91,74,0.08)] border border-[rgba(30,91,74,0.2)] text-[#1E5B4A] rounded font-body-sm text-body-sm">Query Optimization</span>
+<span class="px-2 py-0.5 bg-[rgba(30,91,74,0.08)] border border-[rgba(30,91,74,0.2)] text-[#1E5B4A] rounded font-body-sm text-body-sm">Concurrency</span>
+</div>
+</div>
+</div>
+</section>
+<!-- 4. Internships & Work Experience Section -->
+<section class="bg-surface-container-lowest border border-outline-variant rounded-lg p-space-lg">
+<div class="flex items-center justify-between pb-3 border-b border-outline-variant">
+<div class="flex items-center gap-2">
+<span class="w-1.5 h-3 bg-primary-container rounded-xs"></span>
+<h2 class="font-title-md text-title-md text-on-surface font-semibold">Experience</h2>
+</div>
+<button class="font-label-md text-label-md text-primary-container hover:underline flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">edit</span>
+<span>Edit</span>
+</button>
+</div>
+<div class="mt-4">
+<div class="flex flex-col md:flex-row md:items-baseline justify-between gap-1">
+<div>
+<h3 class="font-title-sm text-title-sm font-semibold text-on-surface">Zomato</h3>
+<p class="font-body-md text-body-md text-on-surface-variant">Software Engineering Intern</p>
+</div>
+<div class="text-right">
+<span class="font-tabular-mono text-tabular-mono text-on-surface-variant tnum">May 2024 – July 2024</span>
+<span class="text-outline text-xs block">· Gurgaon, India</span>
+</div>
+</div>
+<!-- Structured bullets -->
+<ul class="mt-3 space-y-2 list-none text-body-md font-body-md text-on-surface">
+<li class="flex items-start gap-2.5">
+<span class="text-outline font-bold leading-5 select-none">•</span>
+<span>Built responsive merchant onboarding workflows using internal design system components and React state controllers.</span>
+</li>
+<li class="flex items-start gap-2.5">
+<span class="text-outline font-bold leading-5 select-none">•</span>
+<span>Engineered API error-handling and telemetry log ingestion pipelines, reducing silent network dropouts by <strong class="font-tabular-mono text-tabular-mono font-medium tnum">22%</strong>.</span>
+</li>
+<li class="flex items-start gap-2.5">
+<span class="text-outline font-bold leading-5 select-none">•</span>
+<span>Refactored legacy table views and bundle dependencies, cutting bundle size by <strong class="font-tabular-mono text-tabular-mono font-medium tnum">14%</strong>.</span>
+</li>
+</ul>
+</div>
+</section>
+<!-- 5. Technical Projects Section -->
+<section class="bg-surface-container-lowest border border-outline-variant rounded-lg p-space-lg">
+<div class="flex items-center justify-between pb-3 border-b border-outline-variant">
+<div class="flex items-center gap-2">
+<span class="w-1.5 h-3 bg-primary-container rounded-xs"></span>
+<h2 class="font-title-md text-title-md text-on-surface font-semibold">Projects</h2>
+</div>
+<button class="font-label-md text-label-md text-primary-container hover:underline flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">edit</span>
+<span>Edit</span>
+</button>
+</div>
+<!-- Project 1 -->
+<div class="mt-4 pb-5 border-b border-outline-variant/60">
+<div class="flex flex-col md:flex-row md:items-baseline justify-between gap-1">
+<div>
+<h3 class="font-title-sm text-title-sm font-semibold text-on-surface">CampusHub — Student Marketplace Platform</h3>
+<div class="mt-1 flex flex-wrap gap-1.5">
+<span class="px-1.5 py-0.5 bg-surface-container rounded text-on-surface font-tabular-mono text-label-sm border border-outline-variant/60">React</span>
+<span class="px-1.5 py-0.5 bg-surface-container rounded text-on-surface font-tabular-mono text-label-sm border border-outline-variant/60">TypeScript</span>
+<span class="px-1.5 py-0.5 bg-surface-container rounded text-on-surface font-tabular-mono text-label-sm border border-outline-variant/60">PostgreSQL</span>
+<span class="px-1.5 py-0.5 bg-surface-container rounded text-on-surface font-tabular-mono text-label-sm border border-outline-variant/60">Redis</span>
+</div>
+</div>
+<span class="font-tabular-mono text-tabular-mono text-on-surface-variant tnum mt-1 md:mt-0">Jan 2024 – Apr 2024</span>
+</div>
+<ul class="mt-2.5 list-none text-body-md font-body-md text-on-surface space-y-1.5">
+<li class="flex items-start gap-2.5">
+<span class="text-outline font-bold leading-5 select-none">•</span>
+<span>Built authenticated full-stack marketplace with real-time inventory tracking, webhooks, and session management.</span>
+</li>
+</ul>
+</div>
+<!-- Project 2 -->
+<div class="mt-4">
+<div class="flex flex-col md:flex-row md:items-baseline justify-between gap-1">
+<div>
+<h3 class="font-title-sm text-title-sm font-semibold text-on-surface">Distributed Log Aggregator</h3>
+<div class="mt-1 flex flex-wrap gap-1.5">
+<span class="px-1.5 py-0.5 bg-surface-container rounded text-on-surface font-tabular-mono text-label-sm border border-outline-variant/60">Go</span>
+<span class="px-1.5 py-0.5 bg-surface-container rounded text-on-surface font-tabular-mono text-label-sm border border-outline-variant/60">gRPC</span>
+<span class="px-1.5 py-0.5 bg-surface-container rounded text-on-surface font-tabular-mono text-label-sm border border-outline-variant/60">Redis</span>
+</div>
+</div>
+<span class="font-tabular-mono text-tabular-mono text-on-surface-variant tnum mt-1 md:mt-0">Aug 2023 – Nov 2023</span>
+</div>
+<ul class="mt-2.5 list-none text-body-md font-body-md text-on-surface space-y-1.5">
+<li class="flex items-start gap-2.5">
+<span class="text-outline font-bold leading-5 select-none">•</span>
+<span>Engineered high-throughput log ingestion engine handling concurrent worker streams with raft-backed consensus.</span>
+</li>
+</ul>
+</div>
+</section>
+</div>
+<!-- RIGHT RAIL / RECRUITMENT STATUS & LEDGER RULES (4 cols) -->
+<div class="lg:col-span-4 flex flex-col gap-6">
+<!-- 6. Placement Rules & Preferences Card -->
+<div class="bg-surface-container-lowest border border-outline-variant rounded-lg p-space-lg">
+<div class="flex items-center justify-between pb-3 border-b border-outline-variant">
+<h2 class="font-title-md text-title-md text-on-surface font-semibold">Placement Rules &amp; Policy</h2>
+<span class="font-label-sm text-label-sm px-2 py-0.5 rounded bg-[rgba(30,91,74,0.08)] border border-[rgba(30,91,74,0.2)] text-[#1E5B4A]">
+                Phase 1 Active
+              </span>
+</div>
+<div class="mt-4 space-y-4">
+<!-- Item: Status -->
+<div>
+<span class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider block">Placement Cell Status</span>
+<div class="mt-1 flex items-center justify-between">
+<span class="font-title-sm text-title-sm text-on-surface font-medium">Eligible &amp; Registered</span>
+<span class="inline-flex items-center gap-1 text-[#1E5B4A] font-label-sm text-label-sm font-semibold">
+<span class="w-1.5 h-1.5 rounded-full bg-[#1E5B4A]"></span>
+                    Good Standing
+                  </span>
+</div>
+</div>
+<!-- Item: 1-Offer Rule -->
+<div class="pt-3 border-t border-outline-variant/60">
+<span class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider block">1-Offer Rule Enforcement</span>
+<div class="mt-1 flex items-center justify-between">
+<span class="font-body-md text-body-md text-on-surface">Dream Tier Policy</span>
+<span class="px-2 py-0.5 rounded bg-[rgba(183,121,31,0.08)] text-[#B7791F] border border-[rgba(183,121,31,0.2)] font-label-sm text-label-sm">
+                    Enrolled
+                  </span>
+</div>
+<p class="mt-1 font-body-sm text-body-sm text-on-surface-variant">Eligible for 1 Dream upgrade if receiving &gt; 1.5x base compensation.</p>
+</div>
+<!-- Item: CTC Floor -->
+<div class="pt-3 border-t border-outline-variant/60">
+<span class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider block">Target CTC Floor</span>
+<div class="mt-1 flex items-baseline justify-between">
+<span class="font-headline-sm text-headline-sm text-on-surface font-normal">₹20 LPA+</span>
+<span class="font-tabular-mono text-tabular-mono text-on-surface-variant tnum text-xs">Min Base: ₹16 LPA</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Resume Versions Ledger Card -->
+<div class="bg-surface-container-lowest border border-outline-variant rounded-lg p-space-lg">
+<div class="flex items-center justify-between pb-3 border-b border-outline-variant">
+<div>
+<h2 class="font-title-md text-title-md text-on-surface font-semibold">Resume Artifacts</h2>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Active derivative snapshots</p>
+</div>
+<span class="font-tabular-mono text-tabular-mono text-xs text-outline tnum">3 total</span>
+</div>
+<div class="mt-3 divide-y divide-outline-variant/60">
+<!-- Version 1 -->
+<div class="py-2.5 flex items-start justify-between gap-2">
+<div>
+<div class="flex items-center gap-1.5">
+<span class="font-title-sm text-title-sm text-on-surface font-semibold">Master v3.2</span>
+<span class="px-1.5 py-0.2 rounded bg-surface-container border border-outline-variant text-[10px] font-label-sm text-on-surface uppercase">Primary</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-0.5">Full academic &amp; project record</p>
+</div>
+<button class="text-on-surface-variant hover:text-on-surface p-1">
+<span class="material-symbols-outlined text-[16px]">visibility</span>
+</button>
+</div>
+<!-- Version 2 -->
+<div class="py-2.5 flex items-start justify-between gap-2">
+<div>
+<div class="flex items-center gap-1.5">
+<span class="font-title-sm text-title-sm text-on-surface font-semibold">SDE Fullstack Tailored</span>
+<span class="px-1.5 py-0.2 rounded bg-[rgba(30,91,74,0.08)] border border-[rgba(30,91,74,0.2)] text-[#1E5B4A] text-[10px] font-label-sm uppercase">Active</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-0.5">Optimized for React, Node, SQL drives</p>
+</div>
+<button class="text-on-surface-variant hover:text-on-surface p-1">
+<span class="material-symbols-outlined text-[16px]">visibility</span>
+</button>
+</div>
+<!-- Version 3 -->
+<div class="py-2.5 flex items-start justify-between gap-2">
+<div>
+<div class="flex items-center gap-1.5">
+<span class="font-title-sm text-title-sm text-on-surface font-semibold">Systems Tailored</span>
+<span class="px-1.5 py-0.2 rounded bg-surface-container-high border border-outline text-outline text-[10px] font-label-sm uppercase">Draft</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-0.5">Go concurrency &amp; distributed models</p>
+</div>
+<button class="text-on-surface-variant hover:text-on-surface p-1">
+<span class="material-symbols-outlined text-[16px]">visibility</span>
+</button>
+</div>
+</div>
+<button class="w-full mt-3 h-8 flex items-center justify-center gap-1.5 rounded bg-surface-container border border-outline-variant hover:border-outline text-on-surface font-label-md text-label-md transition-colors duration-150">
+<span class="material-symbols-outlined text-[14px]">add</span>
+<span>Create Tailored Derivative</span>
+</button>
+</div>
+<!-- Document Integrity & Audit Box -->
+<div class="border border-outline-variant rounded-lg p-space-md bg-surface-container-low text-on-surface-variant">
+<div class="flex items-center gap-2 mb-1">
+<span class="material-symbols-outlined text-[16px] text-primary-container">lock</span>
+<span class="font-label-md text-label-md text-on-surface font-semibold">Ledger Ledger Integrity</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant">
+              Modifications are recorded against your IITD identity token. Any changes to CGPA, degree, or verified internships require reverification by the Career Services Office.
+            </p>
+</div>
+</div>
+</div>
+</main>
+<!-- Flat footer context note -->
+<footer class="h-10 border-t border-outline-variant px-gutter-desktop flex items-center justify-between text-on-surface-variant font-label-sm text-label-sm bg-surface-container-lowest mt-12">
+<div>CareerPilot Recruitment Engine · Indian Institute of Technology Delhi</div>
+<div class="font-tabular-mono text-tabular-mono tnum">System Status: OAS Synced (Latency: 42ms)</div>
+</footer>
+</div>
+</body></html>

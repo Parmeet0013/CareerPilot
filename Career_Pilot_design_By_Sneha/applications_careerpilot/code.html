@@ -1,0 +1,783 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>CareerPilot — Applications Ledger</title>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600&amp;family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          "colors": {
+            "on-secondary-fixed-variant": "#653e00",
+            "on-tertiary": "#ffffff",
+            "on-surface": "#1d1c16",
+            "inverse-surface": "#32302a",
+            "tertiary": "#7b0001",
+            "tertiary-fixed": "#ffdad5",
+            "on-primary-fixed": "#002118",
+            "primary-container": "#1e5b4a",
+            "primary": "#004334",
+            "on-error": "#ffffff",
+            "outline": "#707975",
+            "on-tertiary-fixed": "#410000",
+            "on-secondary": "#ffffff",
+            "tertiary-fixed-dim": "#ffb4a8",
+            "primary-fixed-dim": "#96d3bd",
+            "error-container": "#ffdad6",
+            "on-surface-variant": "#404945",
+            "surface-container": "#f3ede3",
+            "error": "#ba1a1a",
+            "surface-container-high": "#ede8dd",
+            "secondary": "#855300",
+            "on-primary-container": "#94d1bb",
+            "surface-variant": "#e7e2d8",
+            "on-secondary-container": "#734700",
+            "on-tertiary-fixed-variant": "#930303",
+            "tertiary-container": "#a2140c",
+            "surface-container-lowest": "#ffffff",
+            "inverse-on-surface": "#f6f0e6",
+            "surface-tint": "#2d6857",
+            "secondary-fixed-dim": "#ffb95f",
+            "surface-dim": "#dfd9d0",
+            "surface-container-highest": "#e7e2d8",
+            "surface-bright": "#fef9ee",
+            "secondary-container": "#feb557",
+            "secondary-fixed": "#ffddb8",
+            "on-error-container": "#93000a",
+            "on-tertiary-container": "#ffb0a4",
+            "on-background": "#1d1c16",
+            "on-primary": "#ffffff",
+            "surface-container-low": "#f9f3e9",
+            "primary-fixed": "#b2efd9",
+            "on-secondary-fixed": "#2a1700",
+            "inverse-primary": "#96d3bd",
+            "outline-variant": "#bfc9c3",
+            "on-primary-fixed-variant": "#0f5040",
+            "background": "#fef9ee",
+            "surface": "#fef9ee"
+          },
+          "borderRadius": {
+            "DEFAULT": "0.25rem",
+            "lg": "0.5rem",
+            "xl": "0.75rem",
+            "full": "9999px"
+          },
+          "spacing": {
+            "space-md": "0.75rem",
+            "margin-tablet": "1.5rem",
+            "margin-desktop": "2.5rem",
+            "space-xs": "0.25rem",
+            "space-sm": "0.5rem",
+            "margin": "1rem",
+            "gutter": "1rem",
+            "space-lg": "1.25rem",
+            "space-xl": "2rem",
+            "gutter-desktop": "1.5rem"
+          },
+          "fontFamily": {
+            "title-sm": ["Geist"],
+            "body-lg": ["Geist"],
+            "headline-sm": ["Newsreader"],
+            "body-sm": ["Geist"],
+            "label-sm": ["Geist"],
+            "headline-md-mobile": ["Newsreader"],
+            "headline-lg": ["Newsreader"],
+            "label-md": ["Geist"],
+            "body-md": ["Geist"],
+            "tabular-mono": ["Geist"],
+            "headline-lg-mobile": ["Newsreader"],
+            "title-md": ["Geist"],
+            "headline-md": ["Newsreader"]
+          },
+          "fontSize": {
+            "title-sm": ["14px", { "lineHeight": "20px", "fontWeight": "600" }],
+            "body-lg": ["15px", { "lineHeight": "22px", "fontWeight": "400" }],
+            "headline-sm": ["20px", { "lineHeight": "28px", "fontWeight": "500" }],
+            "body-sm": ["12px", { "lineHeight": "16px", "fontWeight": "400" }],
+            "label-sm": ["11px", { "lineHeight": "14px", "letterSpacing": "0.03em", "fontWeight": "500" }],
+            "headline-md-mobile": ["22px", { "lineHeight": "28px", "fontWeight": "400" }],
+            "headline-lg": ["36px", { "lineHeight": "44px", "fontWeight": "400" }],
+            "label-md": ["12px", { "lineHeight": "16px", "letterSpacing": "0.02em", "fontWeight": "500" }],
+            "body-md": ["13px", { "lineHeight": "18px", "fontWeight": "400" }],
+            "tabular-mono": ["13px", { "lineHeight": "18px", "fontWeight": "400" }],
+            "headline-lg-mobile": ["28px", { "lineHeight": "36px", "fontWeight": "400" }],
+            "title-md": ["16px", { "lineHeight": "22px", "fontWeight": "600" }],
+            "headline-md": ["28px", { "lineHeight": "36px", "fontWeight": "400" }]
+          }
+        }
+      }
+    }
+  </script>
+<style>
+    body {
+      background-color: #FAF9F6;
+      color: #1A1A1A;
+      font-family: 'Geist', sans-serif;
+      margin: 0;
+      padding: 0;
+      -webkit-font-smoothing: antialiased;
+    }
+    .material-symbols-outlined {
+      font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 20;
+      font-size: 18px;
+      line-height: 1;
+      display: inline-block;
+      vertical-align: middle;
+    }
+    .custom-scrollbar::-webkit-scrollbar {
+      width: 4px;
+      height: 4px;
+    }
+    .custom-scrollbar::-webkit-scrollbar-track {
+      background: transparent;
+    }
+    .custom-scrollbar::-webkit-scrollbar-thumb {
+      background: #E7E5E0;
+      border-radius: 2px;
+    }
+    .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+      background: #D6D3CC;
+    }
+  </style>
+</head>
+<body class="bg-surface text-on-surface min-h-screen flex antialiased select-none">
+<!-- SideNavBar Component (Fixed 240px) -->
+<aside class="fixed top-0 left-0 h-screen w-60 z-30 bg-surface-container-lowest border-r border-outline-variant/60 flex flex-col justify-between p-space-md">
+<div class="flex flex-col gap-6">
+<!-- Brand Anchor -->
+<div class="px-2 pt-1 flex items-center justify-between">
+<div>
+<span class="font-headline-sm text-headline-sm font-normal text-on-surface tracking-tight block">CareerPilot</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant block mt-0.5 tracking-normal">Recruitment Ledger</span>
+</div>
+<div class="h-2 w-2 rounded-full bg-primary-container"></div>
+</div>
+<!-- Navigation Hierarchy -->
+<nav class="flex flex-col gap-1">
+<!-- Today Tab -->
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors duration-150 font-body-md text-body-md" href="#">
+<span class="material-symbols-outlined" data-icon="calendar_today">calendar_today</span>
+<span>Today</span>
+</a>
+<!-- Jobs Tab -->
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors duration-150 font-body-md text-body-md" href="#">
+<span class="material-symbols-outlined" data-icon="work_outline">work_outline</span>
+<span>Jobs</span>
+</a>
+<!-- Applications Tab (Active) -->
+<a class="flex items-center justify-between px-3 py-2 rounded-lg bg-surface-container-low text-primary font-title-sm text-title-sm border border-outline-variant/50" href="#">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-primary" data-icon="fact_check">fact_check</span>
+<span>Applications</span>
+</div>
+<span class="font-label-sm text-label-sm bg-primary-container text-on-primary px-1.5 py-0.5 rounded">18</span>
+</a>
+<!-- Practice Tab -->
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors duration-150 font-body-md text-body-md" href="#">
+<span class="material-symbols-outlined" data-icon="edit_note">edit_note</span>
+<span>Practice</span>
+</a>
+</nav>
+<!-- Quick Context Box: Academic Identity -->
+<div class="px-3 py-2.5 rounded-lg bg-surface-container-low border border-outline-variant/40 mt-1">
+<span class="font-label-sm text-label-sm text-on-surface-variant block uppercase tracking-wider">Placement Node</span>
+<span class="font-title-sm text-title-sm text-on-surface block mt-1">IIT Delhi — TPO OAS</span>
+<div class="flex items-center justify-between mt-2 pt-2 border-t border-outline-variant/40 text-on-surface-variant font-label-sm text-label-sm">
+<span>Roll No.</span>
+<span class="font-tabular-mono text-tabular-mono text-on-surface">2021CS10198</span>
+</div>
+</div>
+</div>
+<!-- Footer Profile & CTA -->
+<div class="flex flex-col gap-3">
+<button class="w-full h-9 rounded-lg bg-primary-container text-on-primary font-title-sm text-title-sm flex items-center justify-center gap-2 hover:bg-primary transition-colors duration-150">
+<span class="material-symbols-outlined" data-icon="add">add</span>
+<span>Log Application</span>
+</button>
+<div class="pt-2 border-t border-outline-variant/40 flex items-center gap-2.5 px-1 py-1">
+<div class="w-7 h-7 rounded-full bg-surface-container-highest border border-outline-variant/80 flex items-center justify-center font-title-sm text-title-sm text-on-surface">
+          AS
+        </div>
+<div class="flex flex-col overflow-hidden">
+<span class="font-title-sm text-title-sm text-on-surface truncate">Profile - Ananya Sharma</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">B.Tech CSE '25</span>
+</div>
+</div>
+</div>
+</aside>
+<!-- Main Canvas Wrapper -->
+<div class="flex-1 ml-60 flex flex-col min-h-screen bg-surface">
+<!-- TopNavBar Component -->
+<header class="sticky top-0 w-full z-20 h-14 bg-surface-container-lowest border-b border-outline-variant/50 px-gutter-desktop flex items-center justify-between">
+<div class="flex items-center gap-4">
+<!-- Search bar on left -->
+<div class="relative flex items-center">
+<span class="material-symbols-outlined absolute left-2.5 text-on-surface-variant" data-icon="search">search</span>
+<input class="w-72 h-8 pl-8 pr-3 bg-surface-container-lowest border border-outline-variant/60 rounded-lg font-body-md text-body-md text-on-surface placeholder:text-on-surface-variant focus:outline-none focus:border-primary-container" placeholder="Search companies, drives, roles..." type="text"/>
+</div>
+<div class="h-4 w-px bg-outline-variant/60"></div>
+<!-- Academic Season Breadcrumb Switcher -->
+<div class="flex items-center gap-2">
+<span class="text-primary font-title-sm text-title-sm border-b border-primary pb-0.5 cursor-pointer">Season 2024–25</span>
+<span class="text-on-surface-variant font-body-md text-body-md">/</span>
+<span class="text-on-surface-variant font-body-md text-body-md hover:text-on-surface transition-colors cursor-pointer">Phase 1 Drives</span>
+</div>
+</div>
+<!-- Trailing Action Controls -->
+<div class="flex items-center gap-2.5">
+<!-- Activity Log Drawer Toggle Button -->
+<button class="h-8 px-3 rounded-lg border border-outline-variant/70 bg-surface-container-lowest text-on-surface font-title-sm text-title-sm flex items-center gap-1.5 hover:bg-surface-container-low transition-colors duration-150" id="toggle-ledger-btn">
+<span class="material-symbols-outlined text-primary" data-icon="history">history</span>
+<span>Activity log</span>
+<span class="w-1.5 h-1.5 rounded-full bg-secondary"></span>
+</button>
+<button class="h-8 px-2.5 rounded-lg border border-outline-variant/70 bg-surface-container-lowest text-on-surface-variant hover:text-on-surface hover:bg-surface-container-low transition-colors flex items-center gap-1 font-body-md text-body-md">
+<span class="material-symbols-outlined" data-icon="tune">tune</span>
+<span>Filter View</span>
+</button>
+<button class="h-8 px-2.5 rounded-lg border border-outline-variant/70 bg-surface-container-lowest text-on-surface-variant hover:text-on-surface hover:bg-surface-container-low transition-colors flex items-center gap-1 font-body-md text-body-md">
+<span class="material-symbols-outlined" data-icon="file_download">file_download</span>
+<span>Export Ledger</span>
+</button>
+<div class="h-4 w-px bg-outline-variant/60 ml-1"></div>
+<button class="w-8 h-8 rounded-lg flex items-center justify-center text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors">
+<span class="material-symbols-outlined" data-icon="notifications_none">notifications_none</span>
+</button>
+</div>
+</header>
+<!-- Main Content Area -->
+<main class="flex-1 p-gutter-desktop flex flex-col gap-5 overflow-hidden">
+<!-- Header Area: Newsreader Serif Page Title & View Controls -->
+<section class="flex flex-col md:flex-row md:items-end justify-between gap-4 pb-2 border-b border-outline-variant/40">
+<div>
+<div class="flex items-baseline gap-3">
+<h1 class="font-headline-md text-headline-md text-on-surface tracking-tight">Applications</h1>
+<span class="font-label-sm text-label-sm text-primary bg-primary-container/10 border border-primary-container/20 px-2 py-0.5 rounded font-tabular-mono">Phase 1 On-Campus</span>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant mt-1">
+            Season 2024–25 · 18 Active Processes across campus placement drives · Placement Cell verified
+          </p>
+</div>
+<div class="flex items-center gap-3">
+<!-- View Toggle: Board vs List -->
+<div class="flex items-center p-0.5 bg-surface-container border border-outline-variant/60 rounded-lg">
+<button class="flex items-center gap-1 px-2.5 py-1 rounded bg-surface-container-lowest text-on-surface font-title-sm text-title-sm shadow-none">
+<span class="material-symbols-outlined" data-icon="view_column">view_column</span>
+<span>Board</span>
+</button>
+<button class="flex items-center gap-1 px-2.5 py-1 rounded text-on-surface-variant hover:text-on-surface font-body-md text-body-md transition-colors">
+<span class="material-symbols-outlined" data-icon="format_list_bulleted">format_list_bulleted</span>
+<span>Ledger List</span>
+</button>
+</div>
+<!-- Secondary Actions -->
+<div class="flex items-center gap-2">
+<div class="flex items-center border border-outline-variant/60 rounded-lg bg-surface-container-lowest px-2.5 py-1 text-on-surface font-body-md text-body-md">
+<span class="text-on-surface-variant mr-1">Sort:</span>
+<span class="font-title-sm text-title-sm">Next Deadline</span>
+</div>
+</div>
+</div>
+</section>
+<!-- 5-Column Pipeline (Kanban Board) -->
+<section class="flex-1 overflow-x-auto pb-4">
+<div class="grid grid-cols-5 gap-3.5 min-w-[1160px] h-full items-start">
+<!-- Column 1: Saved (4) -->
+<div class="flex flex-col bg-surface-container-low/70 border border-outline-variant/60 rounded-lg p-2.5 h-full">
+<div class="flex items-center justify-between pb-2 mb-2 border-b border-outline-variant/50">
+<div class="flex items-center gap-2">
+<span class="font-title-sm text-title-sm text-on-surface">Saved</span>
+<span class="font-label-sm text-label-sm font-tabular-mono bg-surface-container-highest text-on-surface px-1.5 py-0.5 rounded">4</span>
+</div>
+<span class="font-label-sm text-label-sm text-on-surface-variant">Avg ₹28 LPA</span>
+</div>
+<div class="flex flex-col gap-2 custom-scrollbar overflow-y-auto max-h-[calc(100vh-250px)] pr-0.5">
+<!-- Card: Graviton Research -->
+<div class="bg-surface-container-lowest border border-outline-variant/60 rounded-lg p-3 hover:border-outline-variant transition-colors">
+<div class="flex items-start justify-between">
+<div class="flex items-center gap-2">
+<div class="w-6 h-6 rounded bg-surface-container border border-outline-variant/50 flex items-center justify-center font-title-sm text-title-sm text-on-surface">G</div>
+<span class="font-title-sm text-title-sm text-on-surface">Graviton Research</span>
+</div>
+<span class="font-label-sm text-label-sm font-tabular-mono text-on-surface-variant">Slot 1.1</span>
+</div>
+<div class="font-body-md text-body-md text-on-surface mt-1.5">Quantitative Developer</div>
+<div class="flex items-center justify-between mt-2.5 pt-2 border-t border-outline-variant/30">
+<span class="font-label-sm text-label-sm text-on-secondary-fixed-variant bg-secondary-container/20 border border-secondary-container/40 px-1.5 py-0.5 rounded">Closes 13 Nov</span>
+<span class="font-tabular-mono text-body-sm text-on-surface font-medium">₹120 LPA CTC</span>
+</div>
+</div>
+<!-- Card: Google India -->
+<div class="bg-surface-container-lowest border border-outline-variant/60 rounded-lg p-3 hover:border-outline-variant transition-colors">
+<div class="flex items-start justify-between">
+<div class="flex items-center gap-2">
+<div class="w-6 h-6 rounded bg-surface-container border border-outline-variant/50 flex items-center justify-center font-title-sm text-title-sm text-on-surface">G</div>
+<span class="font-title-sm text-title-sm text-on-surface">Google India</span>
+</div>
+<span class="font-label-sm text-label-sm font-tabular-mono text-on-surface-variant">Day 1</span>
+</div>
+<div class="font-body-md text-body-md text-on-surface mt-1.5">Software Engineer — Systems</div>
+<div class="flex items-center justify-between mt-2.5 pt-2 border-t border-outline-variant/30">
+<span class="font-label-sm text-label-sm text-on-surface-variant bg-surface-container-high px-1.5 py-0.5 rounded">JD Verifying</span>
+<span class="font-tabular-mono text-body-sm text-on-surface font-medium">₹48 LPA</span>
+</div>
+</div>
+<!-- Card: Microsoft -->
+<div class="bg-surface-container-lowest border border-outline-variant/60 rounded-lg p-3 hover:border-outline-variant transition-colors">
+<div class="flex items-start justify-between">
+<div class="flex items-center gap-2">
+<div class="w-6 h-6 rounded bg-surface-container border border-outline-variant/50 flex items-center justify-center font-title-sm text-title-sm text-on-surface">M</div>
+<span class="font-title-sm text-title-sm text-on-surface">Microsoft IDC</span>
+</div>
+<span class="font-label-sm text-label-sm font-tabular-mono text-on-surface-variant">Slot 1.2</span>
+</div>
+<div class="font-body-md text-body-md text-on-surface mt-1.5">SDE 1 (Cloud &amp; AI)</div>
+<div class="flex items-center justify-between mt-2.5 pt-2 border-t border-outline-variant/30">
+<span class="font-label-sm text-label-sm text-on-secondary-fixed-variant bg-secondary-container/20 border border-secondary-container/40 px-1.5 py-0.5 rounded">Closes 14 Nov</span>
+<span class="font-tabular-mono text-body-sm text-on-surface font-medium">₹51 LPA</span>
+</div>
+</div>
+<!-- Card: Rubrik -->
+<div class="bg-surface-container-lowest border border-outline-variant/60 rounded-lg p-3 hover:border-outline-variant transition-colors">
+<div class="flex items-start justify-between">
+<div class="flex items-center gap-2">
+<div class="w-6 h-6 rounded bg-surface-container border border-outline-variant/50 flex items-center justify-center font-title-sm text-title-sm text-on-surface">R</div>
+<span class="font-title-sm text-title-sm text-on-surface">Rubrik</span>
+</div>
+<span class="font-label-sm text-label-sm font-tabular-mono text-on-surface-variant">Slot 1.1</span>
+</div>
+<div class="font-body-md text-body-md text-on-surface mt-1.5">MTS — Storage Kernel</div>
+<div class="flex items-center justify-between mt-2.5 pt-2 border-t border-outline-variant/30">
+<span class="font-label-sm text-label-sm text-on-surface-variant bg-surface-container-high px-1.5 py-0.5 rounded">Eligibility Check</span>
+<span class="font-tabular-mono text-body-sm text-on-surface font-medium">₹65 LPA</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Column 2: Drafted (3) -->
+<div class="flex flex-col bg-surface-container-low/70 border border-outline-variant/60 rounded-lg p-2.5 h-full">
+<div class="flex items-center justify-between pb-2 mb-2 border-b border-outline-variant/50">
+<div class="flex items-center gap-2">
+<span class="font-title-sm text-title-sm text-on-surface">Drafted</span>
+<span class="font-label-sm text-label-sm font-tabular-mono bg-surface-container-highest text-on-surface px-1.5 py-0.5 rounded">3</span>
+</div>
+<span class="font-label-sm text-label-sm text-secondary font-medium">1 Needs Student OK</span>
+</div>
+<div class="flex flex-col gap-2 custom-scrollbar overflow-y-auto max-h-[calc(100vh-250px)] pr-0.5">
+<!-- Card: Razorpay (Highlighted: Awaiting Student Approval) -->
+<div class="bg-surface-container-lowest border-2 border-secondary/40 rounded-lg p-3 hover:border-secondary transition-colors">
+<div class="flex items-start justify-between">
+<div class="flex items-center gap-2">
+<div class="w-6 h-6 rounded bg-surface-container border border-outline-variant/50 flex items-center justify-center font-title-sm text-title-sm text-on-surface">R</div>
+<span class="font-title-sm text-title-sm text-on-surface">Razorpay</span>
+</div>
+<span class="font-label-sm text-label-sm text-on-secondary-fixed-variant bg-secondary-container/20 border border-secondary-container/40 px-1 py-0.5 rounded">Needs Approval</span>
+</div>
+<div class="font-body-md text-body-md text-on-surface mt-1.5">SDE 1 (Fullstack &amp; Payments)</div>
+<div class="text-body-sm text-on-surface-variant mt-1">Tailored resume v3 diff ready.</div>
+<div class="flex items-center justify-between mt-2.5 pt-2 border-t border-outline-variant/30">
+<span class="font-label-sm text-label-sm text-on-surface-variant">OAS Roll: 2021CS10198</span>
+<span class="font-tabular-mono text-body-sm text-on-surface font-medium">₹32 LPA</span>
+</div>
+</div>
+<!-- Card: Cred -->
+<div class="bg-surface-container-lowest border border-outline-variant/60 rounded-lg p-3 hover:border-outline-variant transition-colors">
+<div class="flex items-start justify-between">
+<div class="flex items-center gap-2">
+<div class="w-6 h-6 rounded bg-surface-container border border-outline-variant/50 flex items-center justify-center font-title-sm text-title-sm text-on-surface">C</div>
+<span class="font-title-sm text-title-sm text-on-surface">Cred</span>
+</div>
+<span class="font-label-sm text-label-sm font-tabular-mono text-on-surface-variant">Slot 1.3</span>
+</div>
+<div class="font-body-md text-body-md text-on-surface mt-1.5">Associate Product Manager</div>
+<div class="flex items-center justify-between mt-2.5 pt-2 border-t border-outline-variant/30">
+<span class="font-label-sm text-label-sm text-on-secondary-fixed-variant bg-secondary-container/20 border border-secondary-container/40 px-1.5 py-0.5 rounded">Closes 12 Nov</span>
+<span class="font-tabular-mono text-body-sm text-on-surface font-medium">₹30 LPA</span>
+</div>
+</div>
+<!-- Card: Urban Company -->
+<div class="bg-surface-container-lowest border border-outline-variant/60 rounded-lg p-3 hover:border-outline-variant transition-colors">
+<div class="flex items-start justify-between">
+<div class="flex items-center gap-2">
+<div class="w-6 h-6 rounded bg-surface-container border border-outline-variant/50 flex items-center justify-center font-title-sm text-title-sm text-on-surface">U</div>
+<span class="font-title-sm text-title-sm text-on-surface">Urban Company</span>
+</div>
+<span class="font-label-sm text-label-sm font-tabular-mono text-on-surface-variant">Slot 2.1</span>
+</div>
+<div class="font-body-md text-body-md text-on-surface mt-1.5">Software Engineer — Backend</div>
+<div class="flex items-center justify-between mt-2.5 pt-2 border-t border-outline-variant/30">
+<span class="font-label-sm text-label-sm text-on-surface-variant bg-surface-container-high px-1.5 py-0.5 rounded">Drafting SOP</span>
+<span class="font-tabular-mono text-body-sm text-on-surface font-medium">₹26 LPA</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Column 3: Applied (6) -->
+<div class="flex flex-col bg-surface-container-low/70 border border-outline-variant/60 rounded-lg p-2.5 h-full">
+<div class="flex items-center justify-between pb-2 mb-2 border-b border-outline-variant/50">
+<div class="flex items-center gap-2">
+<span class="font-title-sm text-title-sm text-on-surface">Applied</span>
+<span class="font-label-sm text-label-sm font-tabular-mono bg-surface-container-highest text-on-surface px-1.5 py-0.5 rounded">6</span>
+</div>
+<span class="font-label-sm text-label-sm text-on-surface-variant">TPO Dispatched</span>
+</div>
+<div class="flex flex-col gap-2 custom-scrollbar overflow-y-auto max-h-[calc(100vh-250px)] pr-0.5">
+<!-- Card: Swiggy -->
+<div class="bg-surface-container-lowest border border-outline-variant/60 rounded-lg p-3 hover:border-outline-variant transition-colors">
+<div class="flex items-start justify-between">
+<div class="flex items-center gap-2">
+<div class="w-6 h-6 rounded bg-surface-container border border-outline-variant/50 flex items-center justify-center font-title-sm text-title-sm text-on-surface">S</div>
+<span class="font-title-sm text-title-sm text-on-surface">Swiggy</span>
+</div>
+<span class="font-label-sm text-label-sm text-primary font-medium">Applied 07 Nov</span>
+</div>
+<div class="font-body-md text-body-md text-on-surface mt-1.5">Data Analyst — Logistics</div>
+<div class="flex items-center justify-between mt-2.5 pt-2 border-t border-outline-variant/30">
+<span class="font-label-sm text-label-sm text-primary bg-primary-container/10 border border-primary-container/20 px-1.5 py-0.5 rounded">OA Scheduled</span>
+<span class="font-tabular-mono text-body-sm text-on-surface font-medium">₹22 LPA</span>
+</div>
+</div>
+<!-- Card: Postman -->
+<div class="bg-surface-container-lowest border border-outline-variant/60 rounded-lg p-3 hover:border-outline-variant transition-colors">
+<div class="flex items-start justify-between">
+<div class="flex items-center gap-2">
+<div class="w-6 h-6 rounded bg-surface-container border border-outline-variant/50 flex items-center justify-center font-title-sm text-title-sm text-on-surface">P</div>
+<span class="font-title-sm text-title-sm text-on-surface">Postman</span>
+</div>
+<span class="font-label-sm text-label-sm text-on-surface-variant">Applied 07 Nov</span>
+</div>
+<div class="font-body-md text-body-md text-on-surface mt-1.5">Member Technical Staff</div>
+<div class="flex items-center justify-between mt-2.5 pt-2 border-t border-outline-variant/30">
+<span class="font-label-sm text-label-sm text-on-surface-variant bg-surface-container-high px-1.5 py-0.5 rounded">Screening</span>
+<span class="font-tabular-mono text-body-sm text-on-surface font-medium">₹34 LPA</span>
+</div>
+</div>
+<!-- Card: Flipkart -->
+<div class="bg-surface-container-lowest border border-outline-variant/60 rounded-lg p-3 hover:border-outline-variant transition-colors">
+<div class="flex items-start justify-between">
+<div class="flex items-center gap-2">
+<div class="w-6 h-6 rounded bg-surface-container border border-outline-variant/50 flex items-center justify-center font-title-sm text-title-sm text-on-surface">F</div>
+<span class="font-title-sm text-title-sm text-on-surface">Flipkart</span>
+</div>
+<span class="font-label-sm text-label-sm text-on-surface-variant">Applied 05 Nov</span>
+</div>
+<div class="font-body-md text-body-md text-on-surface mt-1.5">Software Development Eng.</div>
+<div class="flex items-center justify-between mt-2.5 pt-2 border-t border-outline-variant/30">
+<span class="font-label-sm text-label-sm text-on-surface-variant bg-surface-container-high px-1.5 py-0.5 rounded">Shortlist Awaited</span>
+<span class="font-tabular-mono text-body-sm text-on-surface font-medium">₹32.5 LPA</span>
+</div>
+</div>
+<!-- Card: Zomato -->
+<div class="bg-surface-container-lowest border border-outline-variant/60 rounded-lg p-3 hover:border-outline-variant transition-colors">
+<div class="flex items-start justify-between">
+<div class="flex items-center gap-2">
+<div class="w-6 h-6 rounded bg-surface-container border border-outline-variant/50 flex items-center justify-center font-title-sm text-title-sm text-on-surface">Z</div>
+<span class="font-title-sm text-title-sm text-on-surface">Zomato</span>
+</div>
+<span class="font-label-sm text-label-sm text-on-surface-variant">Applied 04 Nov</span>
+</div>
+<div class="font-body-md text-body-md text-on-surface mt-1.5">Backend Engineer (Golang)</div>
+<div class="flex items-center justify-between mt-2.5 pt-2 border-t border-outline-variant/30">
+<span class="font-label-sm text-label-sm text-on-surface-variant bg-surface-container-high px-1.5 py-0.5 rounded">OA Cleared</span>
+<span class="font-tabular-mono text-body-sm text-on-surface font-medium">₹28 LPA</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Column 4: Interview (3) -->
+<div class="flex flex-col bg-surface-container-low/70 border border-outline-variant/60 rounded-lg p-2.5 h-full">
+<div class="flex items-center justify-between pb-2 mb-2 border-b border-outline-variant/50">
+<div class="flex items-center gap-2">
+<span class="font-title-sm text-title-sm text-on-surface">Interview</span>
+<span class="font-label-sm text-label-sm font-tabular-mono bg-surface-container-highest text-on-surface px-1.5 py-0.5 rounded">3</span>
+</div>
+<span class="font-label-sm text-label-sm text-primary font-medium">1 This Week</span>
+</div>
+<div class="flex flex-col gap-2 custom-scrollbar overflow-y-auto max-h-[calc(100vh-250px)] pr-0.5">
+<!-- Card: Cisco -->
+<div class="bg-surface-container-lowest border border-primary-container/40 rounded-lg p-3 hover:border-primary-container transition-colors">
+<div class="flex items-start justify-between">
+<div class="flex items-center gap-2">
+<div class="w-6 h-6 rounded bg-surface-container border border-outline-variant/50 flex items-center justify-center font-title-sm text-title-sm text-on-surface">C</div>
+<span class="font-title-sm text-title-sm text-on-surface">Cisco Systems</span>
+</div>
+<span class="font-label-sm text-label-sm text-primary font-medium">Round 2</span>
+</div>
+<div class="font-body-md text-body-md text-on-surface mt-1.5">Software Engineer — Networking</div>
+<div class="flex items-center justify-between mt-2.5 pt-2 border-t border-outline-variant/30">
+<span class="font-label-sm text-label-sm text-primary bg-primary-container/10 border border-primary-container/20 px-1.5 py-0.5 rounded">System Design · 16 Nov</span>
+<span class="font-tabular-mono text-body-sm text-on-surface font-medium">₹24.8 LPA</span>
+</div>
+</div>
+<!-- Card: Adobe India -->
+<div class="bg-surface-container-lowest border border-outline-variant/60 rounded-lg p-3 hover:border-outline-variant transition-colors">
+<div class="flex items-start justify-between">
+<div class="flex items-center gap-2">
+<div class="w-6 h-6 rounded bg-surface-container border border-outline-variant/50 flex items-center justify-center font-title-sm text-title-sm text-on-surface">A</div>
+<span class="font-title-sm text-title-sm text-on-surface">Adobe India</span>
+</div>
+<span class="font-label-sm text-label-sm font-tabular-mono text-on-surface-variant">Slot 1.2</span>
+</div>
+<div class="font-body-md text-body-md text-on-surface mt-1.5">Member of Tech Staff — Core</div>
+<div class="flex items-center justify-between mt-2.5 pt-2 border-t border-outline-variant/30">
+<span class="font-label-sm text-label-sm text-on-surface-variant bg-surface-container-high px-1.5 py-0.5 rounded">Round 1 Cleared</span>
+<span class="font-tabular-mono text-body-sm text-on-surface font-medium">₹40 LPA</span>
+</div>
+</div>
+<!-- Card: Sprinklr -->
+<div class="bg-surface-container-lowest border border-outline-variant/60 rounded-lg p-3 hover:border-outline-variant transition-colors">
+<div class="flex items-start justify-between">
+<div class="flex items-center gap-2">
+<div class="w-6 h-6 rounded bg-surface-container border border-outline-variant/50 flex items-center justify-center font-title-sm text-title-sm text-on-surface">S</div>
+<span class="font-title-sm text-title-sm text-on-surface">Sprinklr</span>
+</div>
+<span class="font-label-sm text-label-sm font-tabular-mono text-on-surface-variant">Slot 1.3</span>
+</div>
+<div class="font-body-md text-body-md text-on-surface mt-1.5">Product Engineer</div>
+<div class="flex items-center justify-between mt-2.5 pt-2 border-t border-outline-variant/30">
+<span class="font-label-sm text-label-sm text-on-secondary-fixed-variant bg-secondary-container/20 border border-secondary-container/40 px-1.5 py-0.5 rounded">Technical HR · 18 Nov</span>
+<span class="font-tabular-mono text-body-sm text-on-surface font-medium">₹30 LPA</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Column 5: Offer (2) -->
+<div class="flex flex-col bg-surface-container-low/70 border border-outline-variant/60 rounded-lg p-2.5 h-full">
+<div class="flex items-center justify-between pb-2 mb-2 border-b border-outline-variant/50">
+<div class="flex items-center gap-2">
+<span class="font-title-sm text-title-sm text-on-surface">Offer</span>
+<span class="font-label-sm text-label-sm font-tabular-mono bg-primary-container text-on-primary px-1.5 py-0.5 rounded">2</span>
+</div>
+<span class="font-label-sm text-label-sm text-primary font-medium">Secured</span>
+</div>
+<div class="flex flex-col gap-2 custom-scrollbar overflow-y-auto max-h-[calc(100vh-250px)] pr-0.5">
+<!-- Card: Qualcomm (PPO) -->
+<div class="bg-surface-container-lowest border border-outline-variant/60 rounded-lg p-3 hover:border-outline-variant transition-colors">
+<div class="flex items-start justify-between">
+<div class="flex items-center gap-2">
+<div class="w-6 h-6 rounded bg-surface-container border border-outline-variant/50 flex items-center justify-center font-title-sm text-title-sm text-on-surface">Q</div>
+<span class="font-title-sm text-title-sm text-on-surface">Qualcomm</span>
+</div>
+<span class="font-label-sm text-label-sm text-primary font-medium bg-primary-container/10 border border-primary-container/20 px-1.5 py-0.5 rounded">PPO Offered</span>
+</div>
+<div class="font-body-md text-body-md text-on-surface mt-1.5">Engineer — Hardware Systems</div>
+<div class="flex items-center justify-between mt-2.5 pt-2 border-t border-outline-variant/30">
+<span class="font-label-sm text-label-sm text-on-surface-variant">Hold decision via TPO</span>
+<span class="font-tabular-mono text-body-sm text-on-surface font-medium">₹24.0 LPA</span>
+</div>
+</div>
+<!-- Card: Wells Fargo -->
+<div class="bg-surface-container-lowest border border-outline-variant/60 rounded-lg p-3 hover:border-outline-variant transition-colors">
+<div class="flex items-start justify-between">
+<div class="flex items-center gap-2">
+<div class="w-6 h-6 rounded bg-surface-container border border-outline-variant/50 flex items-center justify-center font-title-sm text-title-sm text-on-surface">W</div>
+<span class="font-title-sm text-title-sm text-on-surface">Wells Fargo</span>
+</div>
+<span class="font-label-sm text-label-sm text-primary font-medium bg-primary-container/10 border border-primary-container/20 px-1.5 py-0.5 rounded">Offered</span>
+</div>
+<div class="font-body-md text-body-md text-on-surface mt-1.5">Program Associate — Quant Tech</div>
+<div class="flex items-center justify-between mt-2.5 pt-2 border-t border-outline-variant/30">
+<span class="font-label-sm text-label-sm text-on-surface-variant">TPO Accepted Form</span>
+<span class="font-tabular-mono text-body-sm text-on-surface font-medium">₹20.5 LPA</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+</main>
+</div>
+<!-- Agent Activity Ledger: Slide-out Inspection Drawer (Flat, Hairline-bordered, Academic Credibility) -->
+<div class="fixed inset-y-0 right-0 w-[580px] bg-surface-container-lowest border-l border-outline-variant z-40 flex flex-col transform transition-transform duration-200 ease-in-out shadow-none" id="activity-drawer">
+<!-- Drawer Header -->
+<div class="h-14 px-5 border-b border-outline-variant flex items-center justify-between bg-surface-container-lowest">
+<div class="flex items-center gap-2.5">
+<span class="material-symbols-outlined text-primary" data-icon="history_edu">history_edu</span>
+<div>
+<span class="font-headline-sm text-headline-sm text-on-surface tracking-tight block">Agent Activity Ledger</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant block">Verifiable audit trail of recruitment automations</span>
+</div>
+</div>
+<button class="w-8 h-8 rounded-lg flex items-center justify-center text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors" id="close-drawer-btn">
+<span class="material-symbols-outlined" data-icon="close">close</span>
+</button>
+</div>
+<!-- Truth-First Policy Notice Ribbon -->
+<div class="px-5 py-2.5 bg-surface-container-low border-b border-outline-variant/60 flex items-center gap-2 text-on-surface">
+<span class="material-symbols-outlined text-primary text-base" data-icon="verified_user">verified_user</span>
+<p class="font-label-md text-label-md text-on-surface-variant leading-snug">
+<span class="font-medium text-on-surface">Truth-First Guarantee:</span> No resumes, emails, or portal submissions are finalized without explicit student confirmation.
+      </p>
+</div>
+<!-- Audit Ledger Table -->
+<div class="flex-1 overflow-y-auto custom-scrollbar p-0">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="h-8 bg-surface-container-low border-b border-outline-variant font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">
+<th class="py-1 px-4 font-medium w-28">Timestamp</th>
+<th class="py-1 px-3 font-medium">Action / Operation</th>
+<th class="py-1 px-3 font-medium">Entity / Role</th>
+<th class="py-1 px-4 font-medium text-right">Status</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-outline-variant/40 font-body-md text-body-md">
+<!-- Row 1: Awaiting Student Approval -->
+<tr class="hover:bg-surface-container-low/60 transition-colors">
+<td class="py-2.5 px-4 font-tabular-mono text-body-sm text-on-surface-variant whitespace-nowrap">Today, 14:12</td>
+<td class="py-2.5 px-3 text-on-surface font-medium">
+              Drafted tailored resume diff
+              <span class="block font-label-sm text-label-sm text-on-surface-variant mt-0.5">Highlighted: Distributed cache &amp; Redis latency</span>
+</td>
+<td class="py-2.5 px-3 text-on-surface-variant">Razorpay — SDE Fullstack</td>
+<td class="py-2.5 px-4 text-right">
+<span class="font-label-sm text-label-sm text-on-secondary-fixed-variant bg-secondary-container/20 border border-secondary-container/40 px-2 py-0.5 rounded whitespace-nowrap inline-block">
+                Awaiting Student Approval
+              </span>
+</td>
+</tr>
+<!-- Row 2: Synced OAS portal -->
+<tr class="hover:bg-surface-container-low/60 transition-colors">
+<td class="py-2.5 px-4 font-tabular-mono text-body-sm text-on-surface-variant whitespace-nowrap">Today, 11:30</td>
+<td class="py-2.5 px-3 text-on-surface">
+              Synced OAS portal updates
+              <span class="block font-label-sm text-label-sm text-on-surface-variant mt-0.5">Scanned TPO circulars for CSE criteria</span>
+</td>
+<td class="py-2.5 px-3 text-on-surface-variant">Placement Cell Portal</td>
+<td class="py-2.5 px-4 text-right">
+<span class="font-label-sm text-label-sm text-primary font-medium bg-primary-container/10 border border-primary-container/20 px-2 py-0.5 rounded whitespace-nowrap inline-block">
+                Completed (2 new JDs)
+              </span>
+</td>
+</tr>
+<!-- Row 3: Submitted Swiggy packet -->
+<tr class="hover:bg-surface-container-low/60 transition-colors">
+<td class="py-2.5 px-4 font-tabular-mono text-body-sm text-on-surface-variant whitespace-nowrap">Yesterday, 18:45</td>
+<td class="py-2.5 px-3 text-on-surface">
+              Submitted application packet
+              <span class="block font-label-sm text-label-sm text-on-surface-variant mt-0.5">Packet SHA-256: 7f81a... signed by student</span>
+</td>
+<td class="py-2.5 px-3 text-on-surface-variant">Swiggy — Data Analyst</td>
+<td class="py-2.5 px-4 text-right">
+<span class="font-label-sm text-label-sm text-primary font-medium bg-primary-container/10 border border-primary-container/20 px-2 py-0.5 rounded whitespace-nowrap inline-block">
+                Dispatched via TPO
+              </span>
+</td>
+</tr>
+<!-- Row 4: Deadline reminder -->
+<tr class="hover:bg-surface-container-low/60 transition-colors">
+<td class="py-2.5 px-4 font-tabular-mono text-body-sm text-on-surface-variant whitespace-nowrap">10 Nov, 09:15</td>
+<td class="py-2.5 px-3 text-on-surface">
+              Flagged closing deadline (48h)
+              <span class="block font-label-sm text-label-sm text-on-surface-variant mt-0.5">Priority notification sent via Telegram bot</span>
+</td>
+<td class="py-2.5 px-3 text-on-surface-variant">Cred — APM</td>
+<td class="py-2.5 px-4 text-right">
+<span class="font-label-sm text-label-sm text-on-surface-variant bg-surface-container px-2 py-0.5 rounded whitespace-nowrap inline-block">
+                Notified
+              </span>
+</td>
+</tr>
+<!-- Row 5: Practice transcript parsing -->
+<tr class="hover:bg-surface-container-low/60 transition-colors">
+<td class="py-2.5 px-4 font-tabular-mono text-body-sm text-on-surface-variant whitespace-nowrap">08 Nov, 16:20</td>
+<td class="py-2.5 px-3 text-on-surface">
+              Parsed mock interview transcript
+              <span class="block font-label-sm text-label-sm text-on-surface-variant mt-0.5">Extracted 4 weak spots in B-Tree indexing</span>
+</td>
+<td class="py-2.5 px-3 text-on-surface-variant">SQL Joins &amp; Opt.</td>
+<td class="py-2.5 px-4 text-right">
+<span class="font-label-sm text-label-sm text-primary font-medium bg-surface-container px-2 py-0.5 rounded whitespace-nowrap inline-block">
+                Added to Practice
+              </span>
+</td>
+</tr>
+<!-- Row 6: Submitted Postman packet -->
+<tr class="hover:bg-surface-container-low/60 transition-colors">
+<td class="py-2.5 px-4 font-tabular-mono text-body-sm text-on-surface-variant whitespace-nowrap">07 Nov, 14:00</td>
+<td class="py-2.5 px-3 text-on-surface">
+              Submitted application packet
+              <span class="block font-label-sm text-label-sm text-on-surface-variant mt-0.5">1-click approved via student dashboard</span>
+</td>
+<td class="py-2.5 px-3 text-on-surface-variant">Postman — MTS</td>
+<td class="py-2.5 px-4 text-right">
+<span class="font-label-sm text-label-sm text-primary font-medium bg-primary-container/10 border border-primary-container/20 px-2 py-0.5 rounded whitespace-nowrap inline-block">
+                Dispatched via TPO
+              </span>
+</td>
+</tr>
+<!-- Row 7: Calendar Sync -->
+<tr class="hover:bg-surface-container-low/60 transition-colors">
+<td class="py-2.5 px-4 font-tabular-mono text-body-sm text-on-surface-variant whitespace-nowrap">06 Nov, 10:11</td>
+<td class="py-2.5 px-3 text-on-surface">
+              Auto-scheduled System Design mock
+              <span class="block font-label-sm text-label-sm text-on-surface-variant mt-0.5">Paired with Peer R. Verma (IITB '25)</span>
+</td>
+<td class="py-2.5 px-3 text-on-surface-variant">Practice Environment</td>
+<td class="py-2.5 px-4 text-right">
+<span class="font-label-sm text-label-sm text-on-surface-variant bg-surface-container px-2 py-0.5 rounded whitespace-nowrap inline-block">
+                Confirmed
+              </span>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<!-- Drawer Footer Actions -->
+<div class="p-4 border-t border-outline-variant bg-surface-container-low/60 flex items-center justify-between">
+<div class="flex items-center gap-1.5 text-on-surface-variant font-label-sm text-label-sm">
+<span class="material-symbols-outlined text-sm" data-icon="lock">lock</span>
+<span>Local immutable storage log</span>
+</div>
+<button class="h-8 px-3 rounded-lg border border-outline-variant bg-surface-container-lowest text-on-surface font-title-sm text-title-sm hover:bg-surface-container-high transition-colors">
+        Export Audit CSV
+      </button>
+</div>
+</div>
+<!-- Matte Backdrop Curtain for Overlay (Zero blur, strict 1px plane) -->
+<div class="fixed inset-0 bg-[#1A1A1A]/20 z-30 transition-opacity duration-200" id="drawer-backdrop"></div>
+<!-- Inline Script for Drawer Interactions -->
+<script>
+    const drawer = document.getElementById('activity-drawer');
+    const backdrop = document.getElementById('drawer-backdrop');
+    const toggleBtn = document.getElementById('toggle-ledger-btn');
+    const closeBtn = document.getElementById('close-drawer-btn');
+
+    let isOpen = true; // Open by default as requested in prompt
+
+    function updateDrawer() {
+      if (isOpen) {
+        drawer.classList.remove('translate-x-full');
+        backdrop.classList.remove('hidden');
+      } else {
+        drawer.classList.add('translate-x-full');
+        backdrop.classList.add('hidden');
+      }
+    }
+
+    toggleBtn.addEventListener('click', () => {
+      isOpen = !isOpen;
+      updateDrawer();
+    });
+
+    closeBtn.addEventListener('click', () => {
+      isOpen = false;
+      updateDrawer();
+    });
+
+    backdrop.addEventListener('click', () => {
+      isOpen = false;
+      updateDrawer();
+    });
+
+    // Initialize state
+    updateDrawer();
+  </script>
+</body></html>

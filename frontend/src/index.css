@@ -1,0 +1,16 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    background-color: #FAF9F6;
+    color: #1A1A1A;
+    font-family: 'Inter', system-ui, sans-serif;
+  }
+
+  /* Tabular numbers for dates, counts, scores, and money */
+  .tabular-nums {
+    font-variant-numeric: tabular-nums;
+  }
+}
