@@ -120,6 +120,7 @@ def seed_database(db) -> dict:
             "company": item["company"],
             "location": item["location"],
             "type": item["type"],
+            "stipend_or_ctc": item.get("stipend_or_ctc"),
             "closes_on": (today + datetime.timedelta(days=days)).strftime("%Y-%m-%d"),
             "description": item["description"],
             "required_skills_json": item["required_skills"],

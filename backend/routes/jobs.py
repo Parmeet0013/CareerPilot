@@ -3,6 +3,7 @@ import datetime
 from typing import List, Optional
 
 from fastapi import APIRouter, Depends, HTTPException, Query
+from sqlalchemy import func
 from sqlalchemy.orm import Session
 
 from backend.db import get_db
@@ -58,16 +59,24 @@ def job_to_response(job: Job, profile: Optional[Profile] = None) -> JobResponse:
     req_skills = job.required_skills_json or []
     fit, why_bullets, missing_skills = compute_match_bullets(job, profile)
 
+    match_ratio = None
+    if profile and req_skills:
+        profile_skills = [s.strip().lower() for s in (profile.skills_json or [])]
+        matching = sum(1 for s in req_skills if s.strip().lower() in profile_skills)
+        match_ratio = round(matching / len(req_skills) * 100)
+
     return JobResponse(
         id=job.id,
         role=job.role,
         company=job.company,
         location=job.location,
         type=job.type,
+        stipend_or_ctc=job.stipend_or_ctc,
         closes_on=job.closes_on,
         description=job.description,
         required_skills=req_skills,
         fit=fit,
+        match_ratio=match_ratio,
         why_bullets=why_bullets,
         missing_skills=missing_skills,
     )
@@ -80,6 +89,7 @@ def get_jobs(
     location: Optional[str] = None,
     type: Optional[str] = None,
     closing_soon: Optional[bool] = False,
+    closing_window: Optional[str] = None,  # '48h' | 'week' | 'month'
     page: int = Query(1, ge=1),
     db: Session = Depends(get_db),
 ):
@@ -99,10 +109,15 @@ def get_jobs(
             | (Job.description.ilike(search_term))
         )
 
-    today_str = datetime.date.today().strftime("%Y-%m-%d")
-    soon_str = (datetime.date.today() + datetime.timedelta(days=3)).strftime("%Y-%m-%d")
+    today = datetime.date.today()
+    today_str = today.strftime("%Y-%m-%d")
     if closing_soon:
+        soon_str = (today + datetime.timedelta(days=3)).strftime("%Y-%m-%d")
         query = query.filter(Job.closes_on >= today_str, Job.closes_on <= soon_str)
+    elif closing_window in ("48h", "week", "month"):
+        days = {"48h": 2, "week": 7, "month": 28}[closing_window]
+        end_str = (today + datetime.timedelta(days=days)).strftime("%Y-%m-%d")
+        query = query.filter(Job.closes_on >= today_str, Job.closes_on <= end_str)
 
     total = query.count()
     jobs = (
@@ -113,12 +128,43 @@ def get_jobs(
     )
     profile = db.query(Profile).first()
 
+    # Facet counts for the filter rail (under the current q/role/type filters)
+    facet_query = db.query(Job)
+    if role and role.lower() != "all":
+        facet_query = facet_query.filter(Job.role.ilike(f"%{role}%"))
+    if type and type.lower() != "all":
+        facet_query = facet_query.filter(Job.type == type.lower())
+    if q:
+        st = f"%{q}%"
+        facet_query = facet_query.filter(
+            (Job.role.ilike(st)) | (Job.company.ilike(st)) | (Job.description.ilike(st))
+        )
+    location_counts = dict(
+        facet_query.with_entities(Job.location, func.count(Job.id)).group_by(Job.location).all()
+    )
+    type_counts = dict(
+        facet_query.with_entities(Job.type, func.count(Job.id)).group_by(Job.type).all()
+    )
+    week_str = (today + datetime.timedelta(days=7)).strftime("%Y-%m-%d")
+    month_str = (today + datetime.timedelta(days=28)).strftime("%Y-%m-%d")
+    two_day_str = (today + datetime.timedelta(days=2)).strftime("%Y-%m-%d")
+    windows = {
+        "48h": facet_query.filter(Job.closes_on >= today_str, Job.closes_on <= two_day_str).count(),
+        "week": facet_query.filter(Job.closes_on >= today_str, Job.closes_on <= week_str).count(),
+        "month": facet_query.filter(Job.closes_on >= today_str, Job.closes_on <= month_str).count(),
+    }
+
     return {
         "items": [job_to_response(j, profile) for j in jobs],
         "total": total,
         "page": page,
         "pages": max((total + PAGE_SIZE - 1) // PAGE_SIZE, 1),
         "page_size": PAGE_SIZE,
+        "facets": {
+            "locations": location_counts,
+            "types": type_counts,
+            "closing_windows": windows,
+        },
     }
 
 
@@ -179,10 +225,20 @@ def get_job(id: int, db: Session = Depends(get_db)):
         "company": job.company,
         "location": job.location,
         "type": job.type,
+        "stipend_or_ctc": job.stipend_or_ctc,
         "closes_on": job.closes_on,
         "description": job.description,
         "required_skills": req_skills,
         "fit": fit,
+        "match_ratio": (
+            round(
+                sum(1 for s in req_skills if s.strip().lower() in [p.strip().lower() for p in (profile.skills_json or [])])
+                / max(len(req_skills), 1)
+                * 100
+            )
+            if profile and req_skills
+            else None
+        ),
         "why_bullets": bullets,
         "missing_skills": missing_skills,
     }

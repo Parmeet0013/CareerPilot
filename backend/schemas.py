@@ -63,6 +63,7 @@ class JobBase(BaseModel):
     company: str
     location: str
     type: str  # 'internship' | 'full-time'
+    stipend_or_ctc: Optional[str] = None
     closes_on: str
     description: str
     required_skills: List[str] = Field(default_factory=list)
@@ -71,6 +72,7 @@ class JobBase(BaseModel):
 class JobResponse(JobBase):
     id: int
     fit: Optional[str] = None  # 'Strong' | 'Medium' | 'Weak'
+    match_ratio: Optional[int] = None  # skill overlap %, None when no profile
     why_bullets: Optional[List[str]] = None
     missing_skills: Optional[List[str]] = None
 
@@ -226,8 +228,16 @@ class DayDeadline(BaseModel):
     is_today: bool
 
 
+class UpcomingEvent(BaseModel):
+    date: str  # YYYY-MM-DD
+    title: str
+    subtitle: str
+    tag: str  # 'Deadline' | 'Reminder'
+
+
 class TodayResponse(BaseModel):
     today_formatted: str
     attention_items: List[AttentionItem]
     weekly_counts: TodayCounts
     week_strip: List[DayDeadline]
+    upcoming: List[UpcomingEvent] = Field(default_factory=list)

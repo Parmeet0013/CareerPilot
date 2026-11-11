@@ -38,6 +38,7 @@ class Job(Base):
     company = Column(String(255), nullable=False)
     location = Column(String(255), nullable=False, index=True)
     type = Column(String(50), nullable=False, index=True)  # 'internship' or 'full-time'
+    stipend_or_ctc = Column(String(50), nullable=True)  # e.g. '₹30,000/month' or '₹8–12 LPA'
     closes_on = Column(String(50), nullable=False, index=True)  # YYYY-MM-DD
     description = Column(Text, nullable=False)
     required_skills_json = Column(JSON, default=list)

@@ -2,8 +2,8 @@ import datetime
 from fastapi import APIRouter, Depends
 from sqlalchemy.orm import Session
 from backend.db import get_db
-from backend.models import Application, Job, WeakArea
-from backend.schemas import TodayResponse, AttentionItem, TodayCounts, DayDeadline
+from backend.models import Application, Job, Reminder, WeakArea
+from backend.schemas import TodayResponse, AttentionItem, TodayCounts, DayDeadline, UpcomingEvent
 
 router = APIRouter(prefix="/api/today", tags=["Today"])
 
@@ -32,8 +32,8 @@ def get_today_dashboard(db: Session = Depends(get_db)):
             AttentionItem(
                 id=f"app-{awaiting.id}",
                 type="review_draft",
-                title=f"Review tailored application for {awaiting.job.company}",
-                subtitle=f"{awaiting.job.role} • Closes on {awaiting.job.closes_on}",
+                title=f"Review tailored resume: {awaiting.job.role}",
+                subtitle=f"{awaiting.job.company} • Generated tailored draft • Closes {awaiting.job.closes_on}",
                 action_label="Review draft",
                 action_url=f"/prepare/{awaiting.job_id}",
                 badge="Awaiting approval",
@@ -52,15 +52,16 @@ def get_today_dashboard(db: Session = Depends(get_db)):
         .all()
     )
     for cj in closing_jobs:
+        days_left = (datetime.date.fromisoformat(cj.closes_on) - today).days
         attention_items.append(
             AttentionItem(
                 id=f"job-{cj.id}",
                 type="closing_soon",
-                title=f"{cj.role} @ {cj.company}",
-                subtitle=f"Application window closing on {cj.closes_on}",
-                action_label="Apply now",
+                title=f"Application closes soon: {cj.role}",
+                subtitle=f"{cj.company} • {cj.location} • {cj.stipend_or_ctc or cj.type}",
+                action_label="Complete form",
                 action_url=f"/jobs?highlight={cj.id}",
-                badge="Closing soon",
+                badge=f"Closes in {days_left}d" if days_left > 0 else "Closes today",
                 badge_variant="amber",
             )
         )
@@ -72,9 +73,9 @@ def get_today_dashboard(db: Session = Depends(get_db)):
             AttentionItem(
                 id=f"weak-{weakest.id}",
                 type="weak_spot",
-                title=f"Practice weak area: {weakest.skill}",
+                title=f"Weak spot from last mock interview: {weakest.skill}",
                 subtitle=f"Last scored {weakest.last_score}/5 • Seen {weakest.times_seen} time(s)",
-                action_label="Start practice",
+                action_label="Practice",
                 action_url="/practice",
                 badge="Priority focus",
                 badge_variant="muted",
@@ -112,6 +113,40 @@ def get_today_dashboard(db: Session = Depends(get_db)):
             )
         )
 
+    # Upcoming schedule: deadlines + reminders over the next 5 days
+    horizon_str = (today + datetime.timedelta(days=5)).strftime("%Y-%m-%d")
+    events = []
+    closing_all = (
+        db.query(Job)
+        .filter(Job.closes_on >= today_str, Job.closes_on <= horizon_str)
+        .order_by(Job.closes_on.asc())
+        .limit(5)
+        .all()
+    )
+    for j in closing_all:
+        events.append(UpcomingEvent(
+            date=j.closes_on,
+            title=f"Application closes: {j.role}",
+            subtitle=f"{j.company} • {j.location}",
+            tag="Deadline",
+        ))
+    reminders = (
+        db.query(Reminder)
+        .filter(Reminder.due_on >= today_str, Reminder.due_on <= horizon_str)
+        .order_by(Reminder.due_on.asc())
+        .limit(5)
+        .all()
+    )
+    for r in reminders:
+        events.append(UpcomingEvent(
+            date=r.due_on,
+            title=r.title,
+            subtitle="Calendar reminder",
+            tag="Reminder",
+        ))
+    events.sort(key=lambda e: e.date)
+    events = events[:5]
+
     return TodayResponse(
         today_formatted=today_formatted,
         attention_items=attention_items,
@@ -121,4 +156,5 @@ def get_today_dashboard(db: Session = Depends(get_db)):
             saved=saved_count,
         ),
         week_strip=week_strip,
+        upcoming=events,
     )
