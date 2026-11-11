@@ -263,6 +263,11 @@ export const ProfilePage: React.FC = () => {
             <span>Candidate Profile</span>
             <span>›</span>
             <span className="text-ink font-medium">{profile.name || 'Candidate'}</span>
+            {profile.preferences?.sample_data && (
+              <span className="px-2 py-0.5 rounded bg-canvas border border-line text-muted text-[11px] font-medium">
+                Sample data
+              </span>
+            )}
           </div>
           <h1 className="font-serif text-[28px] font-normal text-ink tracking-tight">
             Profile & Master Resume
