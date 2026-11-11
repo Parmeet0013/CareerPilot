@@ -10,8 +10,11 @@ import {
   Plus,
   Trash2,
   X,
-  Check
+  Check,
+  ShieldCheck,
+  Bell,
 } from 'lucide-react'
+import { TopBar } from '../components/TopBar'
 
 interface ProjectItem {
   title: string
@@ -142,6 +145,40 @@ export const ProfilePage: React.FC = () => {
     }).format(date)
   }
 
+  // Categorize parsed skills into placement-style groups (client-side)
+  const SKILL_BUCKETS: Array<{ label: string; match: string[] }> = [
+    {
+      label: 'Programming Languages',
+      match: ['python', 'java', 'javascript', 'typescript', 'c++', 'c', 'go', 'rust', 'kotlin', 'swift', 'sql', 'bash', 'r', 'scala'],
+    },
+    {
+      label: 'Frameworks & Web',
+      match: ['react', 'angular', 'vue', 'django', 'flask', 'fastapi', 'spring', 'node', 'express', 'next', 'tailwind', 'html', 'css', 'streamlit', 'bootstrap'],
+    },
+    {
+      label: 'Systems, Storage & ML',
+      match: ['docker', 'kubernetes', 'aws', 'gcp', 'azure', 'git', 'linux', 'postgres', 'mysql', 'mongodb', 'redis', 'kafka', 'spark', 'hadoop', 'pytorch', 'tensorflow', 'pandas', 'numpy', 'sklearn', 'scikit', 'ml', 'machine learning', 'nlp'],
+    },
+    {
+      label: 'Placement Focus',
+      match: ['dsa', 'system design', 'oops', 'rest', 'graphql', 'testing', 'ci/cd', 'agile', 'problem solving', 'communication'],
+    },
+  ]
+  const categorizedSkills = () => {
+    const skills = profile?.skills || []
+    const used = new Set<string>()
+    const rows = SKILL_BUCKETS.map((b) => {
+      const items = skills.filter((s) =>
+        b.match.some((m) => s.toLowerCase().includes(m))
+      )
+      items.forEach((s) => used.add(s))
+      return { label: b.label, items }
+    })
+    const other = skills.filter((s) => !used.has(s))
+    if (other.length > 0) rows.push({ label: 'Other', items: other })
+    return rows.filter((r) => r.items.length > 0)
+  }
+
   if (loading) {
     return (
       <div className="py-20 text-center">
@@ -251,9 +288,41 @@ export const ProfilePage: React.FC = () => {
     )
   }
 
-  // 2. Parsed Profile View (Matching Sneha's UI layout)
+  // 2. Parsed Profile View
   return (
     <div className="space-y-6">
+      <TopBar
+        right={
+          <>
+            <input
+              type="file"
+              ref={fileInputRef}
+              className="hidden"
+              accept=".pdf"
+              onChange={(e) => {
+                if (e.target.files?.[0]) {
+                  handleFileUpload(e.target.files[0])
+                }
+              }}
+            />
+            <button
+              onClick={() => fileInputRef.current?.click()}
+              disabled={parsing}
+              className="h-8 px-3 flex items-center gap-1.5 rounded bg-accent text-white text-[12px] font-medium hover:opacity-90 disabled:opacity-50"
+            >
+              <Upload size={14} strokeWidth={1.5} />
+              <span>Upload New Resume (.pdf)</span>
+            </button>
+            <button
+              className="p-2 rounded border border-line text-muted hover:bg-canvas hover:text-ink transition-colors"
+              title="Notifications"
+            >
+              <Bell size={15} strokeWidth={1.5} />
+            </button>
+          </>
+        }
+      />
+
       {/* Header bar */}
       <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 pb-4 border-b border-line">
         <div>
@@ -277,28 +346,8 @@ export const ProfilePage: React.FC = () => {
           </p>
         </div>
 
-        {/* Right side actions */}
-        <div className="flex items-center gap-3">
-          <input
-            type="file"
-            ref={fileInputRef}
-            className="hidden"
-            accept=".pdf"
-            onChange={(e) => {
-              if (e.target.files?.[0]) {
-                handleFileUpload(e.target.files[0])
-              }
-            }}
-          />
-          <button
-            onClick={() => fileInputRef.current?.click()}
-            disabled={parsing}
-            className="h-9 px-3.5 flex items-center gap-2 rounded bg-accent text-white text-[13px] font-medium hover:opacity-90 disabled:opacity-50"
-          >
-            <Upload size={15} strokeWidth={1.5} />
-            <span>Upload New Resume (.pdf)</span>
-          </button>
-        </div>
+        {/* Sample data flag lives in the breadcrumb; keep header row balanced */}
+        <div className="hidden md:block"></div>
       </div>
 
       {/* Parsing progress banner */}
@@ -525,17 +574,25 @@ export const ProfilePage: React.FC = () => {
                 </div>
               </div>
             ) : (
-              <div className="mt-4 flex flex-wrap gap-1.5">
-                {profile.skills.length > 0 ? (
-                  profile.skills.map((skill, idx) => (
-                    <span
-                      key={idx}
-                      className="px-2.5 py-1 bg-canvas border border-line rounded text-ink text-[12px] font-medium"
-                    >
-                      {skill}
+              <div className="mt-4 space-y-4">
+                {categorizedSkills().map((row) => (
+                  <div key={row.label}>
+                    <span className="text-[10px] text-muted uppercase tracking-wider font-semibold block mb-1.5">
+                      {row.label}
                     </span>
-                  ))
-                ) : (
+                    <div className="flex flex-wrap gap-1.5">
+                      {row.items.map((skill, idx) => (
+                        <span
+                          key={idx}
+                          className="px-2.5 py-1 bg-canvas border border-line rounded text-ink text-[12px] font-medium"
+                        >
+                          {skill}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+                ))}
+                {categorizedSkills().length === 0 && (
                   <span className="text-muted text-[13px]">No skills extracted.</span>
                 )}
               </div>
@@ -730,6 +787,20 @@ export const ProfilePage: React.FC = () => {
                   <Download size={15} />
                 </a>
               )}
+            </div>
+          </div>
+
+          {/* Ledger Integrity note */}
+          <div className="bg-accent-soft border border-accent/20 rounded-lg p-4">
+            <div className="flex items-start gap-2.5">
+              <ShieldCheck size={15} className="text-accent mt-0.5 shrink-0" />
+              <div>
+                <p className="text-[12px] font-semibold text-accent">Ledger Integrity</p>
+                <p className="text-[11.5px] text-accent/80 mt-1 leading-relaxed">
+                  Every profile edit, resume parse, and agent action is recorded in the immutable
+                  activity ledger. Nothing is dispatched without explicit approval.
+                </p>
+              </div>
             </div>
           </div>
         </div>

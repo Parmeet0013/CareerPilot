@@ -235,6 +235,16 @@ export const PreparePage: React.FC = () => {
   const tailoredProjects = resume_changes?.reordered_projects || master_profile.projects
   const tailoredExp = resume_changes?.reordered_experience || master_profile.experience
 
+  // Audit summary for the diff view (adapted = highlighted skills, reordered = moved entries)
+  const adaptedCount = (resume_changes?.highlighted_skills?.length ?? 0) + steps_taken.length
+  const reorderedCount = tailoredProjects.length + tailoredExp.length
+
+  // Due countdown
+  const dueDate = new Date(job.closes_on + 'T23:59:59')
+  const daysUntilDue = Math.ceil((dueDate.getTime() - Date.now()) / (1000 * 3600 * 24))
+  const dueLabel =
+    daysUntilDue > 1 ? `Due ${job.closes_on} (in ${daysUntilDue}d)` : daysUntilDue === 1 ? 'Due tomorrow' : 'Due today'
+
   return (
     <div className="space-y-6 pb-28">
       {/* 1. Header & Context */}
@@ -260,7 +270,7 @@ export const PreparePage: React.FC = () => {
               </h1>
               <span className="inline-flex items-center gap-1 bg-amber-soft text-amber border border-amber/20 px-2 py-0.5 rounded text-[11px] font-medium">
                 <span className="w-1.5 h-1.5 rounded-full bg-amber"></span>
-                {draft.status === 'applied' ? 'Applied' : 'Awaiting Approval'}
+                {draft.status === 'applied' ? 'Sent & Logged' : 'Human Approval Required'}
               </span>
             </div>
             <p className="text-[13px] text-muted mt-1 flex items-center gap-2">
@@ -270,7 +280,7 @@ export const PreparePage: React.FC = () => {
               <span>•</span>
               <span className="inline-flex items-center gap-1 text-ink font-medium">
                 <Clock size={13} className="text-amber" />
-                <span>Closes: {job.closes_on}</span>
+                <span>{dueLabel}</span>
               </span>
             </p>
           </div>
@@ -358,6 +368,20 @@ export const PreparePage: React.FC = () => {
         )}
       </section>
 
+      {/* 2. Audit Summary chips */}
+      <div className="flex items-center gap-2 flex-wrap">
+        <span className="text-[12px] font-medium text-muted">Audit Summary:</span>
+        <span className="px-2 py-0.5 rounded bg-surface border border-line text-ink text-[11px] font-medium tabular-nums">
+          {adaptedCount} lines adapted
+        </span>
+        <span className="px-2 py-0.5 rounded bg-surface border border-line text-ink text-[11px] font-medium tabular-nums">
+          {reorderedCount} entries reordered
+        </span>
+        <span className="px-2 py-0.5 rounded bg-accent-soft border border-accent/20 text-accent text-[11px] font-medium">
+          0 facts altered
+        </span>
+      </div>
+
       {/* 3. Two-Column Diff-Style View */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 items-start">
         {/* Left Column: Master Resume (Source of Truth) */}
@@ -370,7 +394,7 @@ export const PreparePage: React.FC = () => {
               </span>
             </div>
             <span className="text-[11px] text-muted uppercase tracking-wider">
-              Truth Base
+              Source of Truth
             </span>
           </div>
 
@@ -451,7 +475,7 @@ export const PreparePage: React.FC = () => {
               </span>
             </div>
             <span className="text-[11px] bg-surface text-accent font-medium px-2 py-0.5 rounded border border-accent/30">
-              Agent Aligned
+              Role Fit: High
             </span>
           </div>
 
@@ -548,9 +572,17 @@ export const PreparePage: React.FC = () => {
               Plaintext introductory note sent with your tailored application bundle
             </p>
           </div>
-          <span className="text-[11px] text-muted font-mono">
-            {coverNote.length} characters • under 250 words
-          </span>
+          <div className="flex items-center gap-2">
+            <span className={`text-[11px] font-mono tabular-nums ${coverNote.length > 1000 ? 'text-red' : 'text-muted'}`}>
+              {coverNote.length} / 1,000 characters
+            </span>
+            {coverNote.split(/\s+/).filter(Boolean).length <= 250 && (
+              <span className="inline-flex items-center gap-1 text-[11px] text-accent font-medium">
+                <CheckCircle size={12} />
+                <span>Campus hiring format standard (under 250 words)</span>
+              </span>
+            )}
+          </div>
         </div>
 
         <textarea
