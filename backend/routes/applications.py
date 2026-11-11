@@ -109,6 +109,23 @@ def save_application(payload: PrepareApplicationRequest, db: Session = Depends(g
     return app_to_response(app)
 
 
+@router.post("/{id}/reminder")
+def generate_application_reminder(id: int, db: Session = Depends(get_db)):
+    app = db.query(Application).filter(Application.id == id).first()
+    if not app:
+        raise HTTPException(status_code=404, detail="Application not found")
+
+    from backend.agent.tools import create_reminder
+    job = app.job
+    rem = create_reminder(
+        application_id=app.id,
+        title=f"Application Deadline: {job.role} @ {job.company}",
+        due_on=job.closes_on,
+        db=db,
+    )
+    return {"message": "Reminder created", "ics_path": rem.ics_path}
+
+
 @router.post("/{id}/approve")
 def approve_application(id: int, db: Session = Depends(get_db)):
     """The ONLY endpoint allowed to transition status to 'applied'."""
